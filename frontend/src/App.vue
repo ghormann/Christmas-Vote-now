@@ -1,24 +1,24 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <SongList />
+    <AvailSongList/>
   </div>
 </template>
 
 <script>
-import SongList from './components/SongList.vue'
+import AvailSongList from "./components/AvailSongList.vue";
 
 export default {
-  name: 'app',
+  name: "app",
   components: {
-    SongList
+    AvailSongList
   }
-}
+};
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

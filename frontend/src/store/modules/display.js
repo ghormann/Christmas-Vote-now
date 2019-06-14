@@ -1,7 +1,7 @@
 //import axios from 'axios';
 
 const state = {
-  songs: [
+  availSongs: [
     {
       id: 1,
       title: "This is a really really long song title ",
@@ -12,11 +12,21 @@ const state = {
       title: "Song 2",
       votes: 0
     }
+  ],
+  previous: [
+    {
+      id: 3,
+      title: "Old song"
+    },
+    {
+      id: 4,
+      title: "Another old song"
+    }
   ]
 };
 
 const getters = {
-  allSongs: state => state.songs
+  allAvailSongs: state => state.availSongs
 };
 
 const actions = {};
