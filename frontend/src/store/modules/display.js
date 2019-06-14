@@ -4,16 +4,71 @@ const state = {
   availSongs: [
     {
       id: 1,
-      title: "This is a really really long song title ",
+      title: "Dance of the Sugar Plum Fairy",
       votes: 3
     },
     {
       id: 2,
-      title: "Song 2",
+      title: "EDM Carol of the Bells",
+      votes: 0
+    },
+    {
+      id: 3,
+      title: "I Want a Hippopotamus for Christmas",
+      votes: 0
+    },
+    {
+      id: 4,
+      title: "House on Christmas Street",
+      votes: 0
+    },
+    {
+      id: 5,
+      title: "Light of Christmas",
+      votes: 0
+    },
+    {
+      id: 6,
+      title: "12 Days of Christmas",
+      votes: 0
+    },
+    {
+      id: 7,
+      title: "Jingle Dogs",
+      votes: 0
+    },
+    {
+      id: 8,
+      title: "I heard the bells on Christmas Day",
+      votes: 0
+    },
+    {
+      id: 9,
+      title: "Little Drummer Boy",
+      votes: 0
+    },
+    {
+      id: 10,
+      title: "Amazing Grace",
+      votes: 0
+    },
+    {
+      id: 11,
+      title: "hristmas Minions",
+      votes: 0
+    },
+    {
+      id: 12,
+      title: "ere comes Santa Claus",
+      votes: 0
+    },
+    {
+      id: 13,
+      title: "Christmas Cannon",
       votes: 0
     }
   ],
-  previous: [
+  oldSongs: [
     {
       id: 3,
       title: "Old song"
@@ -26,7 +81,8 @@ const state = {
 };
 
 const getters = {
-  allAvailSongs: state => state.availSongs
+  allAvailSongs: state => state.availSongs,
+  allOldSongs: state => state.oldSongs
 };
 
 const actions = {};
