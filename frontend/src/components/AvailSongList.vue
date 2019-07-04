@@ -7,9 +7,17 @@
 
       <b-row no-gutters v-for="song in allAvailSongs" v-bind:key="song.id" class="song">
         <b-col class="votes-col" cols="2">
-          <i class="votes">{{song.votes}}</i>
-          <img class="my-arrow-up" src="./../assets/up.png" />
-          <img class="my-arrow-down" src="./../assets/down.png" />
+          <div class="float-div">
+            <table cellspacing="0" cellpadding="0" class="my-table">
+              <tr>
+                <td class="votes">{{song.votes}}</td>
+                <td>
+                  <img class="my-arrow-up" src="./../assets/up.png" />
+                  <img class="my-arrow-down" src="./../assets/down.png" />
+                </td>
+              </tr>
+            </table>
+          </div>
         </b-col>
         <b-col class="song-title" cols="10">{{song.title}}</b-col>
       </b-row>
@@ -29,6 +37,23 @@ export default {
 <style scoped>
 .votes-col {
   text-align: right;
+  /*height: 36px;*/
+}
+
+.float-div {
+  float: right;
+  margin-right: 3px;
+}
+
+.my-table {
+  border: 0px;
+  table-layout: fixed;
+  border-style: none;
+  line-height: 80%; /* Pull up/down images together */
+}
+.my-table td {
+  padding: 0px;
+  margin: 0;
 }
 
 .song-title {
@@ -41,7 +66,6 @@ export default {
   margin: 2px;
 }
 .votes {
-  margin-right: 3px;
   font-style: normal;
   color: royalblue;
 }
@@ -52,18 +76,22 @@ export default {
 }
 
 .my-arrow-up {
+  /*
   position: relative;
   right: 0px;
-  bottom: 8px;
-  height: 10px;
+  bottom: 9px;
+  */
+  height: 14px;
   cursor: pointer;
 }
 
 .my-arrow-down {
+  /*
   position: relative;
-  right: 16px;
-  bottom: -8px;
-  height: 10px;
+  right: 26px;
+  bottom: -9px;
+  */
+  height: 14px;
   cursor: pointer;
 }
 </style>
