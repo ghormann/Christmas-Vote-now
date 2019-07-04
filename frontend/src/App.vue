@@ -3,17 +3,26 @@
     <!--
     <img alt="Vue logo" src="./assets/logo.png">
     -->
-    <b-img src="https://cooldisplays.net/picture.php?v=1543194801&width=800&display=1" fluid rounded alt="Our House"></b-img>
+    <b-img
+      src="https://cooldisplays.net/picture.php?v=1543194801&width=800&display=1"
+      fluid
+      rounded
+      alt="Our House"
+    ></b-img>
     <b-tabs active-nav-item-class="font-weight-bold text-uppercase" content-class="mt-2">
       <b-tab title="Vote" active>
-        <AvailSongList/>
-        <OldSongList/>
+        <AvailSongList />
+        <OldSongList />
       </b-tab>
       <b-tab title="Name Queue">
-        <NameQueue/>
+        <NameQueue />
       </b-tab>
     </b-tabs>
-    <CoolDisplaysLogo/>
+    <CoolDisplaysLogo />
+    <div>
+      Learn more at
+      <a href="http://thehormanns.net/new/christmas.phtml">http://thehormanns.net</a>
+    </div>
   </div>
 </template>
 
@@ -51,8 +60,7 @@ export default {
 }
 
 .intro-text {
-    padding-bottom: 18px;
-    font-style: oblique;
+  padding-bottom: 18px;
+  font-style: oblique;
 }
-
 </style>
