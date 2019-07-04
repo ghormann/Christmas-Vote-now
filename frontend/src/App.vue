@@ -1,8 +1,18 @@
 <template>
   <div id="app">
+    <!--
     <img alt="Vue logo" src="./assets/logo.png">
-    <AvailSongList/>
-    <OldSongList/>
+    -->
+    <b-img src="https://cooldisplays.net/picture.php?v=1543194801&width=800&display=1" fluid rounded alt="Our House"></b-img>
+    <b-tabs active-nav-item-class="font-weight-bold text-uppercase" content-class="mt-2">
+      <b-tab title="Vote" active>
+        <AvailSongList/>
+        <OldSongList/>
+      </b-tab>
+      <b-tab title="Name Queue">
+        <p>I'm the second tab</p>
+      </b-tab>
+    </b-tabs>
     <CoolDisplaysLogo/>
   </div>
 </template>
@@ -29,6 +39,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>

@@ -1,11 +1,12 @@
 <template>
   <div class="outer">
-    <h2>Recent Song Queue</h2>
-    <b-container fluid class="songs">
-      <b-row no-gutters v-for="song in allOldSongs" v-bind:key="song.id" class="song">
-        <b-col cols="12">{{song.title}}</b-col>
-      </b-row>
-    </b-container>
+    <h2>Recently Played</h2>
+    <div class="intro-text">These will come avaiable for voting soon....</div>
+    <div class="songs">
+      <ul class="song-list">
+        <li v-for="song in allOldSongs" v-bind:key="song.id" class="song-item">{{song.title}}</li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -23,12 +24,24 @@ export default {
   border: 2px;
   border-style: solid;
   border-radius: 25px;
-  margin:2px;
+  margin: 2px;
 }
 
-.song {
-  position: relative;
-  padding-bottom: 6px;
+.intro-text {
+    padding-bottom: 18px;
+    font-style: oblique;
 }
 
+.songs {
+  display: flex;
+  justify-content: center;
+}
+
+.song-item {
+    text-align: left;
+}
+
+.song-list {
+  justify-content: center;
+}
 </style>

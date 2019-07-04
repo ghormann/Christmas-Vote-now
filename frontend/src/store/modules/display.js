@@ -54,12 +54,12 @@ const state = {
     },
     {
       id: 11,
-      title: "hristmas Minions",
+      title: "Christmas Minions",
       votes: 0
     },
     {
       id: 12,
-      title: "ere comes Santa Claus",
+      title: "Here comes Santa Claus",
       votes: 0
     },
     {
