@@ -77,12 +77,23 @@ const state = {
       id: 4,
       title: "Another old song"
     }
+  ], 
+  nameQueue: [
+    {
+      id: 1,
+      name: "Greg"
+    },
+    {
+      id: 2,
+      name: "Matt"
+    }
   ]
 };
 
 const getters = {
   allAvailSongs: state => state.availSongs,
-  allOldSongs: state => state.oldSongs
+  allOldSongs: state => state.oldSongs,
+  allNames: state => state.nameQueue
 };
 
 const actions = {};

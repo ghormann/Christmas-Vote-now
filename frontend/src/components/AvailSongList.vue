@@ -3,11 +3,13 @@
   <div class="outer">
     <h2>Available Song Queue</h2>
     <b-container class="songs">
+      <div class="intro-text">Use up/down arrows to vote.</div>
+
       <b-row no-gutters v-for="song in allAvailSongs" v-bind:key="song.id" class="song">
         <b-col class="votes-col" cols="2">
           <i class="votes">{{song.votes}}</i>
-          <img class="my-arrow-up" src="./../assets/up.png">
-          <img class="my-arrow-down" src="./../assets/down.png">
+          <img class="my-arrow-up" src="./../assets/up.png" />
+          <img class="my-arrow-down" src="./../assets/down.png" />
         </b-col>
         <b-col class="song-title" cols="10">{{song.title}}</b-col>
       </b-row>

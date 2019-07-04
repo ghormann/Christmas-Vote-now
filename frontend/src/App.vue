@@ -10,7 +10,7 @@
         <OldSongList/>
       </b-tab>
       <b-tab title="Name Queue">
-        <p>I'm the second tab</p>
+        <NameQueue/>
       </b-tab>
     </b-tabs>
     <CoolDisplaysLogo/>
@@ -20,6 +20,7 @@
 <script>
 import AvailSongList from "./components/AvailSongList.vue";
 import OldSongList from "./components/OldSongList.vue";
+import NameQueue from "./components/NameQueue.vue";
 import CoolDisplaysLogo from "./components/CoolDisplaysLogo.vue";
 
 export default {
@@ -27,6 +28,7 @@ export default {
   components: {
     AvailSongList,
     OldSongList,
+    NameQueue,
     CoolDisplaysLogo
   }
 };
@@ -40,4 +42,17 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
+
+.outer {
+  border: 2px;
+  border-style: solid;
+  border-radius: 25px;
+  margin: 2px;
+}
+
+.intro-text {
+    padding-bottom: 18px;
+    font-style: oblique;
+}
+
 </style>
