@@ -5,17 +5,17 @@ const state = {
     {
       id: 1,
       title: "Dance of the Sugar Plum Fairy",
-      votes: 3
+      votes: 999
     },
     {
       id: 2,
       title: "EDM Carol of the Bells",
-      votes: 0
+      votes: 998
     },
     {
       id: 3,
       title: "I Want a Hippopotamus for Christmas",
-      votes: 0
+      votes: 997
     },
     {
       id: 4,
@@ -40,7 +40,7 @@ const state = {
     {
       id: 8,
       title: "I heard the bells on Christmas Day",
-      votes: 0
+      votes: 995
     },
     {
       id: 9,
