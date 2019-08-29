@@ -3,8 +3,13 @@ const Nes = require("@hapi/nes");
 const session = require("./lib/session.js");
 const fs = require('fs');
 
+console.log('WARNING: Cross site scripting enabled');
+
 const server = new Hapi.Server({
-  port: process.env.port || 7654
+  port: process.env.port || 7654,
+  routes: {
+        cors: true
+  }
 });
 
 let yarOptions = {
