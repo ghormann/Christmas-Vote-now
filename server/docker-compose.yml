@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  vote-now-server:
+    build: .
+    restart: always
+    extra_hosts:
+       xmas-hp.hormann.local: 192.168.0.212
+    ports:
+       - '127.0.0.1:7654:7654'
