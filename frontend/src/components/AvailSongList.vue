@@ -26,11 +26,17 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "AvailSongList",
-  computed: mapGetters(["allAvailSongs"])
+  methods: {
+    ...mapActions(["fetchState"])
+  },
+  computed: mapGetters(["allAvailSongs"]),
+  created() {
+    this.fetchState();
+  }
 };
 </script>
 
