@@ -3,7 +3,10 @@
   <div class="outer">
     <h2>Available Song Queue</h2>
     <b-container class="songs">
-      <div class="votes-line">Votes Remaining: <b>{{votesRemaining}}</b> </div>
+      <div class="votes-line">
+        Votes Remaining:
+        <b>{{votesRemaining}}</b>
+      </div>
       <div class="intro-text">Use up/down arrows to vote.</div>
 
       <b-row no-gutters v-for="song in allAvailSongs" v-bind:key="song.id" class="song">
@@ -13,7 +16,9 @@
               <tr>
                 <td class="votes">{{song.votes}}</td>
                 <td>
-                  <img class="my-arrow-up" src="./../assets/up.png" />
+                  <a @click="localAddVote(song.id)" >
+                    <img class="my-arrow-up" src="./../assets/up.png" />
+                  </a>
                   <img class="my-arrow-down" src="./../assets/down.png" />
                 </td>
               </tr>
@@ -32,7 +37,11 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: "AvailSongList",
   methods: {
-    ...mapActions(["fetchState"])
+    ...mapActions(["fetchState", "addVote"]),
+    localAddVote(id) {
+      console.log("Calling add with ", id);
+      this.addVote(id);
+    }
   },
   computed: mapGetters(["allAvailSongs", "votesRemaining"]),
   created() {
@@ -44,7 +53,7 @@ export default {
 <style scoped>
 .votes-line {
   color: darkgreen;
-  padding-top:5px;
+  padding-top: 5px;
 }
 .votes-col {
   text-align: right;

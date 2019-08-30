@@ -40,6 +40,10 @@ const actions = {
   async fetchState({ commit }) {
     let r = await axios.get('https://vote-now.org/api/queue');
     commit('setSongs', r.data);
+  },
+  async addVote({ commit }, id) {
+    let r = await axios.post('https://vote-now.org/api/vote/' + id);
+    commit('setSongs', r.data);
   }
 };
 
