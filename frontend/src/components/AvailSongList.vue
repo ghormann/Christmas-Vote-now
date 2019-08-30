@@ -3,6 +3,7 @@
   <div class="outer">
     <h2>Available Song Queue</h2>
     <b-container class="songs">
+      <div class="votes-line">Votes Remaining: <b>{{votesRemaining}}</b> </div>
       <div class="intro-text">Use up/down arrows to vote.</div>
 
       <b-row no-gutters v-for="song in allAvailSongs" v-bind:key="song.id" class="song">
@@ -33,7 +34,7 @@ export default {
   methods: {
     ...mapActions(["fetchState"])
   },
-  computed: mapGetters(["allAvailSongs"]),
+  computed: mapGetters(["allAvailSongs", "votesRemaining"]),
   created() {
     this.fetchState();
   }
@@ -41,9 +42,12 @@ export default {
 </script>
 
 <style scoped>
+.votes-line {
+  color: darkgreen;
+  padding-top:5px;
+}
 .votes-col {
   text-align: right;
-  /*height: 36px;*/
 }
 
 .float-div {
@@ -82,21 +86,11 @@ export default {
 }
 
 .my-arrow-up {
-  /*
-  position: relative;
-  right: 0px;
-  bottom: 9px;
-  */
   height: 14px;
   cursor: pointer;
 }
 
 .my-arrow-down {
-  /*
-  position: relative;
-  right: 26px;
-  bottom: -9px;
-  */
   height: 14px;
   cursor: pointer;
 }

@@ -32,7 +32,8 @@ const state = {
 const getters = {
   allAvailSongs: state => state.availSongs,
   allOldSongs: state => state.oldSongs,
-  allNames: state => state.nameQueue
+  allNames: state => state.nameQueue,
+  votesRemaining: state => state.votesRemaining
 };
 
 const actions = {
