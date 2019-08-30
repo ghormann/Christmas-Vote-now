@@ -2,22 +2,50 @@ const uuidv4 = require("uuid/v4");
 const maxVotes = 8;
 var votesRemaining = {};
 
-function getVotesRemaining(id) {
+function getOrCreateVoteRecord(id) {
   if (!(id in votesRemaining)) {
     console.log("Creating");
-    votesRemaining[id] = maxVotes;
+    votesRemaining[id] = {
+      remaining: maxVotes,
+      history: []
+    };
   }
   return votesRemaining[id];
 }
-function decrementVote(id) {
-  let cur = getVotesRemaining(id); // Force creation if doesn't exists.
-  if (cur > 0) {
-    votesRemaining[id] = cur - 1;
+
+function addVote(id, songId) {
+  let record = getOrCreateVoteRecord(id);
+  let msg = "No Votes Remaining";
+  if (record.remaining > 0) {
+    record.remaining = record.remaining - 1;
+    record.history.push(songId);
+    msg = "OK";
   }
-  return getVotesRemaining(id);
+
+  return {
+    msg: msg,
+    record: record
+  };
 }
 
-function clearAllVotes(){
+function removeVote(id, songId) {
+  let record = getOrCreateVoteRecord(id); // Force creation if doesn't exists.
+  let msg = "You have removed all votes from this song.";
+  let idx = record.history.findIndex(p => p == songId);
+  console.log("In remove ", idx);
+  console.log(record);
+  if (idx > -1) {
+    record.history.splice(idx, 1);
+    record.remaining = record.remaining + 1;
+    msg = "OK";
+  }
+  return {
+    msg: msg,
+    record: record
+  };
+}
+
+function clearAllVotes() {
   console.log("Clearning all votes");
   votesRemaining = {};
 }
@@ -26,7 +54,7 @@ function giveAnotherVote() {
   console.log("Giving more votes");
   for (id in votesRemaining) {
     let votes = votesRemaining[id];
-    if (votes< maxVotes) {
+    if (votes < maxVotes) {
       votesRemaining[id] = votes + 1;
     }
   }
@@ -34,7 +62,6 @@ function giveAnotherVote() {
 
 function checkSession(request) {
   let key = request.yar.get("session_key");
-  console.log("Before: ", key);
   if (!key) {
     key = uuidv4();
     console.log("Creating new key", key);
@@ -44,7 +71,8 @@ function checkSession(request) {
 }
 
 module.exports.checkSession = checkSession;
-module.exports.decrementVote = decrementVote;
-module.exports.getVotesRemaining = getVotesRemaining;
+module.exports.removeVote = removeVote;
+module.exports.addVote = addVote;
 module.exports.clearAllVotes = clearAllVotes;
 module.exports.giveAnotherVote = giveAnotherVote;
+module.exports.getOrCreateVoteRecord = getOrCreateVoteRecord;
