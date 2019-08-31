@@ -39,10 +39,12 @@ const getters = {
 const actions = {
   async fetchState({ commit }) {
     let r = await axios.get('https://vote-now.org/api/queue');
+    //let r = await axios.get('http://localhost:7654/queue');
     commit('setSongs', r.data);
   },
   async addVote({ commit }, id) {
     let r = await axios.post('https://vote-now.org/api/vote/' + id);
+    //let r = await axios.get('http://localhost:7654/vote/' + id);
     commit('setSongs', r.data);
   }
 };
@@ -51,7 +53,7 @@ const mutations = {
   setSongs: (state,input) => {
     state.availSongs = input.model.songs;
     state.oldSongs = input.model.oldSongs;
-    state.votesRemaining = input.votesRemaining;
+    state.votesRemaining = input.votesRemaining.remaining; 
     state.nameQueue = input.model.nameQueue;
   }
 };
