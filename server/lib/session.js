@@ -7,7 +7,8 @@ function getOrCreateVoteRecord(id) {
     console.log("Creating");
     votesRemaining[id] = {
       remaining: maxVotes,
-      history: []
+      history: [],
+      status: "OK"
     };
   }
   return votesRemaining[id];
@@ -15,34 +16,26 @@ function getOrCreateVoteRecord(id) {
 
 function addVote(id, songId) {
   let record = getOrCreateVoteRecord(id);
-  let msg = "No Votes Remaining";
+  record.status = "No Votes Remaining";
   if (record.remaining > 0) {
     record.remaining = record.remaining - 1;
     record.history.push(songId);
-    msg = "OK";
+    record.status = "OK";
   }
 
-  return {
-    msg: msg,
-    record: record
-  };
+  return record;
 }
 
 function removeVote(id, songId) {
   let record = getOrCreateVoteRecord(id); // Force creation if doesn't exists.
-  let msg = "You have removed all votes from this song.";
+  record.status = "You have removed all votes from this song.";
   let idx = record.history.findIndex(p => p == songId);
-  console.log("In remove ", idx);
-  console.log(record);
   if (idx > -1) {
     record.history.splice(idx, 1);
     record.remaining = record.remaining + 1;
-    msg = "OK";
+    record.status = "OK";
   }
-  return {
-    msg: msg,
-    record: record
-  };
+  return record;
 }
 
 function clearAllVotes() {
