@@ -2,6 +2,7 @@ const Hapi = require("@hapi/hapi");
 const Nes = require("@hapi/nes");
 const session = require("./lib/session.js");
 const fs = require('fs');
+const mymqtt = require('./lib/mymqtt.js');
 
 console.log('WARNING: Cross site scripting enabled');
 
@@ -11,6 +12,8 @@ const server = new Hapi.Server({
         cors: true
   }
 });
+
+mymqtt.init();
 
 let yarOptions = {
   storeBlank: false,

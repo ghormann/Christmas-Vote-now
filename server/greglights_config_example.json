@@ -1,0 +1,7 @@
+{
+"username": "username",
+"password": "password",
+"ca_file": "./path/to/ca/file",
+"port": 8883,
+"host": "test.mqtt.org"
+}
