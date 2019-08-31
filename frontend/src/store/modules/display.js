@@ -26,6 +26,7 @@ const state = {
       name: "Matt"
     }
   ],
+  lastMessage: "OK",
   votesRemaining: 8
 };
 
@@ -33,7 +34,8 @@ const getters = {
   allAvailSongs: state => state.availSongs,
   allOldSongs: state => state.oldSongs,
   allNames: state => state.nameQueue,
-  votesRemaining: state => state.votesRemaining
+  votesRemaining: state => state.votesRemaining,
+  lastMessage: state => state.lastMessage
 };
 
 const actions = {
@@ -46,6 +48,11 @@ const actions = {
     let r = await axios.post('https://vote-now.org/api/vote/' + id);
     //let r = await axios.get('http://localhost:7654/vote/' + id);
     commit('setSongs', r.data);
+  },
+  async removeVote({ commit }, id) {
+    let r = await axios.delete('https://vote-now.org/api/vote/' + id);
+    //let r = await axios.delete('http://localhost:7654/vote/' + id);
+    commit('setSongs', r.data);
   }
 };
 
@@ -55,6 +62,7 @@ const mutations = {
     state.oldSongs = input.model.oldSongs;
     state.votesRemaining = input.votesRemaining.remaining; 
     state.nameQueue = input.model.nameQueue;
+    state.lastMessage = input.votesRemaining.status;
   }
 };
 

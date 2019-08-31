@@ -7,6 +7,7 @@
         Votes Remaining:
         <b>{{votesRemaining}}</b>
       </div>
+      <div class="alert" v-bind:class="errorClass" role="alert">{{lastMessage}}</div>
       <div class="intro-text">Use up/down arrows to vote.</div>
 
       <b-row no-gutters v-for="song in allAvailSongs" v-bind:key="song.id" class="song">
@@ -16,8 +17,12 @@
               <tr>
                 <td class="votes">{{song.votes}}</td>
                 <td>
-                  <img class="my-arrow-up" src="./../assets/up.png" @click="localAddVote(song.id)" />
-                  <img class="my-arrow-down" src="./../assets/down.png" />
+                  <img class="my-arrow-up" src="./../assets/up.png" @click="addVote(song.id)" />
+                  <img
+                    class="my-arrow-down"
+                    src="./../assets/down.png"
+                    @click="removeVote(song.id)"
+                  />
                 </td>
               </tr>
             </table>
@@ -35,13 +40,17 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: "AvailSongList",
   methods: {
-    ...mapActions(["fetchState", "addVote"]),
-    localAddVote(id) {
-      console.log("Calling add with ", id);
-      this.addVote(id);
+    ...mapActions(["fetchState", "addVote", "removeVote"])
+  },
+  computed: {
+    ...mapGetters(["allAvailSongs", "votesRemaining", "lastMessage"]),
+    errorClass: function() {
+      return {
+        "alert-danger": true,
+        "d-none" : this.lastMessage == "OK"
+      };
     }
   },
-  computed: mapGetters(["allAvailSongs", "votesRemaining"]),
   created() {
     this.fetchState();
   }

@@ -28,7 +28,7 @@ function addVote(id, songId) {
 
 function removeVote(id, songId) {
   let record = getOrCreateVoteRecord(id); // Force creation if doesn't exists.
-  record.status = "You have removed all votes from this song.";
+  record.status = "You don't have votes on this song";
   let idx = record.history.findIndex(p => p == songId);
   if (idx > -1) {
     record.history.splice(idx, 1);
