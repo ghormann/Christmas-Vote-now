@@ -21,6 +21,7 @@ module.exports = [
         });
       }
 
+      request.server.broadcast(datamodel);
       return {
         status: votes.status,
         model: datamodel,
