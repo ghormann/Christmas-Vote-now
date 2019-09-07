@@ -1,5 +1,8 @@
-import axios from 'axios';
-const moment = require('moment')
+import axios from "axios";
+const moment = require("moment");
+const Nes = require("@hapi/nes/lib/client");
+var client = undefined;
+var clientConnected = false;
 
 // Video on how to use Vue state: https://www.youtube.com/watch?v=5lVQgZzLMHc
 
@@ -16,7 +19,7 @@ const state = {
       id: 3,
       title: "Loading"
     }
-  ], 
+  ],
   nameQueue: [
     {
       id: 1,
@@ -40,36 +43,64 @@ const getters = {
   votesRemaining: state => state.votesRemaining,
   lastMessage: state => state.lastMessage,
   lastUpdated: state => state.lastUpdated,
-  lastUpdatedTime: state =>state.lastUpdatedTime
+  lastUpdatedTime: state => state.lastUpdatedTime
 };
 
 const actions = {
+  async initWS({ commit }) {
+    client = new Nes.Client("wss://vote-now.org/ws");
+    client.onConnect = () => {
+      // eslint-disable-next-line
+      console.log("Connected");
+      clientConnected = true;
+    };
+
+    client.onDisconnect = () => {
+      // eslint-disable-next-line
+      console.log("Disconnected");
+      clientConnected = false;
+
+    }
+
+    await client.connect();
+
+    client.onUpdate = update => {
+      commit("setPublic", update);
+    };
+  },
   async fetchState({ commit }) {
-    let r = await axios.get('https://vote-now.org/api/queue');
-    //let r = await axios.get('http://localhost:7654/queue');
-    commit('setSongs', r.data);
+    if (!clientConnected) {
+      let r = await axios.get("https://vote-now.org/api/queue");
+      //let r = await axios.get('http://localhost:7654/queue');
+      commit("setSongs", r.data);
+      commit("setPublic", r.data.model);
+    }
   },
   async addVote({ commit }, id) {
-    let r = await axios.post('https://vote-now.org/api/vote/' + id);
+    let r = await axios.post("https://vote-now.org/api/vote/" + id);
     //let r = await axios.get('http://localhost:7654/vote/' + id);
-    commit('setSongs', r.data);
+    commit("setSongs", r.data);
+    commit("setPublic", r.data.model);
   },
   async removeVote({ commit }, id) {
-    let r = await axios.delete('https://vote-now.org/api/vote/' + id);
+    let r = await axios.delete("https://vote-now.org/api/vote/" + id);
     //let r = await axios.delete('http://localhost:7654/vote/' + id);
-    commit('setSongs', r.data);
+    commit("setSongs", r.data);
+    commit("setPublic", r.data.model);
   }
 };
 
 const mutations = {
-  setSongs: (state,input) => {
-    state.availSongs = input.model.songs;
-    state.oldSongs = input.model.oldSongs;
-    state.votesRemaining = input.votesRemaining.remaining; 
-    state.nameQueue = input.model.nameQueue;
-    state.lastMessage = input.votesRemaining.status;
+  setPublic: (state, input) => {
+    state.availSongs = input.songs;
+    state.oldSongs = input.oldSongs;
+    state.nameQueue = input.nameQueue;
     state.lastUpdated = new Date();
     state.lastUpdatedTime = moment().format("LTS");
+  },
+  setSongs: (state, input) => {
+    state.votesRemaining = input.votesRemaining.remaining;
+    state.lastMessage = input.votesRemaining.status;
   }
 };
 

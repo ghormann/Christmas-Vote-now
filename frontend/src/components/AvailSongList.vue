@@ -40,7 +40,7 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: "AvailSongList",
   methods: {
-    ...mapActions(["fetchState", "addVote", "removeVote"])
+    ...mapActions(["fetchState", "addVote", "removeVote", "initWS"])
   },
   computed: {
     ...mapGetters(["allAvailSongs", "votesRemaining", "lastMessage"]),
@@ -53,6 +53,7 @@ export default {
   },
   created() {
     this.fetchState();
+    this.initWS();
     setInterval(this.fetchState, 10000);
   }
 };
