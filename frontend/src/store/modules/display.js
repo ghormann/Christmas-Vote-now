@@ -1,4 +1,5 @@
 import axios from 'axios';
+const moment = require('moment')
 
 // Video on how to use Vue state: https://www.youtube.com/watch?v=5lVQgZzLMHc
 
@@ -27,7 +28,9 @@ const state = {
     }
   ],
   lastMessage: "OK",
-  votesRemaining: 8
+  votesRemaining: 8,
+  lastUpdated: "Never",
+  lastUpdatedTime: "Never"
 };
 
 const getters = {
@@ -35,7 +38,9 @@ const getters = {
   allOldSongs: state => state.oldSongs,
   allNames: state => state.nameQueue,
   votesRemaining: state => state.votesRemaining,
-  lastMessage: state => state.lastMessage
+  lastMessage: state => state.lastMessage,
+  lastUpdated: state => state.lastUpdated,
+  lastUpdatedTime: state =>state.lastUpdatedTime
 };
 
 const actions = {
@@ -63,6 +68,8 @@ const mutations = {
     state.votesRemaining = input.votesRemaining.remaining; 
     state.nameQueue = input.model.nameQueue;
     state.lastMessage = input.votesRemaining.status;
+    state.lastUpdated = new Date();
+    state.lastUpdatedTime = moment().format("LTS");
   }
 };
 

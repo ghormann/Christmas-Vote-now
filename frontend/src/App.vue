@@ -18,6 +18,7 @@
         <NameQueue />
       </b-tab>
     </b-tabs>
+    <LastUpdated />
     <CoolDisplaysLogo />
     <div>
       Learn more at
@@ -31,6 +32,7 @@ import AvailSongList from "./components/AvailSongList.vue";
 import OldSongList from "./components/OldSongList.vue";
 import NameQueue from "./components/NameQueue.vue";
 import CoolDisplaysLogo from "./components/CoolDisplaysLogo.vue";
+import LastUpdated from "./components/LastUpdated.vue"
 
 export default {
   name: "app",
@@ -38,7 +40,8 @@ export default {
     AvailSongList,
     OldSongList,
     NameQueue,
-    CoolDisplaysLogo
+    CoolDisplaysLogo,
+    LastUpdated
   }
 };
 </script>

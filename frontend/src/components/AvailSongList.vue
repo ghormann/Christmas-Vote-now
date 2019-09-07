@@ -53,6 +53,7 @@ export default {
   },
   created() {
     this.fetchState();
+    setInterval(this.fetchState, 10000);
   }
 };
 </script>

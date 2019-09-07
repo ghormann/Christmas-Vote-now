@@ -1,7 +1,7 @@
 <template>
   <div class="outer">
     <h2>Recently Played</h2>
-    <div class="intro-text">These will come available for voting soon....</div>
+    <div class="my-intro-text">These will come available for voting soon....</div>
     <div class="songs">
       <ul class="song-list">
         <li v-for="song in allOldSongs" v-bind:key="song.id" class="song-item">{{song.title}}</li>
@@ -33,4 +33,10 @@ export default {
 .song-list {
   justify-content: center;
 }
+
+.my-intro-text {
+  padding-bottom: 8px;
+  font-style: oblique;
+}
+
 </style>
