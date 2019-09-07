@@ -46,9 +46,11 @@ function clearAllVotes() {
 function giveAnotherVote() {
   console.log("Giving more votes");
   for (id in votesRemaining) {
-    let votes = votesRemaining[id].remaining;
+    let record = getOrCreateVoteRecord(id); 
+    let votes = record.remaining;
     if (votes < maxVotes) {
-      votesRemaining[id].remaining = votes + 1;
+      record.remaining = votes + 1;
+      record.status = "OK";
     }
   }
 }
