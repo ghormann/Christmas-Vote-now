@@ -4,6 +4,7 @@ const datamodel = require("../model/datamodel.js");
 var normalNames = [];
 var lowNames = [];
 var client = undefined;
+var callbacks = [];
 
 var handlers = [
   {
@@ -11,7 +12,7 @@ var handlers = [
     callback: function(topic, message) {
       let data = JSON.parse(message.toString());
       normalNames = data;
-      updateNames();
+      updateNames(true);
     }
   },
   {
@@ -19,12 +20,16 @@ var handlers = [
     callback: function(topic, message) {
       let data = JSON.parse(message.toString());
       lowNames = data;
-      updateNames();
+      updateNames(false);
     }
   }
 ];
 
-function updateNames() {
+function addCallback(c) {
+  callbacks.push(c);
+}
+
+function updateNames(doBroadcast) {
   var allNames = [];
   var id = 1;
 
@@ -45,6 +50,12 @@ function updateNames() {
   });
 
   datamodel.nameQueue = allNames;
+  // fire callbacks
+  if (doBroadcast) {
+    callbacks.forEach(function(c) {
+      c(datamodel);
+    });
+  }
 }
 
 function init() {
@@ -95,3 +106,4 @@ function init() {
 }
 
 module.exports.init = init;
+module.exports.addCallback = addCallback;
