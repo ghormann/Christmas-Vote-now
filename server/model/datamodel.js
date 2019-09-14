@@ -90,3 +90,9 @@ module.exports.nameQueue = [
     }
   ]
 
+module.exports.current = {
+  status: "Undefined",
+  secondsTotal: -1,
+  secondsRemaining: -1,
+  title: ""
+}

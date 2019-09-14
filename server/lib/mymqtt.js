@@ -22,6 +22,28 @@ var handlers = [
       lowNames = data;
       updateNames(false);
     }
+  },
+  {
+    topic: "/christmas/falcon/player/FPP.hormann.local/playlist_details",
+    callback: function(topic, message) {
+      let data = JSON.parse(message.toString());
+      datamodel.current.status = data.status;
+      datamodel.current.title = "";
+      datamodel.current.secondsTotal = -1;
+      datamodel.current.secondsRemaining = -1;
+      if ("activePlaylists" in data) {
+        data.activePlaylists.forEach(function(e) {
+          datamodel.current.title = e.name;
+          if ("currentItems" in e) {
+            e.currentItems.forEach(function(i) {
+              datamodel.current.secondsRemaining = i.secondsRemaining;
+              datamodel.current.secondsTotal = i.secondsTotal;
+            });
+          }
+        });
+      }
+      fireCallbacks();
+    }
   }
 ];
 
@@ -52,10 +74,14 @@ function updateNames(doBroadcast) {
   datamodel.nameQueue = allNames;
   // fire callbacks
   if (doBroadcast) {
-    callbacks.forEach(function(c) {
-      c(datamodel);
-    });
+    fireCallbacks();
   }
+}
+
+function fireCallbacks() {
+  callbacks.forEach(function(c) {
+    c(datamodel);
+  });
 }
 
 function init() {
