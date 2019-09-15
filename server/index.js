@@ -34,6 +34,10 @@ setInterval(function() {
       s.votes += 1;
     }
   });
+  dataModel.songs.sort(function(a, b) {
+    return b.votes - a.votes;
+  });
+
 }, 120000); // 2 minutes
 
 const start = async () => {
