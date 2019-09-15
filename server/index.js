@@ -32,12 +32,16 @@ setInterval(function() {
   dataModel.songs.forEach(function(s) {
     if (s.votes < 10) {
       s.votes += 1;
+    } else {
+      let r = Math.floor(Math.random() * 10);
+      if (r === 5) {
+        s.votes += 1;
+      }
     }
   });
   dataModel.songs.sort(function(a, b) {
     return b.votes - a.votes;
   });
-
 }, 120000); // 2 minutes
 
 const start = async () => {
