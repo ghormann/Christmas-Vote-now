@@ -2,14 +2,16 @@ const mqtt = require("mqtt");
 const fs = require("fs");
 const datamodel = require("../model/datamodel.js");
 const session = require("../lib/session.js");
+const myUtils = require("../lib/myUtils.js");
+
 const master_config = {
   send_enabled: false
-}
+};
 var normalNames = [];
 var lowNames = [];
 var client = undefined;
 var callbacks = [];
-var last_send =  Date.now();
+var last_send = Date.now();
 
 var handlers = [
   {
@@ -56,8 +58,11 @@ var handlers = [
           datamodel.songs.forEach(function(s) {
             if (e.name === s.playlist) {
               datamodel.current.title = s.title;
-              session.clearVotesForSong(s.id);
-              s.votes = 7; // <10 not displayed
+              if (s.votes > 7) {
+                session.clearVotesForSong(s.id);
+                s.votes = 7; // <10 not displayed
+                myUtils.sortSongs();
+              }
             }
           });
 
@@ -76,7 +81,10 @@ var handlers = [
 
 function doSend(playlist) {
   console.log("Sending " + playlist);
-  let topic = "/christmas/falcon/player/FPP.hormann.local/set/playlist/" + playlist +  "/start"
+  let topic =
+    "/christmas/falcon/player/FPP.hormann.local/set/playlist/" +
+    playlist +
+    "/start";
   last_send = Date.now();
   client.publish(topic, "1", {}, function(err) {
     if (err) {
@@ -90,9 +98,10 @@ function doSendCheck() {
   if (!master_config.send_enabled) {
     return;
   }
-  if (datamodel.current.status === "idle" ) {
+  if (datamodel.current.status === "idle") {
     let diff = Date.now() - last_send;
-    if (diff > 3000) { // 3 seconds since last send
+    if (diff > 3000) {
+      // 3 seconds since last send
       // Need more stuff here, but for now, this is good
       let song = datamodel.songs[0];
       doSend(song.playlist);

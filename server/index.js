@@ -3,7 +3,7 @@ const Nes = require("@hapi/nes");
 const session = require("./lib/session.js");
 const fs = require("fs");
 const mymqtt = require("./lib/mymqtt.js");
-const dataModel = require("./model/datamodel.js");
+const myUtils = require("./lib/myUtils.js");
 
 console.log("WARNING: Cross site scripting enabled");
 
@@ -14,6 +14,7 @@ const server = new Hapi.Server({
   }
 });
 
+myUtils.sortSongs();
 mymqtt.init();
 
 let yarOptions = {
@@ -29,19 +30,7 @@ let yarOptions = {
 setInterval(session.clearAllVotes, 86400000); // 1 day
 setInterval(function() {
   session.giveAnotherVote();
-  dataModel.songs.forEach(function(s) {
-    if (s.votes < 10) {
-      s.votes += 1;
-    } else {
-      let r = Math.floor(Math.random() * 10);
-      if (r === 5) {
-        s.votes += 1;
-      }
-    }
-  });
-  dataModel.songs.sort(function(a, b) {
-    return b.votes - a.votes;
-  });
+  myUtils.addRandomVotes();
 }, 120000); // 2 minutes
 
 const start = async () => {

@@ -1,5 +1,7 @@
 const datamodel = require("../model/datamodel.js");
 const session = require("../lib/session.js");
+const myUtils = require("../lib/myUtils.js");
+
 
 module.exports = [
   {
@@ -14,9 +16,7 @@ module.exports = [
           if (e.id == id) {
             e.votes = e.votes - 1;
             console.log("Decrease: " + e.title + " to " + e.votes);
-            datamodel.songs.sort(function(a, b) {
-              return b.votes - a.votes;
-            });
+            myUtils.sortSongs();
           }
         });
       }
