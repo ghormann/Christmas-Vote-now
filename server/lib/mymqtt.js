@@ -28,12 +28,33 @@ var handlers = [
     callback: function(topic, message) {
       let data = JSON.parse(message.toString());
       datamodel.current.status = data.status;
-      datamodel.current.title = "";
+      datamodel.current.title = "Unknown";
       datamodel.current.secondsTotal = -1;
       datamodel.current.secondsRemaining = -1;
       if ("activePlaylists" in data) {
+        // Convert playlist to nice name
+        // and set vote count if currently playing
         data.activePlaylists.forEach(function(e) {
-          datamodel.current.title = e.name;
+          if (e.name === "Driveway") {
+            datamodel.current.title = "Driveway Reminder";
+          } else if (e.name === "Intro") {
+            datamodel.current.title = "Welcome";
+          } else if (e.name === "Tune To") {
+            datamodel.current.title = "Radio Station ID";
+          } else if (e.name === "off") {
+            datamodel.current.title = "Radio Only";
+          } else if (e.name === "Wish_Name") {
+            datamodel.current.title = "Showing Names";
+          } else if (e.name === "Good_Night") {
+            datamodel.current.title = "Good Night";
+          }
+          datamodel.songs.forEach(function(s) {
+            if (e.name === s.playlist) {
+              datamodel.current.title = s.title;
+              s.votes = -2;
+            }
+          });
+
           if ("currentItems" in e) {
             e.currentItems.forEach(function(i) {
               datamodel.current.secondsRemaining = i.secondsRemaining;
