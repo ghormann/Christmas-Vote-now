@@ -81,7 +81,7 @@ module.exports.songs = [
   {
     id: 14,
     title: "Joy to the World",
-    votes: -2,
+    votes: 10,
     playlist: "Joy"
   }
   
