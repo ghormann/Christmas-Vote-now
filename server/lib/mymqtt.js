@@ -2,10 +2,14 @@ const mqtt = require("mqtt");
 const fs = require("fs");
 const datamodel = require("../model/datamodel.js");
 const session = require("../lib/session.js");
+const master_config = {
+  send_enabled: false
+}
 var normalNames = [];
 var lowNames = [];
 var client = undefined;
 var callbacks = [];
+var last_send =  Date.now();
 
 var handlers = [
   {
@@ -70,6 +74,32 @@ var handlers = [
   }
 ];
 
+function doSend(playlist) {
+  console.log("Sending " + playlist);
+  let topic = "/christmas/falcon/player/FPP.hormann.local/set/playlist/" + playlist +  "/start"
+  last_send = Date.now();
+  client.publish(topic, "1", {}, function(err) {
+    if (err) {
+      console.log("Error publishing topic");
+      console.log(err);
+    }
+  });
+}
+
+function doSendCheck() {
+  if (!master_config.send_enabled) {
+    return;
+  }
+  if (datamodel.current.status === "idle" ) {
+    let diff = Date.now() - last_send;
+    if (diff > 3000) { // 3 seconds since last send
+      // Need more stuff here, but for now, this is good
+      let song = datamodel.songs[0];
+      doSend(song.playlist);
+    }
+  }
+}
+
 function addCallback(c) {
   callbacks.push(c);
 }
@@ -111,6 +141,7 @@ function init() {
   let rawdata = fs.readFileSync("greglights_config.json");
   let config = JSON.parse(rawdata);
   let CA = [fs.readFileSync(config["ca_file"])];
+  master_config.send_enabled = config["send_enabled"];
   let options = {
     host: config["host"],
     port: config["port"],
@@ -127,6 +158,8 @@ function init() {
     protocolId: "MQIsdp",
     protocolVersion: 3
   };
+
+  setInterval(doSendCheck, 500);
 
   client = mqtt.connect(options);
   client.on("connect", function() {
