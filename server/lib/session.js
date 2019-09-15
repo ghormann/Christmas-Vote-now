@@ -26,6 +26,18 @@ function addVote(id, songId) {
   return record;
 }
 
+function clearVotesForSong(songId) {
+  for (id in votesRemaining) {
+    let record = getOrCreateVoteRecord(id); 
+    let before = record.history.length;
+    record.history = record.history.filter(function(a){return a !== songId});
+    record.remaining = record.remaining + (before - record.history.length);
+    if (record.remaining > maxVotes) {
+      record.remaining = maxVotes;
+    }
+  }
+}
+
 function removeVote(id, songId) {
   let record = getOrCreateVoteRecord(id); // Force creation if doesn't exists.
   record.status = "You don't have votes on this song";
@@ -71,3 +83,4 @@ module.exports.addVote = addVote;
 module.exports.clearAllVotes = clearAllVotes;
 module.exports.giveAnotherVote = giveAnotherVote;
 module.exports.getOrCreateVoteRecord = getOrCreateVoteRecord;
+module.exports.clearVotesForSong = clearVotesForSong;

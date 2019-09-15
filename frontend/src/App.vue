@@ -11,6 +11,7 @@
     ></b-img>
     <b-tabs active-nav-item-class="font-weight-bold text-uppercase" content-class="mt-2">
       <b-tab title="Vote" active>
+        <CurrentSong />
         <AvailSongList />
         <OldSongList />
       </b-tab>
@@ -33,13 +34,14 @@ import OldSongList from "./components/OldSongList.vue";
 import NameQueue from "./components/NameQueue.vue";
 import CoolDisplaysLogo from "./components/CoolDisplaysLogo.vue";
 import LastUpdated from "./components/LastUpdated.vue"
-
+import CurrentSong from"./components/CurrentSong.vue"
 export default {
   name: "app",
   components: {
     AvailSongList,
     OldSongList,
     NameQueue,
+    CurrentSong,
     CoolDisplaysLogo,
     LastUpdated
   }

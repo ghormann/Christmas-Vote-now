@@ -1,6 +1,7 @@
 const mqtt = require("mqtt");
 const fs = require("fs");
 const datamodel = require("../model/datamodel.js");
+const session = require("../lib/session.js");
 var normalNames = [];
 var lowNames = [];
 var client = undefined;
@@ -51,7 +52,8 @@ var handlers = [
           datamodel.songs.forEach(function(s) {
             if (e.name === s.playlist) {
               datamodel.current.title = s.title;
-              s.votes = -2;
+              session.clearVotesForSong(s.id);
+              s.votes = 7; // <10 not displayed
             }
           });
 

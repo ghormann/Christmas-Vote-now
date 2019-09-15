@@ -3,6 +3,7 @@ const Nes = require("@hapi/nes");
 const session = require("./lib/session.js");
 const fs = require("fs");
 const mymqtt = require("./lib/mymqtt.js");
+const dataModel = require("./model/datamodel.js");
 
 console.log("WARNING: Cross site scripting enabled");
 
@@ -26,7 +27,14 @@ let yarOptions = {
 
 // Setup timeouts
 setInterval(session.clearAllVotes, 86400000); // 1 day
-setInterval(session.giveAnotherVote, 200000); // 2 minutes
+setInterval(function() {
+  session.giveAnotherVote();
+  dataModel.songs.forEach(function(s) {
+    if (s.votes < 10) {
+      s.votes += 1;
+    }
+  });
+}, 120000); // 2 minutes
 
 const start = async () => {
   await server.register(Nes);

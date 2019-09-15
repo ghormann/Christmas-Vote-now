@@ -14,12 +14,6 @@ const state = {
       votes: 0
     }
   ],
-  oldSongs: [
-    {
-      id: 3,
-      title: "Loading"
-    }
-  ],
   nameQueue: [
     {
       id: 1,
@@ -30,6 +24,12 @@ const state = {
       name: "Matt"
     }
   ],
+  current: {
+    status: "idle",
+    secondsTotal: -1,
+    secondsRemaining: -1,
+    title: ""
+  },
   lastMessage: "OK",
   votesRemaining: 8,
   lastUpdated: "Never",
@@ -37,9 +37,10 @@ const state = {
 };
 
 const getters = {
-  allAvailSongs: state => state.availSongs,
-  allOldSongs: state => state.oldSongs,
+  allAvailSongs: state => state.availSongs.filter(s => s.votes >= 10),
+  allOldSongs: state => state.availSongs.filter(s => s.votes < 10),
   allNames: state => state.nameQueue,
+  currentSong: state => state.current,
   votesRemaining: state => state.votesRemaining,
   lastMessage: state => state.lastMessage,
   lastUpdated: state => state.lastUpdated,
@@ -59,8 +60,7 @@ const actions = {
       // eslint-disable-next-line
       console.log("Disconnected");
       clientConnected = false;
-
-    }
+    };
 
     await client.connect();
 
@@ -95,6 +95,7 @@ const mutations = {
     state.availSongs = input.songs;
     state.oldSongs = input.oldSongs;
     state.nameQueue = input.nameQueue;
+    state.current = input.current;
     state.lastUpdated = new Date();
     state.lastUpdatedTime = moment().format("LTS");
   },
