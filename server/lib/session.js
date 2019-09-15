@@ -35,6 +35,9 @@ function clearVotesForSong(songId) {
     if (record.remaining > maxVotes) {
       record.remaining = maxVotes;
     }
+    if (record.remaining > 0) {
+      record.status = "OK";
+    }
   }
 }
 
@@ -62,8 +65,8 @@ function giveAnotherVote() {
     let votes = record.remaining;
     if (votes < maxVotes) {
       record.remaining = votes + 1;
-      record.status = "OK";
     }
+    record.status = "OK";
   }
 }
 
