@@ -69,12 +69,10 @@ const actions = {
     };
   },
   async fetchState({ commit }) {
-    if (!clientConnected) {
-      let r = await axios.get("https://vote-now.org/api/queue");
-      //let r = await axios.get('http://localhost:7654/queue');
-      commit("setSongs", r.data);
-      commit("setPublic", r.data.model);
-    }
+    let r = await axios.get("https://vote-now.org/api/queue");
+    //let r = await axios.get('http://localhost:7654/queue');
+    commit("setSongs", r.data);
+    commit("setPublic", r.data.model);
   },
   async addVote({ commit }, id) {
     let r = await axios.post("https://vote-now.org/api/vote/" + id);
