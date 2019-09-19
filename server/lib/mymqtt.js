@@ -1,4 +1,5 @@
 const mqtt = require("mqtt");
+const moment = require('moment');
 const fs = require("fs");
 const datamodel = require("../model/datamodel.js");
 const session = require("../lib/session.js");
@@ -34,10 +35,14 @@ var handlers = [
     topic: "/christmas/falcon/player/FPP.hormann.local/playlist_details",
     callback: function(topic, message) {
       let data = JSON.parse(message.toString());
+      datamodel.health.lastFppDate = moment().toDate();    
       datamodel.current.status = data.status;
       datamodel.current.title = "Unknown";
       datamodel.current.secondsTotal = -1;
       datamodel.current.secondsRemaining = -1;
+      if (data.status != "idle") {
+        datamodel.health.idleDate = moment().toDate();
+      }
       if ("activePlaylists" in data) {
         // Convert playlist to nice name
         // and set vote count if currently playing
@@ -151,6 +156,10 @@ function init() {
   let config = JSON.parse(rawdata);
   let CA = [fs.readFileSync(config["ca_file"])];
   master_config.send_enabled = config["send_enabled"];
+
+  datamodel.health.idleDate = moment().subtract(10, 'days').toDate();
+  datamodel.health.lastFppDate = moment().subtract(10, 'days').toDate();
+  
   let options = {
     host: config["host"],
     port: config["port"],

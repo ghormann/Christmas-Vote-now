@@ -104,3 +104,7 @@ module.exports.current = {
   secondsRemaining: -1,
   title: ""
 }
+module.exports.health = {
+  idleDate: "",
+  lastFppDate: ""
+}
