@@ -1,5 +1,5 @@
 const mqtt = require("mqtt");
-const moment = require('moment');
+const moment = require("moment");
 const fs = require("fs");
 const datamodel = require("../model/datamodel.js");
 const session = require("../lib/session.js");
@@ -12,7 +12,9 @@ var normalNames = [];
 var lowNames = [];
 var client = undefined;
 var callbacks = [];
-var last_send = Date.now();
+var last_send = 10;
+var last_intro = 10;
+var last_station = 10;
 
 var handlers = [
   {
@@ -35,7 +37,7 @@ var handlers = [
     topic: "/christmas/falcon/player/FPP.hormann.local/playlist_details",
     callback: function(topic, message) {
       let data = JSON.parse(message.toString());
-      datamodel.health.lastFppDate = moment().toDate();    
+      datamodel.health.lastFppDate = moment().toDate();
       datamodel.current.status = data.status;
       datamodel.current.title = "Unknown";
       datamodel.current.secondsTotal = -1;
@@ -103,16 +105,37 @@ function doSendCheck() {
   if (!master_config.send_enabled) {
     return;
   }
-  if (! myUtils.isDisplayHours()) {
-    return ;
+  if (!myUtils.isDisplayHours()) {
+    if (datamodel.current.status === "idle") {
+      let myTime = new Date().toLocaleString("en-US", {
+        timeZone: "America/New_York"
+      });
+      myTime = new Date(myTime);
+      let hour = myTime.getHours();
+      if (hour > 8 && hour < 16) {
+        // During day
+        doSend("off");
+      }
+      if (hour < 5) {
+        // early Morning
+        doSend("off");
+      }
+    }
   }
   if (datamodel.current.status === "idle") {
     let diff = Date.now() - last_send;
     if (diff > 3000) {
       // 3 seconds since last send
-      // Need more stuff here, but for now, this is good
-      let song = datamodel.songs[0];
-      doSend(song.playlist);
+      if (Date.now() - last_intro > 720000) {
+        last_intro = Date.now();
+        doSend("Intro");
+      } else if (Date.now() - last_station > 480000) {
+        last_station = Date.now();
+        doSend("TuneTo");
+      } else {
+        let song = datamodel.songs[0];
+        doSend(song.playlist);
+      }
     }
   }
 }
@@ -160,9 +183,13 @@ function init() {
   let CA = [fs.readFileSync(config["ca_file"])];
   master_config.send_enabled = config["send_enabled"];
 
-  datamodel.health.idleDate = moment().subtract(10, 'days').toDate();
-  datamodel.health.lastFppDate = moment().subtract(10, 'days').toDate();
-  
+  datamodel.health.idleDate = moment()
+    .subtract(10, "days")
+    .toDate();
+  datamodel.health.lastFppDate = moment()
+    .subtract(10, "days")
+    .toDate();
+
   let options = {
     host: config["host"],
     port: config["port"],
