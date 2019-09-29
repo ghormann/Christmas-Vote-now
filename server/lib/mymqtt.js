@@ -53,7 +53,7 @@ var handlers = [
             datamodel.current.title = "Driveway Reminder";
           } else if (e.name === "Intro") {
             datamodel.current.title = "Welcome";
-          } else if (e.name === "Tune To") {
+          } else if (e.name === "TuneTo") {
             datamodel.current.title = "Radio Station ID";
           } else if (e.name === "off") {
             datamodel.current.title = "Radio Only";
