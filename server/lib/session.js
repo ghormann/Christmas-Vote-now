@@ -1,4 +1,5 @@
 const uuidv4 = require("uuid/v4");
+const myUtils = require("./myUtils.js");
 const maxVotes = 8;
 var votesRemaining = {};
 
@@ -54,6 +55,9 @@ function removeVote(id, songId) {
 }
 
 function clearAllVotes() {
+  if (myUtils.isDisplayHours()) {
+    return ; // Don't reset while display is running
+  }
   console.log("Clearning all votes");
   votesRemaining = {};
 }

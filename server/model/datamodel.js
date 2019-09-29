@@ -102,7 +102,9 @@ module.exports.current = {
   status: "Undefined",
   secondsTotal: -1,
   secondsRemaining: -1,
-  title: ""
+  title: "",
+  debug: false
+
 }
 module.exports.health = {
   idleDate: "",

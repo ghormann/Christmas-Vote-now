@@ -103,6 +103,9 @@ function doSendCheck() {
   if (!master_config.send_enabled) {
     return;
   }
+  if (! myUtils.isDisplayHours()) {
+    return ;
+  }
   if (datamodel.current.status === "idle") {
     let diff = Date.now() - last_send;
     if (diff > 3000) {

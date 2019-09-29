@@ -27,7 +27,7 @@ let yarOptions = {
 };
 
 // Setup timeouts
-setInterval(session.clearAllVotes, 86400000); // 1 day
+setInterval(session.clearAllVotes, 3600000); // 1 hour
 setInterval(function() {
   session.giveAnotherVote();
   myUtils.addRandomVotes();
