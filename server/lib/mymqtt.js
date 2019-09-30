@@ -87,6 +87,11 @@ var handlers = [
 ];
 
 function doSend(playlist) {
+  let diff = Date.now() - last_send;
+  if (diff < 3000) {
+     // Sent something recently. Wait a minute
+     return ;
+  }
   console.log("Sending " + playlist);
   let topic =
     "/christmas/falcon/player/FPP.hormann.local/set/playlist/" +
@@ -124,19 +129,16 @@ function doSendCheck() {
     return ;
   }
   if (datamodel.current.status === "idle") {
-    let diff = Date.now() - last_send;
-    if (diff > 3000) {
-      // 3 seconds since last send
-      if (Date.now() - last_intro > 720000) {
-        last_intro = Date.now();
-        doSend("Intro");
-      } else if (Date.now() - last_station > 480000) {
-        last_station = Date.now();
-        doSend("TuneTo");
-      } else {
-        let song = datamodel.songs[0];
-        doSend(song.playlist);
-      }
+    // 3 seconds since last send
+    if (Date.now() - last_intro > 720000) {
+      last_intro = Date.now();
+      doSend("Intro");
+    } else if (Date.now() - last_station > 480000) {
+      last_station = Date.now();
+      doSend("TuneTo");
+    } else {
+      let song = datamodel.songs[0];
+      doSend(song.playlist);
     }
   }
 }
