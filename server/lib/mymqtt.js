@@ -121,6 +121,7 @@ function doSendCheck() {
         doSend("off");
       }
     }
+    return ;
   }
   if (datamodel.current.status === "idle") {
     let diff = Date.now() - last_send;
