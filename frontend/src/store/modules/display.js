@@ -2,7 +2,7 @@ import axios from "axios";
 const moment = require("moment");
 const Nes = require("@hapi/nes/lib/client");
 var client = undefined;
-var clientConnected = false;
+//var clientConnected = false;
 
 // Video on how to use Vue state: https://www.youtube.com/watch?v=5lVQgZzLMHc
 
@@ -53,13 +53,13 @@ const actions = {
     client.onConnect = () => {
       // eslint-disable-next-line
       console.log("Connected");
-      clientConnected = true;
+      //clientConnected = true;
     };
 
     client.onDisconnect = () => {
       // eslint-disable-next-line
       console.log("Disconnected");
-      clientConnected = false;
+      //clientConnected = false;
     };
 
     await client.connect();
