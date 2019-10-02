@@ -9,7 +9,7 @@
       rounded
       alt="Our House"
     ></b-img>
-    <b-tabs active-nav-item-class="font-weight-bold text-uppercase" content-class="mt-2">
+    <b-tabs active-nav-item-class="font-weight-bold text-uppercase" class="gjh-tab" content-class="mt-2">
       <b-tab title="Vote" active>
         <CurrentSong />
         <AvailSongList />
@@ -55,6 +55,11 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+
+.gjh-tab {
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .outer {
