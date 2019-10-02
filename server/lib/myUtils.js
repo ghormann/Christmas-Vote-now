@@ -44,7 +44,7 @@ function isDisplayHours() {
     return true;
   }
 
-  if (hour >=17 && hour <= 23) {
+  if (hour >=17 && hour < 23) {
     return true;
   }
 
