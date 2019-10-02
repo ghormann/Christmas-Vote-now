@@ -89,8 +89,8 @@ var handlers = [
 function doSend(playlist) {
   let diff = Date.now() - last_send;
   if (diff < 3000) {
-     // Sent something recently. Wait a minute
-     return ;
+    // Sent something recently. Wait a minute
+    return;
   }
   console.log("Sending " + playlist);
   let topic =
@@ -126,7 +126,7 @@ function doSendCheck() {
         doSend("off");
       }
     }
-    return ;
+    return;
   }
   if (datamodel.current.status === "idle") {
     // 3 seconds since last send
