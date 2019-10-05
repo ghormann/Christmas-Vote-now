@@ -1,6 +1,6 @@
  <template>
   <div class="outer" v-bind:class="showMe">
-    <h2>Show Hours</h2>
+    <h2>The show is off</h2>
     <div>The show runs from 5pm-11pm each night.</div>
   </div>
   <!--outer -->

@@ -22,7 +22,7 @@ export default {
     },
     showMe: function() {
       return {
-        "d-none" : this.currentSong.status === "idle"
+        "d-none" : this.currentSong.status === "idle" || ! this.currentSong.isDisplayHours
       };
     },
 

@@ -77,6 +77,11 @@ export default {
   margin: 2px;
 }
 
+.gjh-fake-link {
+  color:#007bff !important;
+  cursor: pointer;
+}
+
 .intro-text {
   padding-bottom: 18px;
   font-style: oblique;
