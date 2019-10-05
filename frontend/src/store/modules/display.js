@@ -28,6 +28,7 @@ const state = {
     status: "idle",
     secondsTotal: -1,
     secondsRemaining: -1,
+    isDisplayHours: false,
     title: ""
   },
   lastMessage: "OK",

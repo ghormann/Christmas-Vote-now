@@ -33,6 +33,9 @@ setInterval(function() {
   myUtils.addRandomVotes();
 }, 120000); // 2 minutes
 
+// reset votes on boot (sets initial votes)
+session.clearAllVotes(true);
+
 const start = async () => {
   await server.register(Nes);
 

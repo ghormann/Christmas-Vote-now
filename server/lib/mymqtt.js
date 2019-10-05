@@ -6,7 +6,8 @@ const session = require("../lib/session.js");
 const myUtils = require("../lib/myUtils.js");
 
 const master_config = {
-  send_enabled: false
+  send_enabled: false,
+  playGoodNight: false
 };
 var normalNames = [];
 var lowNames = [];
@@ -107,16 +108,21 @@ function doSend(playlist) {
 }
 
 function doSendCheck() {
+  datamodel.current.isDisplayHours = myUtils.isDisplayHours();
   if (!master_config.send_enabled) {
     return;
   }
-  if (!myUtils.isDisplayHours()) {
+  if (! datamodel.current.isDisplayHours) {
     if (datamodel.current.status === "idle") {
       let myTime = new Date().toLocaleString("en-US", {
         timeZone: "America/New_York"
       });
       myTime = new Date(myTime);
       let hour = myTime.getHours();
+      if (hour == 23 && master_config.playGoodNight) {
+        master_config.playGoodNight = false;
+        doSend("Good_Night");
+      }
       if (hour > 8 && hour < 16) {
         // During day
         doSend("off");
@@ -129,11 +135,18 @@ function doSendCheck() {
     return;
   }
   if (datamodel.current.status === "idle") {
-    // 3 seconds since last send
-    if (Date.now() - last_intro > 720000) {
+    myTime = new Date(myTime);
+    let hour = myTime.getHours();
+
+    if (hour == 22) {
+      // reset the playGoodNight flag
+      master_config.playGoodNight = true;
+    }
+
+    if (Date.now() - last_intro > 900000) { // 15 min
       last_intro = Date.now();
       doSend("Intro");
-    } else if (Date.now() - last_station > 480000) {
+    } else if (Date.now() - last_station > 480000) { // 8 min
       last_station = Date.now();
       doSend("TuneTo");
     } else {

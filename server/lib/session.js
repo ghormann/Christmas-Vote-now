@@ -1,5 +1,6 @@
 const uuidv4 = require("uuid/v4");
 const myUtils = require("./myUtils.js");
+const datamodel = require("../model/datamodel.js");
 const maxVotes = 8;
 var votesRemaining = {};
 
@@ -54,12 +55,19 @@ function removeVote(id, songId) {
   return record;
 }
 
-function clearAllVotes() {
-  if (myUtils.isDisplayHours()) {
+function clearAllVotes(force = false) {
+  if (myUtils.isDisplayHours() && ! force) {
     return ; // Don't reset while display is running
   }
   console.log("Clearning all votes");
   votesRemaining = {};
+  // Reset Votes on songs
+  let i = 11 + datamodel.songs.length;
+  datamodel.songs.forEach(function (s) {
+    s.votes = i;
+    --i;
+  });
+  myUtils.sortSongs();
 }
 
 function giveAnotherVote() {
