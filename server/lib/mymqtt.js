@@ -107,6 +107,15 @@ function doSend(playlist) {
   });
 }
 
+function getCurrentHour()
+{
+    let myTime = new Date().toLocaleString("en-US", {
+      timeZone: "America/New_York"
+    });
+    myTime = new Date(myTime);
+    return myTime.getHours();
+}
+
 function doSendCheck() {
   datamodel.current.isDisplayHours = myUtils.isDisplayHours();
   if (!master_config.send_enabled) {
@@ -114,11 +123,7 @@ function doSendCheck() {
   }
   if (! datamodel.current.isDisplayHours) {
     if (datamodel.current.status === "idle") {
-      let myTime = new Date().toLocaleString("en-US", {
-        timeZone: "America/New_York"
-      });
-      myTime = new Date(myTime);
-      let hour = myTime.getHours();
+      let hour = getCurrentHour();
       if (hour == 23 && master_config.playGoodNight) {
         master_config.playGoodNight = false;
         doSend("Good_Night");
@@ -135,8 +140,7 @@ function doSendCheck() {
     return;
   }
   if (datamodel.current.status === "idle") {
-    myTime = new Date(myTime);
-    let hour = myTime.getHours();
+    let hour = getCurrentHour();
 
     if (hour == 22) {
       // reset the playGoodNight flag
