@@ -1,4 +1,5 @@
 # frontend
+The is the vue.js code that implmeents the response website.  
 
 ## Project setup
 ```
@@ -15,11 +16,6 @@ npm run serve
 npm run build
 ```
 
-### Run your tests
-```
-npm run test
-```
-
 ### Lints and fixes files
 ```
 npm run lint
@@ -28,7 +24,7 @@ npm run lint
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
-### Deploy
+### Greg Only: Deploy to production server
 ```
 ./deploy.sh
 ```
