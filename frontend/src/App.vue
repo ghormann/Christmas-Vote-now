@@ -19,6 +19,9 @@
       <b-tab title="Name Queue">
         <NameQueue />
       </b-tab>
+      <b-tab title="Information">
+        <InfoTab />
+        </b-tab>
     </b-tabs>
     <LastUpdated />
     <CoolDisplaysLogo />
@@ -37,6 +40,7 @@ import CoolDisplaysLogo from "./components/CoolDisplaysLogo.vue";
 import LastUpdated from "./components/LastUpdated.vue"
 import CurrentSong from"./components/CurrentSong.vue"
 import ShowHours from"./components/ShowHours.vue"
+import InfoTab from './components/InfoTab.vue'
 export default {
   name: "app",
   components: {
@@ -46,7 +50,8 @@ export default {
     CurrentSong,
     CoolDisplaysLogo,
     LastUpdated,
-    ShowHours
+    ShowHours,
+    InfoTab
   }
 };
 </script>
