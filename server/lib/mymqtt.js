@@ -11,6 +11,7 @@ const master_config = {
 };
 var normalNames = [];
 var lowNames = [];
+var readyNames = [];
 var client = undefined;
 var callbacks = [];
 var last_send = 10;
@@ -22,16 +23,10 @@ var handlers = [
     topic: "/christmas/nameQueue",
     callback: function(topic, message) {
       let data = JSON.parse(message.toString());
-      normalNames = data;
+      normalNames = data.normal;
+      lowNames = data.low;
+      readyNames = data.ready;
       updateNames(true);
-    }
-  },
-  {
-    topic: "/christmas/nameQueueLow",
-    callback: function(topic, message) {
-      let data = JSON.parse(message.toString());
-      lowNames = data;
-      updateNames(false);
     }
   },
   {
@@ -168,10 +163,20 @@ function updateNames(doBroadcast) {
   var allNames = [];
   var id = 1;
 
+  readyNames.forEach(function(n) {
+    allNames.push({
+      id: id,
+      name: n,
+      type:"READY"
+    });
+    id += 1;
+  });
+
   normalNames.forEach(function(n) {
     allNames.push({
       id: id,
-      name: n
+      name: n,
+      type: "NORMAL"
     });
     id += 1;
   });
@@ -179,7 +184,8 @@ function updateNames(doBroadcast) {
   lowNames.forEach(function(n) {
     allNames.push({
       id: id,
-      name: n
+      name: n,
+      type: "LOW"
     });
     id += 1;
   });
