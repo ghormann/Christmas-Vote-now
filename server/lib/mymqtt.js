@@ -17,6 +17,7 @@ var callbacks = [];
 var last_send = 10;
 var last_intro = 10;
 var last_station = 10;
+var last_nameGen = Date.now();
 
 var handlers = [
   {
@@ -26,6 +27,10 @@ var handlers = [
       normalNames = data.normal;
       lowNames = data.low;
       readyNames = data.ready;
+      datamodel.current.nameStatus = data.status;
+      if (data.status === "GENERATING") {
+        last_nameGen = Date.now();
+      }
       updateNames(true);
     }
   },
@@ -55,6 +60,9 @@ var handlers = [
             datamodel.current.title = "Radio Only";
           } else if (e.name === "Wish_Name") {
             datamodel.current.title = "Showing Names";
+            if ("READY" == datamodel.current.nameStatus) {
+              sendNameAction("RESET");
+            }
           } else if (e.name === "Good_Night") {
             datamodel.current.title = "Good Night";
           }
@@ -102,13 +110,23 @@ function doSend(playlist) {
   });
 }
 
-function getCurrentHour()
-{
-    let myTime = new Date().toLocaleString("en-US", {
-      timeZone: "America/New_York"
-    });
-    myTime = new Date(myTime);
-    return myTime.getHours();
+function sendNameAction(msg) {
+  console.log("Calling Send name Action with " + msg);
+  let topic = "/christmas/nameAction";
+  client.publish(topic, msg, function(err) {
+    if (err) {
+      console.log("Error publishing topic");
+      console.log(err);
+    }
+  });
+}
+
+function getCurrentHour() {
+  let myTime = new Date().toLocaleString("en-US", {
+    timeZone: "America/New_York"
+  });
+  myTime = new Date(myTime);
+  return myTime.getHours();
 }
 
 function doSendCheck() {
@@ -116,7 +134,9 @@ function doSendCheck() {
   if (!master_config.send_enabled) {
     return;
   }
-  if (! datamodel.current.isDisplayHours) {
+
+  // If not display hours
+  if (!datamodel.current.isDisplayHours) {
     if (datamodel.current.status === "idle") {
       let hour = getCurrentHour();
       if (hour == 23 && master_config.playGoodNight) {
@@ -132,20 +152,49 @@ function doSendCheck() {
         doSend("off");
       }
     }
+    // Early abort!!!!
     return;
+  } // End NOT display hours.
+
+  // check if Names needs updated
+  if (
+    "IDLE" == datamodel.current.nameStatus &&
+    (normalNames.length > 0 || lowNames.length > 0)
+  ) {
+    let diff = Date.now() - last_nameGen;
+    if (diff > 900000) {
+      // 15 minutes
+      console.log("Normal Generate names because of ", diff);
+      sendNameAction("GENERATE");
+    } else if (normalNames.length > 10 && diff > 480000) {
+      // 8 minutes
+      console.log("8 minute genreate names ", diff);
+      sendNameAction("GENERATE");
+    } else if (normalNames.length > 20 && diff > 240000) {
+      console.log("4 minute genreate names ", diff);
+      sendNameAction("GENERATE");
+    }
   }
+
   if (datamodel.current.status === "idle") {
     let hour = getCurrentHour();
+
+    // If names are ready, we should always play them....
+    if ("READY" == datamodel.current.nameStatus) {
+      doSend("Wish_Name");
+    }
 
     if (hour == 22) {
       // reset the playGoodNight flag
       master_config.playGoodNight = true;
     }
 
-    if (Date.now() - last_intro > 900000) { // 15 min
+    if (Date.now() - last_intro > 900000) {
+      // 15 min
       last_intro = Date.now();
       doSend("Intro");
-    } else if (Date.now() - last_station > 480000) { // 8 min
+    } else if (Date.now() - last_station > 480000) {
+      // 8 min
       last_station = Date.now();
       doSend("TuneTo");
     } else {
@@ -167,7 +216,7 @@ function updateNames(doBroadcast) {
     allNames.push({
       id: id,
       name: n,
-      type:"READY"
+      type: "READY"
     });
     id += 1;
   });

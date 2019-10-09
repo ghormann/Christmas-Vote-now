@@ -100,6 +100,7 @@ module.exports.nameQueue = [
 
 module.exports.current = {
   status: "Undefined",
+  nameStatus: "Undefined",
   secondsTotal: -1,
   secondsRemaining: -1,
   title: "",
@@ -109,5 +110,5 @@ module.exports.current = {
 }
 module.exports.health = {
   idleDate: "",
-  lastFppDate: ""
+  lastFppDate: "",
 }
