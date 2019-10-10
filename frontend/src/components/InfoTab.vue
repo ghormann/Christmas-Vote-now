@@ -5,7 +5,7 @@
       <p>
         This will be our 19th year with a computer controlled Christmas Lights Display.
         This year we have 41,535 RGB bulbs that are synchronized  to just over 30 minutes of music. Join us Christmas Eve
-        as the neighboorhood counts down to see the Clock hit zero.
+        as the neighborhood counts down to see the Clock hit zero.
       </p>
       <p>
         Names you text to the display are checked against a database of common first names from the IRS. If your name isn't on that
