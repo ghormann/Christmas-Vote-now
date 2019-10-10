@@ -105,6 +105,7 @@ module.exports.current = {
   secondsRemaining: -1,
   title: "",
   isDisplayHours: false,
+  enabled: true,
   debug: false
 
 }

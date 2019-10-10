@@ -35,6 +35,14 @@ var handlers = [
     }
   },
   {
+    topic: "/christmas/setActive",
+    callback: function(topic, message) {
+      let data = JSON.parse(message.toString());
+      datamodel.current.enabled = data.status;
+      console.log("Changing active status to ", datamodel.current.enabled, " because of ", data);
+    }
+  },
+  {
     topic: "/christmas/falcon/player/FPP.hormann.local/playlist_details",
     callback: function(topic, message) {
       let data = JSON.parse(message.toString());
@@ -131,6 +139,9 @@ function getCurrentHour() {
 
 function doSendCheck() {
   datamodel.current.isDisplayHours = myUtils.isDisplayHours();
+  if (!datamodel.current.enabled) {
+    return;
+  }
   if (!master_config.send_enabled) {
     return;
   }
