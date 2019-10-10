@@ -19,20 +19,20 @@ const state = {
       id2: "B3",
       question: "How much does it cost you to do this?",
       answer:
-        "The impact on our electric bill is relativitly small as we are using all LED light bulbs. ($100 for the year.)  For everything we've invested over the last 20 years, lets just say we could have purchaed a very nice new car by now..."
+        "The impact on our electric bill is relativity small as we are using all LED light bulbs. ($100 for the year.)  For everything we've invested over the last 20 years, lets just say we could have purchased a very nice new car by now..."
     },
     {
       id: "A3.1",
       id2: "B3.1",
       question: "Do you take donations?",
       answer:
-        "No.  We have a lot of fun doing this each year and get the joy out of makng others happy.  There are plently of worthy charities that would make better use of the money. Please consider donating to one of them."
+        "No.  We have a lot of fun doing this each year and get the joy out of making others happy.  There are plenty of worthy charities that would make better use of the money. Please consider donating to one of them."
     },
     {
       id: "A4",
       id2: "B4",
-      question: "What do your neighboors think?",
-      answer: "Our neighboors have been very supportive though the years."
+      question: "What do your neighbors think?",
+      answer: "Our neighbors have been very supportive though the years."
     },
     {
       id: "A5",
