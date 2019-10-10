@@ -9,7 +9,8 @@
       rounded
       alt="Our House"
     ></b-img>
-    <b-tabs active-nav-item-class="font-weight-bold text-uppercase" class="gjh-tab" content-class="mt-2">
+    <GlobalStatus />
+    <b-tabs active-nav-item-class="font-weight-bold text-uppercase" class="gjh-tab" content-class="mt-2" v-bind:class="showMe">
       <b-tab title="Vote" active>
         <CurrentSong />
         <ShowHours />
@@ -33,6 +34,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 import AvailSongList from "./components/AvailSongList.vue";
 import OldSongList from "./components/OldSongList.vue";
 import NameQueue from "./components/NameQueue.vue";
@@ -41,6 +44,7 @@ import LastUpdated from "./components/LastUpdated.vue"
 import CurrentSong from"./components/CurrentSong.vue"
 import ShowHours from"./components/ShowHours.vue"
 import InfoTab from './components/InfoTab.vue'
+import GlobalStatus from './components/GlobalStatus.vue'
 export default {
   name: "app",
   components: {
@@ -51,7 +55,16 @@ export default {
     CoolDisplaysLogo,
     LastUpdated,
     ShowHours,
+    GlobalStatus,
     InfoTab
+  },
+   computed: {
+    ...mapGetters(["currentSong"]),
+    showMe: function() {
+      return {
+        "d-none": !this.currentSong.enabled
+      };
+    }
   }
 };
 </script>
