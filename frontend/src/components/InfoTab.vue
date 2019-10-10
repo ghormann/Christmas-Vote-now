@@ -4,7 +4,7 @@
       <h2>About The Display</h2>
       <p>
         This will be our 19th year with a computer controlled Christmas Lights Display.
-        This year we have 34,123 RGB bulbs that are syncronized to just over 30 minutes of music. Join us Christmas Eve
+        This year we have 41,535 RGB bulbs that are syncronized to just over 30 minutes of music. Join us Christmas Eve
         as the neighboorhood counts down to see the Clock hit zero.
       </p>
       <p>
