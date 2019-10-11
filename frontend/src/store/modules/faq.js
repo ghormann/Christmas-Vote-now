@@ -5,14 +5,14 @@ const state = {
       id2: "B1",
       question: "How long does this take to setup?",
       answer:
-        "We take two weeks off work in November to bring all the components outside, mount them, and wire everything together.  We actually work on the display all year around.  Updating songs, building problems, fixing broken elements, etc."
+        "We take two weeks off work in November to bring all the components outside, mount them, and wire everything together.  We actually work on the display all year around: updating songs, building elements, soldering, fixing broken elements, configuring hardware controllers, etc."
     },
     {
       id: "A2",
       id2: "B2",
-      question: "How long does it take to sequence on song?",
+      question: "How long does it take to sequence on song so the lights and music match?",
       answer:
-        "It varies.  The most complex songs take about a hour of sequencing for every 10 seconds of music."
+        "It varies.  The most complex songs take about a hour of sequencing for every 10 seconds of music. There is a computer sitting in our living room year around for each family member to do some sequencing while relaxing. (Mom does all the hard songs where the mouths move to the lyrics.)"
     },
     {
       id: "A3",
@@ -32,7 +32,7 @@ const state = {
       id: "A4",
       id2: "B4",
       question: "What do your neighbors think?",
-      answer: "Our neighbors have been very supportive though the years."
+      answer: "Our neighbors have been very supportive though the years. Having polite visitors is key for our ability to continue the tradition!"
     },
     {
       id: "A5",

@@ -2,17 +2,17 @@
   <div>
     <div class="outer">
       <h2>About The Display</h2>
-      <p>
+      <p class="gjh-padded">
         This will be our 19th year with a computer controlled Christmas Lights Display.
-        This year we have 41,535 RGB bulbs that are synchronized  to just over 30 minutes of music. Join us Christmas Eve
+        This year we have 41,535 RGB bulbs that are synchronized to just over 30 minutes of music. Join us Christmas Eve
         as the neighborhood counts down to see the Clock hit zero.
       </p>
-      <p>
+      <p class="gjh-padded">
         Names you text to the display are checked against a database of common first names from the IRS. If your name isn't on that
         list, there may be a delay in it appearing. Names are displayed below the clock soon after a text message is sent and are included
         in the main display every 5-10 minutes depending on queue size.
       </p>
-      <p>
+      <p class="gjh-padded">
         Enjoying the display? Give us a like on
         <a
           href="https://www.facebook.com/HormannChristmas"
@@ -36,12 +36,11 @@
         >{{faq.question}}</li>
       </ol>
       <h2>Answers</h2>
-      <dl class="faq-detail">
+      <dl class="faq-detail gjh-padded">
         <template v-for="faq in allFaqs">
           <dt v-bind:key="faq.id">
             <a v-bind:ref="faq.id">{{faq.question}}</a>
-            (
-            <a class="gjh-fake-link" @click="scrollMeTo('faq-top')">Top</a> )
+            (<a class="gjh-fake-link" @click="scrollMeTo('faq-top')">Top</a>)
           </dt>
           <dd v-bind:key="faq.id2">{{faq.answer}}</dd>
         </template>
@@ -78,12 +77,16 @@ export default {
   text-align: left;
 }
 
+.gjh-padded {
+  padding: 5px;
+}
+
 dl {
   text-align: left;
 }
 
 dd {
-    margin-bottom:20px;
+  margin-bottom: 20px;
 }
 
 .outer p {
