@@ -204,8 +204,8 @@ function doSendCheck() {
       // 15 min
       last_intro = Date.now();
       doSend("Intro");
-    } else if (Date.now() - last_station > 480000) {
-      // 8 min
+    } else if (Date.now() - last_station > 300000) {
+      // 5 min
       last_station = Date.now();
       doSend("TuneTo");
     } else {
