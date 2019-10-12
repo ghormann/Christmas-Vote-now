@@ -24,6 +24,14 @@ const state = {
       name: "Matt"
     }
   ],
+  health: {
+    "idleDate":"2019-10-12T15:35:33.339Z",
+    "lastFppDate":"2019-10-12T15:35:33.339Z",
+    "lastNameMqtt":"2019-10-12T15:35:32.983Z",
+    "lastnameGenereate":"2019-10-12T15:34:15.796Z",
+    "lastnamePlay":"2019-10-12T15:34:15.796Z",
+    "status":"ALL_OK"
+  },
   current: {
     status: "idle",
     secondsTotal: -1,
@@ -45,7 +53,8 @@ const getters = {
   votesRemaining: state => state.votesRemaining,
   lastMessage: state => state.lastMessage,
   lastUpdated: state => state.lastUpdated,
-  lastUpdatedTime: state => state.lastUpdatedTime
+  lastUpdatedTime: state => state.lastUpdatedTime,
+  health: state => state.health
 };
 
 const actions = {
@@ -95,6 +104,7 @@ const mutations = {
     state.oldSongs = input.oldSongs;
     state.nameQueue = input.nameQueue;
     state.current = input.current;
+    state.health = input.health;
     state.lastUpdated = new Date();
     state.lastUpdatedTime = moment().format("LTS");
   },
