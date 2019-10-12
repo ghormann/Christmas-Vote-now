@@ -28,6 +28,7 @@ let yarOptions = {
 
 // Setup timeouts
 setInterval(session.clearAllVotes, 3600000); // 1 hour
+setInterval(myUtils.updateHealthStatus, 15000); // 15 seconds
 setInterval(function() {
   session.giveAnotherVote();
   myUtils.addRandomVotes();

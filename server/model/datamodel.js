@@ -112,4 +112,8 @@ module.exports.current = {
 module.exports.health = {
   idleDate: "",
   lastFppDate: "",
+  lastNameMqtt: "",
+  lastnameGenereate: "",
+  lastnamePlay: "",
+  status: "UNKNOWN"
 }

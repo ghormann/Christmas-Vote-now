@@ -17,12 +17,15 @@ var callbacks = [];
 var last_send = 10;
 var last_intro = 10;
 var last_station = 10;
-var last_nameGen = Date.now();
+var last_nameGen = moment()
+  .subtract(1, "day")
+  .toDate();
 
 var handlers = [
   {
     topic: "/christmas/nameQueue",
     callback: function(topic, message) {
+      datamodel.health.lastNameMqtt = moment().toDate();
       let data = JSON.parse(message.toString());
       normalNames = data.normal;
       lowNames = data.low;
@@ -30,6 +33,7 @@ var handlers = [
       datamodel.current.nameStatus = data.status;
       if (data.status === "GENERATING") {
         last_nameGen = Date.now();
+        datamodel.health.lastnameGenereate = moment().toDate();
       }
       updateNames(true);
     }
@@ -39,7 +43,12 @@ var handlers = [
     callback: function(topic, message) {
       let data = JSON.parse(message.toString());
       datamodel.current.enabled = data.status;
-      console.log("Changing active status to ", datamodel.current.enabled, " because of ", data);
+      console.log(
+        "Changing active status to ",
+        datamodel.current.enabled,
+        " because of ",
+        data
+      );
     }
   },
   {
@@ -118,6 +127,17 @@ function doSend(playlist) {
   });
 }
 
+function sendName(name) {
+  console.log("Adding name to the queue " + name);
+  let topic = "/christmas/personsName";
+  client.publish(topic, name, function(err) {
+    if (err) {
+      console.log("Error Publishing to " + topic);
+      console.log(err);
+    }
+  });
+}
+
 function sendNameAction(msg) {
   console.log("Calling Send name Action with " + msg);
   let topic = "/christmas/nameAction";
@@ -185,6 +205,9 @@ function doSendCheck() {
       console.log("4 minute genreate names ", diff);
       sendNameAction("GENERATE");
     }
+  } else if (normalNames.length == 0 && lowNames.length == 0) {
+    // put at least one name in the queue
+    sendName("Ajax");
   }
 
   if (datamodel.current.status === "idle") {
@@ -193,6 +216,7 @@ function doSendCheck() {
     // If names are ready, we should always play them....
     if ("READY" == datamodel.current.nameStatus) {
       doSend("Wish_Name");
+      datamodel.health.lastnamePlay = moment().toDate();
     }
 
     if (hour == 22) {
@@ -269,12 +293,11 @@ function init() {
   let CA = [fs.readFileSync(config["ca_file"])];
   master_config.send_enabled = config["send_enabled"];
 
-  datamodel.health.idleDate = moment()
-    .subtract(10, "days")
-    .toDate();
-  datamodel.health.lastFppDate = moment()
-    .subtract(10, "days")
-    .toDate();
+  datamodel.health.idleDate = moment().toDate();
+  datamodel.health.lastFppDate = datamodel.health.idleDate;
+  datamodel.health.lastNameMqtt = datamodel.health.idleDate;
+  datamodel.health.lastnameGenereate = datamodel.health.idleDate;
+  datamodel.health.lastnamePlay = datamodel.health.idleDate;
 
   let options = {
     host: config["host"],
