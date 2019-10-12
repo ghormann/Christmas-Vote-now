@@ -38,7 +38,7 @@ function updateHealthStatus() {
     status = "IDLE_ERROR";
   } else if (lastNamePlay > 20 && showRunning) {
     status = "NAME_PLAY_ERROR";
-  } else if (lastNameGen > 10 && showRunning) {
+  } else if (lastNameGen > 20 && showRunning) {
     status = "NAME_GEN_ERROR";
   }
   dataModel.health.status = status;
