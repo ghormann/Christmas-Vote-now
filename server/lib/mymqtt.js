@@ -188,11 +188,11 @@ function doSendCheck() {
   } // End NOT display hours.
 
   // check if Names needs updated
+  let diff = Date.now() - last_nameGen;
   if (
     "IDLE" == datamodel.current.nameStatus &&
     (normalNames.length > 0 || lowNames.length > 0)
   ) {
-    let diff = Date.now() - last_nameGen;
     if (diff > 900000) {
       // 15 minutes
       console.log("Normal Generate names because of ", diff);
@@ -205,7 +205,7 @@ function doSendCheck() {
       console.log("4 minute genreate names ", diff);
       sendNameAction("GENERATE");
     }
-  } else if (normalNames.length == 0 && lowNames.length == 0) {
+  } else if (normalNames.length == 0 && lowNames.length == 0 && diff > 600000) {
     // put at least one name in the queue
     sendName("Ajax");
   }
