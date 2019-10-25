@@ -39,10 +39,33 @@ var handlers = [
     }
   },
   {
+    topic: "/christmas/vote/debug",
+    callback: function(topic, message) {
+      let data = message.toString();
+      if (data.toUpperCase() === "TRUE") {
+        datamodel.current.debug = true;
+      }
+      if (data.toUpperCase() === "FALSE") {
+        datamodel.current.debug = false;
+      }
+      console.log(
+        "Changing debug to ",
+        datamodel.current.enabled,
+        " because of ",
+        data
+      );
+    }
+  },
+  {
     topic: "/christmas/setActive",
     callback: function(topic, message) {
-      let data = JSON.parse(message.toString());
-      datamodel.current.enabled = data.status;
+      let data = message.toString();
+      if (data.toUpperCase() === "TRUE") {
+        datamodel.current.enabled = true;
+      }
+      if (data.toUpperCase() === "FALSE") {
+        datamodel.current.enabled = false;
+      }
       console.log(
         "Changing active status to ",
         datamodel.current.enabled,
