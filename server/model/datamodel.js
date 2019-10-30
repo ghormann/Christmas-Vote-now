@@ -109,7 +109,10 @@ module.exports.current = {
 module.exports.stats = {
   topNames_1hr: [],
   topNames_24hr: [],
-  topNames_year: []
+  topNames_year: [],
+  topSongs_1hr: [],
+  topSongs_24hr: [],
+  topSongs_year: []
 };
 module.exports.health = {
   idleDate: "",

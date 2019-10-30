@@ -44,6 +44,7 @@ var handlers = [
       let data = JSON.parse(message.toString());
       datamodel.stats = data;
       datamodel.health.lastStats = moment().toDate();
+      addSongnameToVotes();
     }
   },
   {
@@ -386,6 +387,23 @@ function init() {
     if (!handled) {
       console.log("Warning: Unabled MQTT topic: ", topic);
     }
+  });
+}
+
+function addSongnameToVotes() {
+  let songById = [];
+  datamodel.songs.forEach(function(s) {
+    songById[s.id] = s.title;
+  });
+
+  datamodel.stats.topSongs_1hr.forEach(function(i) {
+    i.title = songById[i.id];
+  });
+  datamodel.stats.topSongs_24hr.forEach(function(i) {
+    i.title = songById[i.id];
+  });
+  datamodel.stats.topSongs_year.forEach(function(i) {
+    i.title = songById[i.id];
   });
 }
 

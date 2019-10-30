@@ -30,6 +30,7 @@ function updateHealthStatus() {
   // minutes
   let lastNamePlay = (ts - dataModel.health.lastnamePlay) / 60000;
   let lastNameGen = (ts - dataModel.health.lastnameGenereate) / 60000;
+  let lastStats = (ts - dataModel.health.lastStats) / 60000;
   let showRunning = isDisplayHours();
 
   if (last_fpp_diff > 10) {
@@ -40,6 +41,8 @@ function updateHealthStatus() {
     status = "NAME_PLAY_ERROR";
   } else if (lastNameGen > 20 && showRunning) {
     status = "NAME_GEN_ERROR";
+  } else if (lastStats > 11) {
+    status = "NO_STATS_ERROR";
   }
   dataModel.health.status = status;
 }
