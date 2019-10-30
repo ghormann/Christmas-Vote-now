@@ -39,6 +39,14 @@ var handlers = [
     }
   },
   {
+    topic: "/christmas/vote/stats",
+    callback: function(topic, message) {
+      let data = JSON.parse(message.toString());
+      datamodel.stats = data;
+      datamodel.health.lastStats = moment().toDate();
+    }
+  },
+  {
     topic: "/christmas/vote/debug",
     callback: function(topic, message) {
       let data = message.toString();
@@ -145,6 +153,20 @@ function doSend(playlist) {
   client.publish(topic, "1", {}, function(err) {
     if (err) {
       console.log("Error publishing topic");
+      console.log(err);
+    }
+  });
+}
+
+function sendVote(id, session) {
+  let topic = "/christmas/vote/add";
+  let msg = JSON.stringify({
+    id: id,
+    source: session
+  });
+  client.publish(topic, msg, function(err) {
+    if (err) {
+      console.log("Error Publishing to " + topic);
       console.log(err);
     }
   });
@@ -369,3 +391,4 @@ function init() {
 
 module.exports.init = init;
 module.exports.addCallback = addCallback;
+module.exports.sendVote = sendVote;

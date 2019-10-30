@@ -1,6 +1,7 @@
 const datamodel = require("../model/datamodel.js");
 const session = require("../lib/session.js");
 const myUtils = require("../lib/myUtils.js");
+const mymqtt = require("../lib/mymqtt.js");
 
 
 module.exports = [
@@ -15,6 +16,7 @@ module.exports = [
         datamodel.songs.forEach(e => {
           if (e.id == id) {
             e.votes = e.votes + 1;
+            mymqtt.sendVote(id,key);
             console.log("Incrementing: " + e.title + " to " + e.votes);
             myUtils.sortSongs();
           }

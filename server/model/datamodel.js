@@ -1,4 +1,3 @@
-
 module.exports.songs = [
   {
     id: 1,
@@ -46,7 +45,7 @@ module.exports.songs = [
     id: 8,
     title: "I heard the bells on Christmas Day",
     votes: 13,
-    playlist:"Heard_Bells"
+    playlist: "Heard_Bells"
   },
   {
     id: 9,
@@ -84,19 +83,18 @@ module.exports.songs = [
     votes: 10,
     playlist: "Joy"
   }
-  
 ];
 
 module.exports.nameQueue = [
-    {
-      id: 1,
-      name: "Test name #1"
-    },
-    {
-      id: 2,
-      name: "Test name #2"
-    }
-  ]
+  {
+    id: 1,
+    name: "Test name #1"
+  },
+  {
+    id: 2,
+    name: "Test name #2"
+  }
+];
 
 module.exports.current = {
   status: "Undefined",
@@ -107,13 +105,18 @@ module.exports.current = {
   isDisplayHours: false,
   enabled: true,
   debug: false
-
-}
+};
+module.exports.stats = {
+  topNames_1hr: [],
+  topNames_24hr: [],
+  topNames_year: []
+};
 module.exports.health = {
   idleDate: "",
   lastFppDate: "",
   lastNameMqtt: "",
   lastnameGenereate: "",
   lastnamePlay: "",
-  status: "UNKNOWN"
-}
+  status: "UNKNOWN",
+  lastStats: ""
+};
