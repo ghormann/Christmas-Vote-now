@@ -1,8 +1,10 @@
 <template>
   <div>
-    <div class="outer">
-      <h2>{{title}}</h2>
-      <table class="table table-striped table-fit">
+    <div>
+      <div style="width:85%; margin:auto;">
+      <h3>{{title}}</h3>
+      </div>
+      <table class="table table-striped table-sm table-bordered table-fit">
         <thead>
           <tr>
             <th scope="col">Votes</th>
@@ -24,9 +26,9 @@
 //import { mapGetters } from "vuex";
 
 export default {
-  name: "SingleState",
+  name: "SongState",
   props: {
-    myData: Object,
+    myData: Array,
     title: String
   }
 };
@@ -46,5 +48,15 @@ table.table-fit tfoot th {
 table.table-fit tbody td,
 table.table-fit tfoot td {
   width: auto !important;
+}
+
+.table-striped > tbody > tr:nth-child(odd) > td,
+.table-striped > tbody > tr:nth-child(odd) > th {
+  background-color: rgb(194, 231, 255);
+}
+
+h3 {
+  color: rgb(194, 231, 255);
+  background-color:darkblue;
 }
 </style>
