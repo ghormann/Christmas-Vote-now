@@ -32,6 +32,14 @@ const state = {
     "lastnamePlay":"2019-10-12T15:34:15.796Z",
     "status":"ALL_OK"
   },
+  stats: {
+    pNames_1hr: [],
+    topNames_24hr: [],
+    topNames_year: [],
+    topSongs_1hr: [],
+    topSongs_24hr: [],
+    topSongs_year: []
+  },
   current: {
     status: "idle",
     secondsTotal: -1,
@@ -54,6 +62,8 @@ const getters = {
   lastMessage: state => state.lastMessage,
   lastUpdated: state => state.lastUpdated,
   lastUpdatedTime: state => state.lastUpdatedTime,
+  stats: state => state.stats,
+  lastStats: state => state.lastStats,
   health: state => state.health
 };
 
@@ -105,8 +115,10 @@ const mutations = {
     state.nameQueue = input.nameQueue;
     state.current = input.current;
     state.health = input.health;
+    state.stats = input.stats;
     state.lastUpdated = new Date();
     state.lastUpdatedTime = moment().format("LTS");
+    state.health.lastStatsTime = moment(input.health.lastStats).format("LTS");
   },
   setSongs: (state, input) => {
     state.votesRemaining = input.votesRemaining.remaining;

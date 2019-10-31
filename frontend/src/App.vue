@@ -20,8 +20,11 @@
       <b-tab title="Name Queue">
         <NameQueue />
       </b-tab>
-      <b-tab title="Information">
+      <b-tab title="Info">
         <InfoTab />
+        </b-tab>
+      <b-tab title="Stats">
+        <Stats />
         </b-tab>
     </b-tabs>
     <LastUpdated />
@@ -45,6 +48,7 @@ import CurrentSong from"./components/CurrentSong.vue"
 import ShowHours from"./components/ShowHours.vue"
 import InfoTab from './components/InfoTab.vue'
 import GlobalStatus from './components/GlobalStatus.vue'
+import Stats from './components/Stats.vue'
 export default {
   name: "app",
   components: {
@@ -54,6 +58,7 @@ export default {
     CurrentSong,
     CoolDisplaysLogo,
     LastUpdated,
+    Stats,
     ShowHours,
     GlobalStatus,
     InfoTab
