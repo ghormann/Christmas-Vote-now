@@ -4,8 +4,7 @@
       <h1>Statistics</h1>
       <div style="text-align:left">
         So you like statistics? So do we...  (At least on votes and submitted names.) <br>
-        <i>Note:Unlike the rest of web site, the
-        statistics are not real time. The statistics are refreshed every few minutes.</i>
+        <i>Note: The statistics are refreshed every few minutes.</i>
       </div>
       <p>
         <i>Stats Updated: {{health.lastStatsTime}}</i>

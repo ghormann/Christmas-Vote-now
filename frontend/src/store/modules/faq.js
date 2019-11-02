@@ -10,7 +10,7 @@ const state = {
     {
       id: "A2",
       id2: "B2",
-      question: "How long does it take to sequence on song so the lights and music match?",
+      question: "How long does it take to sequence one song so the lights and music match?",
       answer:
         "It varies.  The most complex songs take about a hour of sequencing for every 10 seconds of music. There is a computer sitting in our living room year around for each family member to do some sequencing while relaxing. (Mom does all the hard songs where the mouths move to the lyrics.)"
     },
