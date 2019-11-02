@@ -1,5 +1,5 @@
  <template>
-  <div class="outer">
+  <div>
     <div v-bind:class="showDisplayHours">
       <h2>The Show is Off</h2>
       <div>The show runs from 5pm-11pm each night.</div>
@@ -29,7 +29,7 @@ export default {
     showDisplayHours: function() {
       return {
         "alert": true,
-        "alert-warning": true,
+        "alert-danger": true,
         "gjh-alert": true,
         "d-none": this.currentSong.isDisplayHours
       };
@@ -45,4 +45,9 @@ export default {
   border-radius: 25px;
   margin: 0px;
 }
+
+.gjh-alert h2 {
+  color: #721c24;
+}
+
 </style>

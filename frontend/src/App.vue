@@ -51,6 +51,9 @@ import GlobalStatus from './components/GlobalStatus.vue'
 import Stats from './components/Stats.vue'
 export default {
   name: "app",
+   beforeCreate: function() {
+        document.body.className = 'body-gjh';
+    },
   components: {
     AvailSongList,
     OldSongList,
@@ -80,13 +83,30 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: rgb(136, 136, 136);
+}
+
+h1,h2,h3,h4 {
+  color:white;
 }
 
 .gjh-tab {
   max-width: 800px;
   margin: 0 auto;
 }
+
+.nav-item a {
+  color:royalblue;
+}
+
+.body-gjh {
+  background-color: rgb(25,25,25)
+}
+
+.gjh-padded {
+  padding: 5px;
+}
+
 
 .outer {
   border: 2px;

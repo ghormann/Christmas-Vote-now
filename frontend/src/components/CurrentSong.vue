@@ -1,7 +1,7 @@
  <template>
   <div class="outer" v-bind:class="showMe">
     <h2>Current Song</h2>
-    <div  ><b>{{currentSongClean}}</b> {{timePart}}</div>
+    <div class="song" ><b>{{currentSongClean}}</b> {{timePart}}</div>
   </div>
   <!--outer -->
 </template>
@@ -55,3 +55,10 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.song
+{
+  color:rgb(228, 58, 58);
+}
+</style>

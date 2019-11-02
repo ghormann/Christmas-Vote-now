@@ -77,10 +77,6 @@ export default {
   text-align: left;
 }
 
-.gjh-padded {
-  padding: 5px;
-}
-
 dl {
   text-align: left;
 }
