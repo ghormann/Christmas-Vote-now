@@ -2,7 +2,7 @@
   <div>
     <div class="outer gjh-padded">
       <h1>Statistics</h1>
-      <div style="text-align:left">
+      <div>
         So you like statistics? So do we...  The statistics are refreshed every few minutes.
       </div>
       <p>
@@ -88,7 +88,7 @@ table.table-fit tfoot td {
 
 h3 {
   color: rgb(194, 231, 255);
-  background-color:darkblue;
+  background-color:rgb(0, 0, 99) ;
 }
 </style>
 
