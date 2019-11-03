@@ -81,6 +81,10 @@ dl {
   text-align: left;
 }
 
+dt {
+    color: rgb(210,210,210);
+}
+
 dd {
   margin-bottom: 20px;
 }
