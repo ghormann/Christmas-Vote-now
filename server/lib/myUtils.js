@@ -37,11 +37,11 @@ function updateHealthStatus() {
     status = "MQQT_ERROR";
   } else if (idle_time > 10 && showRunning) {
     status = "IDLE_ERROR";
-  } else if (lastNamePlay > 20 && showRunning) {
+  } else if (lastNamePlay > 40 && showRunning) {
     status = "NAME_PLAY_ERROR";
-  } else if (lastNameGen > 20 && showRunning) {
+  } else if (lastNameGen > 40 && showRunning) {
     status = "NAME_GEN_ERROR";
-  } else if (lastStats > 11) {
+  } else if (lastStats > 5) {
     status = "NO_STATS_ERROR";
   }
   dataModel.health.status = status;
