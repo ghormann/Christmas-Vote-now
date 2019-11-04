@@ -7,7 +7,7 @@
       <table class="table table-striped table-sm table-bordered table-fit">
         <thead>
           <tr>
-            <th scope="col">Votes</th>
+            <th scope="col">Played</th>
             <th scope="col">Song</th>
           </tr>
         </thead>
