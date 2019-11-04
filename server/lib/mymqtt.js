@@ -45,6 +45,7 @@ var handlers = [
       datamodel.stats = data;
       datamodel.health.lastStats = moment().toDate();
       addSongnameToVotes();
+      addSongnameToSongs();
     }
   },
   {
@@ -99,21 +100,12 @@ var handlers = [
         // Convert playlist to nice name
         // and set vote count if currently playing
         data.activePlaylists.forEach(function(e) {
-          if (e.name === "Driveway") {
-            datamodel.current.title = "Driveway Reminder";
-          } else if (e.name === "Intro") {
-            datamodel.current.title = "Welcome";
-          } else if (e.name === "TuneTo") {
-            datamodel.current.title = "Radio Station ID";
-          } else if (e.name === "off") {
-            datamodel.current.title = "Radio Only";
-          } else if (e.name === "Wish_Name") {
+          datamodel.current.title = myUtils.nonStandardPlaylistTitles(e.name);
+          if (e.name === "Wish_Name") {
             datamodel.current.title = "Showing Names";
             if ("READY" == datamodel.current.nameStatus) {
               sendNameAction("RESET");
             }
-          } else if (e.name === "Good_Night") {
-            datamodel.current.title = "Good Night";
           }
           datamodel.songs.forEach(function(s) {
             if (e.name === s.playlist) {
@@ -251,7 +243,12 @@ function doSendCheck() {
       console.log("4 minute genreate names ", diff);
       sendNameAction("GENERATE");
     }
-  } else if (normalNames.length == 0 && lowNames.length == 0 && "IDLE" == datamodel.current.nameStatus && diff > 2100000) {
+  } else if (
+    normalNames.length == 0 &&
+    lowNames.length == 0 &&
+    "IDLE" == datamodel.current.nameStatus &&
+    diff > 2100000
+  ) {
     // After 35 minutes with nothing in the queue, Generate.
     sendNameAction("GENERATE");
   }
@@ -404,6 +401,35 @@ function addSongnameToVotes() {
   });
   datamodel.stats.topSongs_year.forEach(function(i) {
     i.title = songById[i.id];
+  });
+}
+
+function addSongnameToSongs() {
+  let songByPlaylist = {};
+  datamodel.songs.forEach(function(s) {
+    songByPlaylist[s.playlist] = s.title;
+  });
+
+  datamodel.stats.topPlayedSongs_year.forEach(function(i) {
+    if (i.name in songByPlaylist) {
+      i.title = songByPlaylist[i.name];
+    } else {
+      i.title = myUtils.nonStandardPlaylistTitles(i.name);
+    }
+  });
+  datamodel.stats.topPlayedSongs_1hr.forEach(function(i) {
+    if (i.name in songByPlaylist) {
+      i.title = songByPlaylist[i.name];
+    } else {
+      i.title = myUtils.nonStandardPlaylistTitles(i.name);
+    }
+  });
+  datamodel.stats.topPlayedSongs_24hr.forEach(function(i) {
+    if (i.name in songByPlaylist) {
+      i.title = songByPlaylist[i.name];
+    } else {
+      i.title = myUtils.nonStandardPlaylistTitles(i.name);
+    }
   });
 }
 

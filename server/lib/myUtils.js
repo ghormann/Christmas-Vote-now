@@ -21,6 +21,24 @@ function addRandomVotes() {
   sortSongs();
 }
 
+function nonStandardPlaylistTitles(playlist) {
+  if (playlist === "Driveway") {
+    return "Driveway Reminder";
+  } else if (playlist === "Intro") {
+    return "Welcome";
+  } else if (playlist === "TuneTo") {
+    return "Radio Station ID";
+  } else if (playlist === "off") {
+    return "Radio Only";
+  } else if (playlist === "Wish_Name") {
+    return "Showing Names";
+  } else if (playlist === "Good_Night") {
+    return "Good Night";
+  }
+
+  return "Unknown";
+}
+
 function updateHealthStatus() {
   status = "ALL_OK";
   let ts = moment().toDate();
@@ -84,3 +102,4 @@ module.exports.sortSongs = sortSongs;
 module.exports.addRandomVotes = addRandomVotes;
 module.exports.isDisplayHours = isDisplayHours;
 module.exports.updateHealthStatus = updateHealthStatus;
+module.exports.nonStandardPlaylistTitles = nonStandardPlaylistTitles;

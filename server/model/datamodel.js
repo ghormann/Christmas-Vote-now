@@ -112,7 +112,10 @@ module.exports.stats = {
   topNames_year: [],
   topSongs_1hr: [],
   topSongs_24hr: [],
-  topSongs_year: []
+  topSongs_year: [],
+  topPlayedSongs_1hr: [],
+  topPlayedSongs_24hr: [],
+  topPlayedSongs_year: []
 };
 module.exports.health = {
   idleDate: "",
