@@ -12,13 +12,21 @@
     <div class="outer">
       <h1>Top Voted Songs</h1>
       <hr />
-      <SongStat title="Last Hour" v-bind:myData="stats.topSongs_1hr" />
+      <VoteStat title="Last Hour" v-bind:myData="stats.topSongs_1hr" />
       <br />
       <br />
-      <SongStat title="Last Day" v-bind:myData="stats.topSongs_24hr" />
+      <VoteStat title="Last 24 hours" v-bind:myData="stats.topSongs_24hr" />
       <br />
       <br />
-      <SongStat title="This Year" v-bind:myData="stats.topSongs_year" />
+      <VoteStat title="This Year" v-bind:myData="stats.topSongs_year" />
+    </div>
+    <div class="outer">
+      <h1>Most Played Songs</h1>
+      <hr />
+      <PlayedSongStat title="Last 24 hours" v-bind:myData="stats.topPlayedSongs_24hr" />
+      <br />
+      <br />
+      <PlayedSongStat title="This Year" v-bind:myData="stats.topPlayedSongs_year" />
     </div>
     <div class="outer">
       <h1>Top Names</h1>
@@ -26,7 +34,7 @@
       <NameStat title="Last Hour" v-bind:myData="stats.topNames_1hr" />
       <br />
       <br />
-      <NameStat title="Last Day" v-bind:myData="stats.topNames_24hr" />
+      <NameStat title="Last 24 hours" v-bind:myData="stats.topNames_24hr" />
       <br />
       <br />
       <NameStat title="This Year" v-bind:myData="stats.topNames_year" />
@@ -35,14 +43,16 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-import SongStat from "./stats/SongStat.vue";
+import VoteStat from "./stats/VoteStat.vue";
 import NameStat from "./stats/NameStat.vue";
+import PlayedSongStat from "./stats/PlayedSongStat.vue";
 
 export default {
   name: "Stats",
   components: {
-    SongStat,
-    NameStat
+    VoteStat,
+    NameStat,
+    PlayedSongStat
   },
   computed: mapGetters(["health", "stats"])
 };

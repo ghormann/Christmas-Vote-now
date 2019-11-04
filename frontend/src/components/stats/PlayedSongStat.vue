@@ -12,7 +12,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="r in myData" v-bind:key="r.title">
+          <tr v-for="r in myData" v-bind:key="r.name">
             <td class="col-sm-auto">{{r.cnt}}</td>
             <td class="col-sm-6">{{r.title}}</td>
           </tr>
@@ -26,7 +26,7 @@
 //import { mapGetters } from "vuex";
 
 export default {
-  name: "SongStat",
+  name: "PlayedSongStat",
   props: {
     myData: Array,
     title: String
