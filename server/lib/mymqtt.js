@@ -251,9 +251,9 @@ function doSendCheck() {
       console.log("4 minute genreate names ", diff);
       sendNameAction("GENERATE");
     }
-  } else if (normalNames.length == 0 && lowNames.length == 0 && diff > 600000) {
-    // put at least one name in the queue
-    sendName("Ajax");
+  } else if (normalNames.length == 0 && lowNames.length == 0 && "IDLE" == datamodel.current.nameStatus && diff > 2100000) {
+    // After 35 minutes with nothing in the queue, Generate.
+    sendNameAction("GENERATE");
   }
 
   if (datamodel.current.status === "idle") {
