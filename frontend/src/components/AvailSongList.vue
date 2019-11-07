@@ -17,11 +17,11 @@
               <tr>
                 <td class="votes">{{song.votes}}</td>
                 <td>
-                  <img class="my-arrow-up" src="./../assets/up.png" @click="addVote(song.id)" />
+                  <img class="my-arrow-up" src="./../assets/up.png" @click="localAddVote(song.id)" />
                   <img
                     class="my-arrow-down"
                     src="./../assets/down.png"
-                    @click="removeVote(song.id)"
+                    @click="localRemoveVote(song.id)"
                   />
                 </td>
               </tr>
@@ -40,14 +40,22 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: "AvailSongList",
   methods: {
-    ...mapActions(["fetchState", "addVote", "removeVote", "initWS"])
+    ...mapActions(["fetchState", "addVote", "removeVote", "initWS"]),
+    localAddVote: function(id) {
+      this.addVote(id);
+      this.$ga.event("Vote", "Add", id, 123);
+    },
+    localRemoveVote: function(id) {
+      this.removeVote(id);
+      this.$ga.event("Vote", "Remove", id, 123);
+    }
   },
   computed: {
     ...mapGetters(["allAvailSongs", "votesRemaining", "lastMessage"]),
     errorClass: function() {
       return {
         "alert-danger": true,
-        "d-none" : this.lastMessage == "OK"
+        "d-none": this.lastMessage == "OK"
       };
     }
   },

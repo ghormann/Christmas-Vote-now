@@ -10,22 +10,27 @@
       alt="Our House"
     ></b-img>
     <GlobalStatus />
-    <b-tabs active-nav-item-class="font-weight-bold text-uppercase" class="gjh-tab" content-class="mt-2" v-bind:class="showMe">
+    <b-tabs
+      active-nav-item-class="font-weight-bold text-uppercase"
+      class="gjh-tab"
+      content-class="mt-2"
+      v-bind:class="showMe"
+    >
       <b-tab title="Vote" active>
         <CurrentSong />
         <ShowHours />
         <AvailSongList />
         <OldSongList />
       </b-tab>
-      <b-tab title="Name Queue">
+      <b-tab @click="clickTab('NameQueue')" title="Name Queue">
         <NameQueue />
       </b-tab>
-      <b-tab title="Info">
+      <b-tab title="Info" @click="clickTab('Info')">
         <InfoTab />
-        </b-tab>
-      <b-tab title="Stats">
+      </b-tab>
+      <b-tab title="Stats" @click="clickTab('Stats')">
         <Stats />
-        </b-tab>
+      </b-tab>
     </b-tabs>
     <LastUpdated />
     <CoolDisplaysLogo />
@@ -43,17 +48,17 @@ import AvailSongList from "./components/AvailSongList.vue";
 import OldSongList from "./components/OldSongList.vue";
 import NameQueue from "./components/NameQueue.vue";
 import CoolDisplaysLogo from "./components/CoolDisplaysLogo.vue";
-import LastUpdated from "./components/LastUpdated.vue"
-import CurrentSong from"./components/CurrentSong.vue"
-import ShowHours from"./components/ShowHours.vue"
-import InfoTab from './components/InfoTab.vue'
-import GlobalStatus from './components/GlobalStatus.vue'
-import Stats from './components/Stats.vue'
+import LastUpdated from "./components/LastUpdated.vue";
+import CurrentSong from "./components/CurrentSong.vue";
+import ShowHours from "./components/ShowHours.vue";
+import InfoTab from "./components/InfoTab.vue";
+import GlobalStatus from "./components/GlobalStatus.vue";
+import Stats from "./components/Stats.vue";
 export default {
   name: "app",
-   beforeCreate: function() {
-        document.body.className = 'body-gjh';
-    },
+  beforeCreate: function() {
+    document.body.className = "body-gjh";
+  },
   components: {
     AvailSongList,
     OldSongList,
@@ -66,12 +71,20 @@ export default {
     GlobalStatus,
     InfoTab
   },
-   computed: {
+  mounted: function() {
+    this.$ga.page("/");
+  },
+  computed: {
     ...mapGetters(["currentSong"]),
     showMe: function() {
       return {
         "d-none": !this.currentSong.enabled
       };
+    }
+  },
+  methods: {
+    clickTab: function(name) {
+      this.$ga.event('Tabs', name, 'click', 123);
     }
   }
 };
@@ -86,8 +99,11 @@ export default {
   color: rgb(136, 136, 136);
 }
 
-h1,h2,h3,h4 {
-  color:white;
+h1,
+h2,
+h3,
+h4 {
+  color: white;
 }
 
 .gjh-tab {
@@ -96,31 +112,30 @@ h1,h2,h3,h4 {
 }
 
 .nav-item a {
-  color:royalblue;
+  color: royalblue;
 }
 
 .body-gjh {
-  background-color: rgb(25,25,25)
+  background-color: rgb(25, 25, 25);
 }
 
 .gjh-padded {
   padding: 5px;
 }
 
-
 .outer {
   border: 2px;
   border-style: solid;
   border-radius: 25px;
   margin-left: 2px;
-  margin-right:2px;
-  margin-top:1em;
-  margin-bottom:1em;
-  padding-bottom:1em;
+  margin-right: 2px;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  padding-bottom: 1em;
 }
 
 .gjh-fake-link {
-  color:#007bff !important;
+  color: #007bff !important;
   cursor: pointer;
 }
 
