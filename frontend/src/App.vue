@@ -112,7 +112,11 @@ h1,h2,h3,h4 {
   border: 2px;
   border-style: solid;
   border-radius: 25px;
-  margin: 2px;
+  margin-left: 2px;
+  margin-right:2px;
+  margin-top:1em;
+  margin-bottom:1em;
+  padding-bottom:1em;
 }
 
 .gjh-fake-link {

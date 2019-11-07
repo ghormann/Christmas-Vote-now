@@ -39,6 +39,11 @@
       <br />
       <NameStat title="This Year" v-bind:myData="stats.topNames_year" />
     </div>
+    <div class="outer">
+      <h1>Unique # of Voters</h1>
+      <hr />
+      <UniqueVoters v-bind:myData="stats.topVoters" />
+      </div>
   </div>
 </template>
 <script>
@@ -46,13 +51,15 @@ import { mapGetters } from "vuex";
 import VoteStat from "./stats/VoteStat.vue";
 import NameStat from "./stats/NameStat.vue";
 import PlayedSongStat from "./stats/PlayedSongStat.vue";
+import UniqueVoters from "./stats/UniqueVoters.vue";
 
 export default {
   name: "Stats",
   components: {
     VoteStat,
     NameStat,
-    PlayedSongStat
+    PlayedSongStat,
+    UniqueVoters
   },
   computed: mapGetters(["health", "stats"])
 };
