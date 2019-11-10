@@ -45,6 +45,7 @@ const state = {
   },
   current: {
     status: "idle",
+    enabled: true,
     secondsTotal: -1,
     secondsRemaining: -1,
     isDisplayHours: false,
