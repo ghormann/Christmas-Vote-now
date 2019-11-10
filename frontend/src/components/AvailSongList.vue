@@ -17,8 +17,14 @@
               <tr>
                 <td class="votes">{{song.votes}}</td>
                 <td>
-                  <img class="my-arrow-up" src="./../assets/up.png" @click="localAddVote(song.id)" />
                   <img
+                    class="my-arrow-up"
+                    alt="vote up"
+                    src="./../assets/up.png"
+                    @click="localAddVote(song.id)"
+                  />
+                  <img
+                    alt="vote down"
                     class="my-arrow-down"
                     src="./../assets/down.png"
                     @click="localRemoveVote(song.id)"
