@@ -48,6 +48,10 @@
   },
   "browserslist": [
     "> 1%",
-    "last 2 versions"
+    "last 2 versions",
+    "not dead"
+  ],
+  "transpileDependencies": [
+    "modules/@hapi/nes"
   ]
 }
