@@ -2,15 +2,31 @@
   <div>
     <div class="outer gjh-padded">
       <h1>Statistics</h1>
-      <div>
-        So you like statistics? So do we...  The statistics are refreshed every few minutes.
+      <div>So you like statistics? So do we... The statistics are refreshed every few minutes.</div>
+      <div style="display:flex;justify-content: center;">
+        <ul style="text-align:left">
+          <li>
+            <a href="#VotedSongs">Top Voted Songs</a>
+          </li>
+          <li>
+            <a href="#PlayedSongs">Most Played Songs</a>
+          </li>
+          <li>
+            <a href="#TopNames">Most Requested Names</a>
+          </li>
+          <li>
+            <a href="#UniqueVoters">Number of Unique Voters</a>
+          </li>
+        </ul>
       </div>
       <p>
         <i>Stats Updated: {{health.lastStatsTime}}</i>
       </p>
     </div>
     <div class="outer">
-      <h1>Top Voted Songs</h1>
+      <h1>
+        <a name="VotedSongs">Top Voted Songs</a>
+      </h1>
       <hr />
       <VoteStat title="Last Hour" v-bind:myData="stats.topSongs_1hr" />
       <br />
@@ -21,7 +37,9 @@
       <VoteStat title="This Year" v-bind:myData="stats.topSongs_year" />
     </div>
     <div class="outer">
-      <h1>Most Played Songs</h1>
+      <h1>
+        <a name="PlayedSongs">Most Played Songs</a>
+      </h1>
       <hr />
       <PlayedSongStat title="Last 24 hours" v-bind:myData="stats.topPlayedSongs_24hr" />
       <br />
@@ -29,7 +47,9 @@
       <PlayedSongStat title="This Year" v-bind:myData="stats.topPlayedSongs_year" />
     </div>
     <div class="outer">
-      <h1>Top Names</h1>
+      <h1>
+        <a name="TopNames">Most Requested Names</a>
+      </h1>
       <hr />
       <NameStat title="Last Hour" v-bind:myData="stats.topNames_1hr" />
       <br />
@@ -40,10 +60,12 @@
       <NameStat title="This Year" v-bind:myData="stats.topNames_year" />
     </div>
     <div class="outer">
-      <h1>Unique # of Voters</h1>
+      <h1>
+        <a name="UniqueVoters">Unique # of Voters</a>
+      </h1>
       <hr />
       <UniqueVoters v-bind:myData="stats.topVoters" />
-      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -87,14 +109,13 @@ table.table-fit tfoot td {
 
 .table-striped > thead > tr > th {
   color: rgb(200, 200, 200);
-  background-color: rgb(25,25,25);
+  background-color: rgb(25, 25, 25);
   font-weight: bold;
 }
 
 .table-striped > tbody > tr > td,
 .table-striped > tbody > tr > th {
   color: rgb(200, 200, 200);
-
 }
 .table-striped > tbody > tr:nth-child(odd) > td,
 .table-striped > tbody > tr:nth-child(odd) > th {
@@ -102,10 +123,9 @@ table.table-fit tfoot td {
   color: rgb(200, 200, 200);
 }
 
-
 h3 {
   color: rgb(194, 231, 255);
-  background-color:rgb(0, 0, 99) ;
+  background-color: rgb(0, 0, 99);
 }
 </style>
 
