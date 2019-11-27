@@ -1,6 +1,13 @@
 const state = {
   faqs: [
     {
+      id: "A7",
+      id2: "B7",
+      question: "Why is my car radio  multiple seconds out of sync with the lights?",
+      answer:
+        "A few vehicles (newer Lexus, Cadillac's, and probably others) buffer the analog FM signal. This causes a noticeable delay.  Some of these radios support \"live mode\" as an option.  If yours does, try enabling it.  If you see one of us outside, we usually have a portable radio in our pocket. Ask you can borrow it."
+    },
+    {
       id: "A1",
       id2: "B1",
       question: "How long does this take to setup?",
