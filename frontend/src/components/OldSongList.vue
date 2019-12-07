@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="outer" v-bind:class="isShortList">
-      <h2>Currently Disabled</h2>
+      <h2>Disabled Songs</h2>
       <div
         class="my-intro-text"
       >Due to expected traffic, we are running a reduced playlist right now and these songs are not available.</div>
