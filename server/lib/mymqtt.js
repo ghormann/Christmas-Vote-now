@@ -16,6 +16,7 @@ var client = undefined;
 var callbacks = [];
 var last_send = 10;
 var last_intro = 10;
+var last_short_show = 10;
 var last_station = 10;
 var last_nameGen = moment()
   .subtract(1, "day")
@@ -254,7 +255,7 @@ function doSendCheck() {
       // 15 minutes
       console.log("Normal Generate names because of ", diff);
       sendNameAction("GENERATE");
-    } else if (normalNames.length > 10 && diff > 480000) {
+    } else if (normalNames.length > 9 && diff > 480000) {
       // 8 minutes
       console.log("8 minute genreate names ", diff);
       sendNameAction("GENERATE");
@@ -272,6 +273,11 @@ function doSendCheck() {
     sendNameAction("GENERATE");
   }
 
+  if (hour == 22) {
+    // reset the playGoodNight flag
+    master_config.playGoodNight = true;
+  }
+
   if (datamodel.current.status === "idle") {
     let hour = getCurrentHour();
 
@@ -279,17 +285,17 @@ function doSendCheck() {
     if ("READY" == datamodel.current.nameStatus) {
       doSend("Wish_Name");
       datamodel.health.lastnamePlay = moment().toDate();
-    }
-
-    if (hour == 22) {
-      // reset the playGoodNight flag
-      master_config.playGoodNight = true;
-    }
-
-    if (Date.now() - last_intro > 900000) {
+    } else if (Date.now() - last_intro > 900000) {
       // 15 min
       last_intro = Date.now();
       doSend("Intro");
+    } else if (
+      datamodel.current.isShortList &&
+      Date.now() - last_short_show > 600000
+    ) {
+      // 10 minutes
+      last_short_show = Date.now();
+      doSend("Short_Show");
     } else if (Date.now() - last_station > 300000) {
       // 5 min
       last_station = Date.now();

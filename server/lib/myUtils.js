@@ -15,7 +15,7 @@ function addRandomVotes() {
     }
     if (!dataModel.current.isShortList && s.votes < -100) {
       // Reset if low
-      s.votes = 1;
+      s.votes = 10;
     }
     if (s.votes < 10) {
       s.votes += 1;
@@ -38,6 +38,8 @@ function nonStandardPlaylistTitles(playlist) {
     return "Radio Station ID";
   } else if (playlist === "off") {
     return "Radio Only";
+  } else if (playlist === "Short_Show") {
+    return "Reduced Playlist";
   } else if (playlist === "Wish_Name") {
     return "Showing Names";
   } else if (playlist === "Good_Night") {
