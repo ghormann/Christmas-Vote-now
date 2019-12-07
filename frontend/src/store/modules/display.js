@@ -49,6 +49,7 @@ const state = {
     secondsTotal: -1,
     secondsRemaining: -1,
     isDisplayHours: false,
+    isShortList: false,
     title: ""
   },
   lastMessage: "OK",
@@ -59,7 +60,8 @@ const state = {
 
 const getters = {
   allAvailSongs: state => state.availSongs.filter(s => s.votes >= 10),
-  allOldSongs: state => state.availSongs.filter(s => s.votes < 10),
+  allOldSongs: state => state.availSongs.filter(s => (s.votes < 10 && s.votes > -100)),
+  allDisabledSongs: state => state.availSongs.filter(s => (s.votes < -100)),
   allNames: state => state.nameQueue,
   currentSong: state => state.current,
   votesRemaining: state => state.votesRemaining,

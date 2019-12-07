@@ -4,6 +4,10 @@
       <h2>The Show is Off</h2>
       <div>The show runs from 5pm-11pm each night.</div>
     </div>
+    <div v-bind:class="isShortList">
+      <h2>Reduced Play List</h2>
+      <div>Due to expected traffic, we are running a reduced playlist right now.</div>
+    </div>
     <div v-bind:class="showDebug">
       <h2>In debug mode</h2>
       <div>The show is running in debug mode.</div>
@@ -20,15 +24,23 @@ export default {
     ...mapGetters(["currentSong", "health"]),
     showDebug: function() {
       return {
-        "alert": true,
+        alert: true,
         "alert-danger": true,
         "gjh-alert": true,
         "d-none": !this.currentSong.debug
       };
     },
+    isShortList: function() {
+      return {
+        alert: true,
+        "alert-danger": true,
+        "gjh-alert": true,
+        "d-none": ! this.currentSong.isShortList
+      };
+    },
     showDisplayHours: function() {
       return {
-        "alert": true,
+        alert: true,
         "alert-danger": true,
         "gjh-alert": true,
         "d-none": this.currentSong.isDisplayHours
@@ -49,5 +61,4 @@ export default {
 .gjh-alert h2 {
   color: #721c24;
 }
-
 </style>

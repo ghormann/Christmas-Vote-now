@@ -58,14 +58,14 @@ module.exports.songs = [
   {
     id: 9,
     title: "Little Drummer Boy",
-    shortlist: false,
+    shortlist: true,
     votes: 12,
     playlist: "Drummer"
   },
   {
     id: 10,
     title: "Amazing Grace",
-    shortlist: true,
+    shortlist: false,
     votes: 11,
     playlist: "Amazing_Grace"
   },
