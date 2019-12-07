@@ -49,6 +49,25 @@ var handlers = [
     }
   },
   {
+    topic: "/christmas/vote/setShortList",
+    callback: function(topic, message) {
+      let data = message.toString();
+      if (data.toUpperCase() === "TRUE") {
+        datamodel.current.isShortList = true;
+      }
+      if (data.toUpperCase() === "FALSE") {
+        datamodel.current.isShortList = false;
+      }
+      myUtils.addRandomVotes(); // Reset votes
+      console.log(
+        "Changing isShortList to ",
+        datamodel.current.isShortList,
+        " because of ",
+        data
+      );
+    }
+  },
+  {
     topic: "/christmas/vote/debug",
     callback: function(topic, message) {
       let data = message.toString();

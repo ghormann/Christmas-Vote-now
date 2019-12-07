@@ -9,6 +9,14 @@ function sortSongs() {
 
 function addRandomVotes() {
   dataModel.songs.forEach(function(s) {
+    if (dataModel.current.isShortList && !s.shortlist) {
+      // Not avaiable tonight
+      s.votes = -150;
+    }
+    if (!dataModel.current.isShortList && s.votes < -100) {
+      // Reset if low
+      s.votes = 1;
+    }
     if (s.votes < 10) {
       s.votes += 1;
     } else {
