@@ -273,13 +273,14 @@ function doSendCheck() {
     sendNameAction("GENERATE");
   }
 
+  let hour = getCurrentHour();
+
   if (hour == 22) {
     // reset the playGoodNight flag
     master_config.playGoodNight = true;
   }
 
   if (datamodel.current.status === "idle") {
-    let hour = getCurrentHour();
 
     // If names are ready, we should always play them....
     if ("READY" == datamodel.current.nameStatus) {
