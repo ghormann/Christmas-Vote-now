@@ -251,13 +251,13 @@ function doSendCheck() {
     "IDLE" == datamodel.current.nameStatus &&
     (normalNames.length > 0 || lowNames.length > 0)
   ) {
-    if (diff > 900000) {
-      // 15 minutes
+    if (diff > 720000) {
+      // 12 minutes
       console.log("Normal Generate names because of ", diff);
       sendNameAction("GENERATE");
-    } else if (normalNames.length > 9 && diff > 480000) {
-      // 8 minutes
-      console.log("8 minute genreate names ", diff);
+    } else if (normalNames.length > 9 && diff > 420000) {
+      // 7 minutes
+      console.log("7 minute genreate names ", diff);
       sendNameAction("GENERATE");
     } else if (normalNames.length > 20 && diff > 240000) {
       console.log("4 minute genreate names ", diff);
