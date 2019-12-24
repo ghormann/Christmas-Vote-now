@@ -44,6 +44,10 @@ function nonStandardPlaylistTitles(playlist) {
     return "Showing Names";
   } else if (playlist === "Good_Night") {
     return "Good Night";
+  } else if (playlist === "Midnight_Prep") {
+    return "Almost Midnight";
+  } else if (playlist === "Midnight") {
+    return "Merry Christmas";
   }
 
   return "Unknown";
@@ -89,11 +93,19 @@ function isDisplayHours() {
     return true;
   }
 
+  if (month === 12 && day === 31 && hour > 17) {
+    return true;
+  }
+
   if (dataModel.current.debug) {
     return true;
   }
 
   if (month === 12 && day === 25 && hour < 2) {
+    return true;
+  }
+
+  if (month === 1 && day === 1 && hour < 2) {
     return true;
   }
 

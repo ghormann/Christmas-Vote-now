@@ -110,6 +110,12 @@ module.exports.nameQueue = [
   }
 ];
 
+module.exports.clock = {
+  time: 9999999,
+  startedPrep: false,
+  startedMidnight: false
+};
+
 module.exports.current = {
   status: "Undefined",
   nameStatus: "Undefined",

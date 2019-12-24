@@ -40,6 +40,13 @@ var handlers = [
     }
   },
   {
+    topic: "/christmas/clock",
+    callback: function(topic, message) {
+      let data = parseInt(message.toString());
+      datamodel.clock.time = data;
+    }
+  },
+  {
     topic: "/christmas/vote/stats",
     callback: function(topic, message) {
       let data = JSON.parse(message.toString());
@@ -127,6 +134,16 @@ var handlers = [
               sendNameAction("RESET");
             }
           }
+          if (e.name === "Midnight") {
+            datamodel.clock.startedMidnight = true;
+            datamodel.clock.startedPrep = false;
+            if ("READY_MIDNIGHT" == datamodel.current.nameStatus) {
+              sendNameAction("RESET");
+            }
+          }
+          if (e.name === "Midnight_Prep") {
+            datamodel.clock.startedPrep = true;
+          }
           datamodel.songs.forEach(function(s) {
             if (e.name === s.playlist) {
               datamodel.current.title = s.title;
@@ -197,6 +214,10 @@ function sendName(name) {
 }
 
 function sendNameAction(msg) {
+  if (datamodel.clock.startedPrep && msg === "GENERATE") {
+    console.log("Skipping name genreeate because in Midnight prep");
+    return;
+  }
   console.log("Calling Send name Action with " + msg);
   let topic = "/christmas/nameAction";
   client.publish(topic, msg, function(err) {
@@ -222,6 +243,34 @@ function doSendCheck() {
   }
   if (!master_config.send_enabled) {
     return;
+  }
+
+  // If very close, then force Midnight Prep
+  if (
+    datamodel.clock.time < 780 &&
+    datamodel.clock.time > 0 &&
+    !datamodel.clock.startedPrep
+  ) {
+    doSend("Midnight_Prep");
+  }
+
+  // If Just hit midnight, then play Midnight.
+  if (datamodel.clock.time <= 0 && !datamodel.clock.startedMidnight) {
+    doSend("Midnight");
+  }
+
+  // Check If time to genreeate Midnight Names
+  if (datamodel.clock.time < 200 && datamodel.clock.time > 0) {
+    if (
+      datamodel.current.nameStatus != "PENDING_MIDNIGHT" &&
+      datamodel.current.nameStatus != "READY_MIDNIGHT"
+    ) {
+      console.log(
+        "Genereating midnight because ",
+        datamodel.current.nameStatus
+      );
+      sendNameAction("GENERATE_MIDNIGHT");
+    }
   }
 
   // If not display hours
@@ -281,7 +330,6 @@ function doSendCheck() {
   }
 
   if (datamodel.current.status === "idle") {
-
     // If names are ready, we should always play them....
     if ("READY" == datamodel.current.nameStatus) {
       doSend("Wish_Name");
