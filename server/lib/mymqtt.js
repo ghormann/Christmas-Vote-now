@@ -407,7 +407,7 @@ function fireCallbacks() {
 function init() {
   let rawdata = fs.readFileSync("greglights_config.json");
   let config = JSON.parse(rawdata);
-  let CA = [fs.readFileSync(config["ca_file"])];
+  //let CA = [fs.readFileSync(config["ca_file"])];
   master_config.send_enabled = config["send_enabled"];
 
   datamodel.health.idleDate = moment().toDate();
@@ -421,14 +421,15 @@ function init() {
     port: config["port"],
     username: config["username"],
     password: config["password"],
-    protocol: "mqtts",
-    ca: CA,
+    //protocol: "mqtts",
+    protocol: "mqtt",
+    //ca: CA,
     clientId:
       "vote_" +
       Math.random()
         .toString(16)
         .substr(2, 8),
-    secureProtocol: "TLSv1_2_method",
+    //secureProtocol: "TLSv1_2_method",
     protocolId: "MQIsdp",
     protocolVersion: 3
   };
