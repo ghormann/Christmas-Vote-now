@@ -4,7 +4,7 @@
     <img alt="Vue logo" src="./assets/logo.png">
     -->
     <b-img
-      src="https://cooldisplays.net/picture.php?v=1543194801&width=800&display=1"
+      src="https://cooldisplays.net/picture.php?v=1579372572&pictid=133&width=800"
       fluid
       rounded
       alt="Our House"
