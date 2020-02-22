@@ -367,7 +367,8 @@ function updateNames(doBroadcast) {
   readyNames.forEach(function(n) {
     allNames.push({
       id: id,
-      name: n,
+      name: n.name,
+      ts: n.ts,
       type: "READY"
     });
     id += 1;
@@ -376,7 +377,8 @@ function updateNames(doBroadcast) {
   normalNames.forEach(function(n) {
     allNames.push({
       id: id,
-      name: n,
+      name: n.name,
+      ts: n.ts,
       type: "NORMAL"
     });
     id += 1;
@@ -385,7 +387,8 @@ function updateNames(doBroadcast) {
   lowNames.forEach(function(n) {
     allNames.push({
       id: id,
-      name: n,
+      name: n.name,
+      ts: n.ts,
       type: "LOW"
     });
     id += 1;
