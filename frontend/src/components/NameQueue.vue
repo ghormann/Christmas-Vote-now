@@ -10,7 +10,12 @@
           v-for="name in allNames"
           v-bind:key="name.id"
           v-bind:class="{'name': true, 'low' : name.type === 'LOW', 'next' : name.type==='READY'}"
-        >{{name.name}}</li>
+        >
+          <div class="row">
+            <div class="col-6">{{name.name}}</div>
+            <div class="col-6">{{secondsPast(name.ts)}}</div>
+          </div>
+        </li>
       </ol>
     </div>
   </div>
@@ -21,6 +26,25 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "NameQueue",
+  methods: {
+    secondsPast: function(ts) {
+      var d = new Date();
+      var seconds = d.getTime() / 1000;
+
+      var diff = Math.floor(seconds - ts);
+      let msg = "";
+      if (diff < 90) {
+        msg = " (" + diff + " sec)";
+      } else {
+        diff = Math.round(diff / 60);
+        msg = " (" + diff + " min)";
+      }
+
+      return msg;
+    },
+
+
+  },
   computed: {
     ...mapGetters(["allNames", "currentSong"]),
     errorClass: function() {
@@ -48,6 +72,7 @@ export default {
 }
 
 .name {
+  width: 300px;
   text-align: left;
 }
 
