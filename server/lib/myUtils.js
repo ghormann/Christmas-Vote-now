@@ -38,8 +38,6 @@ function updateHealthStatus() {
   let idle_time = (ts - dataModel.health.idleDate) / 1000;
   let last_scheduler_diff = (ts - dataModel.health.lastSchedulerDate) / 1000;
   // minutes
-  let lastNamePlay = (ts - dataModel.health.lastnamePlay) / 60000;
-  let lastNameGen = (ts - dataModel.health.lastnameGenereate) / 60000;
   let lastStats = (ts - dataModel.health.lastStats) / 60000;
   let showRunning = dataModel.schedulerStatus.isDisplayHours
 
@@ -49,10 +47,6 @@ function updateHealthStatus() {
     status = "NO_SCHEDULER_MSG";
   } else if (idle_time > 10 && showRunning) {
     status = "IDLE_ERROR";
-  } else if (lastNamePlay > 40 && showRunning) {
-    status = "NAME_PLAY_ERROR";
-  } else if (lastNameGen > 40 && showRunning) {
-    status = "NAME_GEN_ERROR";
   } else if (lastStats > 5) {
     status = "NO_STATS_ERROR";
   } else if (dataModel.schedulerStatus.status != "ALL_OK") {
