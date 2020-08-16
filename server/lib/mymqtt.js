@@ -44,6 +44,8 @@ var handlers = [
       datamodel.schedulerStatus = status;
       datamodel.current.isDisplayHours = datamodel.schedulerStatus.isDisplayHours;
       datamodel.health.lastSchedulerDate = moment().toDate();
+      datamodel.current.debug = status.debug; // Scheduler should be the master
+      datamodel.current.enabled = status.enabled; // Scheduler should be the master
     }
   },
   {
@@ -117,7 +119,7 @@ var handlers = [
       }
       console.log(
         "Changing debug to ",
-        datamodel.current.enabled,
+        datamodel.current.debug,
         " because of ",
         data
       );
