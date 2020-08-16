@@ -48,8 +48,13 @@ module.exports.stats = {
   topPlayedSongs_24hr: [],
   topPlayedSongs_year: []
 };
+module.exports.schedulerStatus = {
+  "status":"UNKNOWN",
+  "nameStatus":"IDLE"
+}
 module.exports.health = {
   idleDate: "",
+  lastSchedulerDate: "",
   lastFppDate: "",
   lastNameMqtt: "",
   lastnameGenereate: "",

@@ -38,6 +38,14 @@ var handlers = [
     },
   },
   {
+    topic: "/christmas/scheduler/status",
+    callback: function(topic, message) {
+      let status = JSON.parse(message.toString());
+      datamodel.schedulerStatus = status;
+      datamodel.health.lastSchedulerDate = moment().toDate();
+    }
+  },
+  {
     topic: "/christmas/scheduler/all_playlist",
     callback: function (topic, message) {
       let songs = JSON.parse(message.toString());
@@ -363,21 +371,21 @@ function addSongnameToSongs() {
     if (i.name in songByPlaylist) {
       i.title = songByPlaylist[i.name];
     } else {
-      i.title = myUtils.nonStandardPlaylistTitles(i.name);
+      i.title = "Unknown";
     }
   });
   datamodel.stats.topPlayedSongs_1hr.forEach(function (i) {
     if (i.name in songByPlaylist) {
       i.title = songByPlaylist[i.name];
     } else {
-      i.title = myUtils.nonStandardPlaylistTitles(i.name);
+      i.title = "Unknown";
     }
   });
   datamodel.stats.topPlayedSongs_24hr.forEach(function (i) {
     if (i.name in songByPlaylist) {
       i.title = songByPlaylist[i.name];
     } else {
-      i.title = myUtils.nonStandardPlaylistTitles(i.name);
+      i.title = "Unknown";
     }
   });
 }

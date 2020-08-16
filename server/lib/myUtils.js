@@ -29,29 +29,6 @@ function addRandomVotes() {
   sortSongs();
 }
 
-function nonStandardPlaylistTitles(playlist) {
-  if (playlist === "Driveway") {
-    return "Driveway Reminder";
-  } else if (playlist === "Intro") {
-    return "Welcome";
-  } else if (playlist === "TuneTo") {
-    return "Radio Station ID";
-  } else if (playlist === "off") {
-    return "Radio Only";
-  } else if (playlist === "Short_Show") {
-    return "Reduced Playlist";
-  } else if (playlist === "Wish_Name") {
-    return "Showing Names";
-  } else if (playlist === "Good_Night") {
-    return "Good Night";
-  } else if (playlist === "Midnight_Prep") {
-    return "Almost Midnight";
-  } else if (playlist === "Midnight") {
-    return "Merry Christmas";
-  }
-
-  return "Unknown";
-}
 
 function updateHealthStatus() {
   status = "ALL_OK";
@@ -59,6 +36,7 @@ function updateHealthStatus() {
   //seconds
   let last_fpp_diff = (ts - dataModel.health.lastFppDate) / 1000;
   let idle_time = (ts - dataModel.health.idleDate) / 1000;
+  let last_scheduler_diff = (ts - dataModel.health.lastSchedulerDate) / 1000;
   // minutes
   let lastNamePlay = (ts - dataModel.health.lastnamePlay) / 60000;
   let lastNameGen = (ts - dataModel.health.lastnameGenereate) / 60000;
@@ -67,6 +45,8 @@ function updateHealthStatus() {
 
   if (last_fpp_diff > 10) {
     status = "MQQT_ERROR";
+  } else if (last_scheduler_diff > 20) {
+    status = "NO_SCHEDULER_MSG";
   } else if (idle_time > 10 && showRunning) {
     status = "IDLE_ERROR";
   } else if (lastNamePlay > 40 && showRunning) {
@@ -124,4 +104,3 @@ module.exports.sortSongs = sortSongs;
 module.exports.addRandomVotes = addRandomVotes;
 module.exports.isDisplayHours = isDisplayHours;
 module.exports.updateHealthStatus = updateHealthStatus;
-module.exports.nonStandardPlaylistTitles = nonStandardPlaylistTitles;
