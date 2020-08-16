@@ -55,6 +55,8 @@ function updateHealthStatus() {
     status = "NAME_GEN_ERROR";
   } else if (lastStats > 5) {
     status = "NO_STATS_ERROR";
+  } else if (dataModel.schedulerStatus.status != "ALL_OK") {
+    status = dataModel.schedulerStatus.status;
   }
   dataModel.health.status = status;
 }
