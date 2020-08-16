@@ -56,7 +56,7 @@ function removeVote(id, songId) {
 }
 
 function clearAllVotes(force = false) {
-  if (myUtils.isDisplayHours() && ! force) {
+  if (datamodel.schedulerStatus.isDisplayHours && ! force) {
     return ; // Don't reset while display is running
   }
   console.log("Clearning all votes");

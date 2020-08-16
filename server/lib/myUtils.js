@@ -21,7 +21,7 @@ function addRandomVotes() {
       s.votes += 1;
     } else {
       let r = Math.floor(Math.random() * 10);
-      if (r < 7 && isDisplayHours()) {
+      if (r < 7 && dataModel.schedulerStatus.isDisplayHours) {
         s.votes += 1;
       }
     }
@@ -41,7 +41,7 @@ function updateHealthStatus() {
   let lastNamePlay = (ts - dataModel.health.lastnamePlay) / 60000;
   let lastNameGen = (ts - dataModel.health.lastnameGenereate) / 60000;
   let lastStats = (ts - dataModel.health.lastStats) / 60000;
-  let showRunning = isDisplayHours();
+  let showRunning = dataModel.schedulerStatus.isDisplayHours
 
   if (last_fpp_diff > 10) {
     status = "MQQT_ERROR";
@@ -104,5 +104,4 @@ function isDisplayHours() {
 
 module.exports.sortSongs = sortSongs;
 module.exports.addRandomVotes = addRandomVotes;
-module.exports.isDisplayHours = isDisplayHours;
 module.exports.updateHealthStatus = updateHealthStatus;

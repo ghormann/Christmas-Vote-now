@@ -50,7 +50,8 @@ module.exports.stats = {
 };
 module.exports.schedulerStatus = {
   "status":"UNKNOWN",
-  "nameStatus":"IDLE"
+  "nameStatus":"IDLE",
+  "isDisplayHours" : false
 }
 module.exports.health = {
   idleDate: "",

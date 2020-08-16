@@ -42,6 +42,7 @@ var handlers = [
     callback: function(topic, message) {
       let status = JSON.parse(message.toString());
       datamodel.schedulerStatus = status;
+      datamodel.current.isDisplayHours = datamodel.schedulerStatus.isDisplayHours;
       datamodel.health.lastSchedulerDate = moment().toDate();
     }
   },
