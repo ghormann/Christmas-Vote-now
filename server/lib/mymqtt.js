@@ -44,6 +44,8 @@ var handlers = [
       datamodel.schedulerStatus = status;
       datamodel.current.isDisplayHours = datamodel.schedulerStatus.isDisplayHours;
       datamodel.health.lastSchedulerDate = moment().toDate();
+      datamodel.health.lastnamePlay = status.lastNamePlay;
+      datamodel.health.lastnameGenereate= status.lastNameGen;
       datamodel.current.debug = status.debug; // Scheduler should be the master
       datamodel.current.enabled = status.enabled; // Scheduler should be the master
     }
@@ -58,12 +60,14 @@ var handlers = [
           if (oldSong.playlist === newSong.name) {
             found = true;
             oldSong.title = newSong.desc;
+            oldSong.shortlist = newSong.shortlist;
           }
         });
         if (!found) {
           // Need to add
           let song = createNewSong();
           song.title = newSong.desc;
+          song.shortlist = newSong.shortlist;
           song.playlist = newSong.name;
           myUtils.sortSongs();
           datamodel.songs.push(song);
