@@ -3,14 +3,14 @@
     <div class="outer">
       <h2>About The Display</h2>
       <p class="gjh-padded">
-        This will be our 19th year with a computer controlled Christmas Lights Display.
+        This will be our 20<sup>th</sup> year with a computer controlled Christmas Lights Display.
         This year we have 41,535 RGB bulbs that are synchronized to just over 30 minutes of music. Join us Christmas Eve
         as the neighborhood counts down to see the Clock hit zero.
       </p>
       <p class="gjh-padded">
-        Names you text to the display are checked against a database of common first names from the IRS. If your name isn't on that
+        Names supplied via text mesage are checked against a database of common first names from the IRS. If your name isn't on that
         list, there may be a delay in it appearing. Names are displayed below the clock soon after a text message is sent and are included
-        in the main display every 5-10 minutes depending on queue size.
+        in the main display every 8-12 minutes depending on queue size.
       </p>
       <p class="gjh-padded">
         Enjoying the display? Give us a like on
