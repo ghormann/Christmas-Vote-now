@@ -46,6 +46,7 @@ var handlers = [
       datamodel.health.lastSchedulerDate = moment().toDate();
       datamodel.health.lastnamePlay = status.lastNamePlay;
       datamodel.health.lastnameGenereate= status.lastNameGen;
+      datamodel.current.isShortList = status.shortList;
       datamodel.current.debug = status.debug; // Scheduler should be the master
       datamodel.current.enabled = status.enabled; // Scheduler should be the master
     }
