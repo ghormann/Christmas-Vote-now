@@ -1,5 +1,5 @@
 module.exports.songs = [];
-  /*
+/*
   {
     id: 1,
     title: "Dance of the Sugar Plum Fairy",
@@ -12,18 +12,18 @@ module.exports.songs = [];
 module.exports.nameQueue = [
   {
     id: 1,
-    name: "Test name #1"
+    name: "Test name #1",
   },
   {
     id: 2,
-    name: "Test name #2"
-  }
+    name: "Test name #2",
+  },
 ];
 
 module.exports.clock = {
   time: 9999999,
   startedPrep: false,
-  startedMidnight: false
+  startedMidnight: false,
 };
 
 module.exports.current = {
@@ -35,7 +35,7 @@ module.exports.current = {
   isDisplayHours: false,
   isShortList: false,
   enabled: true,
-  debug: false
+  debug: false,
 };
 module.exports.stats = {
   topNames_1hr: [],
@@ -46,20 +46,30 @@ module.exports.stats = {
   topSongs_year: [],
   topPlayedSongs_1hr: [],
   topPlayedSongs_24hr: [],
-  topPlayedSongs_year: []
+  topPlayedSongs_year: [],
 };
+
+module.exports.powerStats = {
+  hours: 12.984722222222222,
+  avgWatt: 257.7378189025445,
+  kwh: 3.346653984610956,
+  dollars: 0.2878122426765422,
+  cnt: 46745,
+};
+
 module.exports.schedulerStatus = {
-  "status":"UNKNOWN",
-  "nameStatus":"IDLE",
-  "isDisplayHours" : false
-}
+  status: "UNKNOWN",
+  nameStatus: "IDLE",
+  isDisplayHours: false,
+};
 module.exports.health = {
   idleDate: "",
   lastSchedulerDate: "",
   lastFppDate: "",
   lastNameMqtt: "",
+  lastPowerStats: "",
   lastnameGenereate: "",
   lastnamePlay: "",
   status: "UNKNOWN",
-  lastStats: ""
+  lastStats: "",
 };

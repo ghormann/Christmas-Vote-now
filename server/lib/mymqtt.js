@@ -39,17 +39,18 @@ var handlers = [
   },
   {
     topic: "/christmas/scheduler/status",
-    callback: function(topic, message) {
+    callback: function (topic, message) {
       let status = JSON.parse(message.toString());
       datamodel.schedulerStatus = status;
-      datamodel.current.isDisplayHours = datamodel.schedulerStatus.isDisplayHours;
+      datamodel.current.isDisplayHours =
+        datamodel.schedulerStatus.isDisplayHours;
       datamodel.health.lastSchedulerDate = moment().toDate();
       datamodel.health.lastnamePlay = status.lastNamePlay;
-      datamodel.health.lastnameGenereate= status.lastNameGen;
+      datamodel.health.lastnameGenereate = status.lastNameGen;
       datamodel.current.isShortList = status.shortList;
       datamodel.current.debug = status.debug; // Scheduler should be the master
       datamodel.current.enabled = status.enabled; // Scheduler should be the master
-    }
+    },
   },
   {
     topic: "/christmas/scheduler/all_playlist",
@@ -81,6 +82,14 @@ var handlers = [
     callback: function (topic, message) {
       let data = parseInt(message.toString());
       datamodel.clock.time = data;
+    },
+  },
+  {
+    topic: "/christmas/todayPower",
+    callback: function (topic, message) {
+      let data = JSON.parse(message.toString());
+      datamodel.powerStats = data;
+      datamodel.health.lastPowerStats = moment().toDate();
     },
   },
   {
@@ -177,7 +186,7 @@ var handlers = [
 function createNewSong() {
   let id = 0;
   datamodel.songs.forEach(function (s) {
-    s.votes = s.votes  + 1;
+    s.votes = s.votes + 1;
     if (s.id > id) {
       id = s.id;
     }
@@ -194,14 +203,14 @@ function createNewSong() {
 }
 
 function requestSongList() {
-  // If songs are not here, schedule another check. 
-  if (datamodel.songs.length == 0 ) {
+  // If songs are not here, schedule another check.
+  if (datamodel.songs.length == 0) {
     console.log("WARNING: No avaiable songs");
     setTimeout(requestSongList, 1500);
-  } 
+  }
   let topic = "/christmas/scheduler/requestSongs";
   let msg = "1";
-  client.publish(topic, msg, function(err) {
+  client.publish(topic, msg, function (err) {
     if (err) {
       console.log("Unalbe to publish Reqeust for new SOngs");
     }
