@@ -47,6 +47,29 @@ module.exports.stats = {
   topPlayedSongs_1hr: [],
   topPlayedSongs_24hr: [],
   topPlayedSongs_year: [],
+  songPower_1hr: [],
+  songPower_24hr: [],
+  totalPower_1hr: {
+    wattSeconds: 0.0,
+    minutes: 0.8,
+    kwh: 0.0,
+    dollars: 0.0,
+    avgWatt: 0.0,
+  },
+  totalPower_24hr: {
+    wattSeconds: 0.0,
+    minutes: 0.8,
+    kwh: 0.0,
+    dollars: 0.0,
+    avgWatt: 0.0,
+  },
+  totalPower_year: {
+    wattSeconds: 0.0,
+    minutes: 0.8,
+    kwh: 0.0,
+    dollars: 0.0,
+    avgWatt: 0.0,
+  },
 };
 
 module.exports.powerStats = {
