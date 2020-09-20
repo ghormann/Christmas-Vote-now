@@ -16,7 +16,7 @@ module.exports = [
         datamodel.songs.forEach(e => {
           if (e.id == id) {
             e.votes = e.votes + 1;
-            mymqtt.sendVote(id,key);
+            mymqtt.sendVote(e,key);
             console.log("Incrementing: " + e.title + " to " + e.votes);
             myUtils.sortSongs();
           }

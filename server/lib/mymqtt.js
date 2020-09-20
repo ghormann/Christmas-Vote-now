@@ -217,10 +217,11 @@ function requestSongList() {
   });
 }
 
-function sendVote(id, session) {
+function sendVote(song, session) {
   let topic = "/christmas/vote/add";
   let msg = JSON.stringify({
-    id: id,
+    id: song.id,
+    playlist: song.playlist,
     source: session,
   });
   client.publish(topic, msg, function (err) {
