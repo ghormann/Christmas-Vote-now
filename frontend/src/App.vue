@@ -17,11 +17,11 @@
       v-bind:class="showMe"
     >
       <b-tab title="Vote" active>
-        <TodayPower />
         <CurrentSong />
         <ShowHours />
         <AvailSongList />
         <OldSongList />
+        <TodayPower />
         <LastUpdated />
       </b-tab>
       <b-tab @click="clickTab('NameQueue')" title="Name Queue">
