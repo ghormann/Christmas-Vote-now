@@ -2,7 +2,13 @@
   <div>
     <div class="outer gjh-padded">
       <h1>Statistics</h1>
-      <div>So you like statistics? So do we... The statistics are refreshed every few minutes.</div>
+      <div class="stats-intro">
+        <div class="stats-intro-inner">
+          So you like statistics? So do we... For example,
+          <TodayPower />
+          <p style="margin-top:1em;">Here are some statistics as of {{health.lastStatsTime}}:</p>
+        </div>
+      </div>
       <div style="display:flex;justify-content: center;">
         <ul style="text-align:left">
           <li>
@@ -19,9 +25,6 @@
           </li>
         </ul>
       </div>
-      <p>
-        <i>Stats Updated: {{health.lastStatsTime}}</i>
-      </p>
     </div>
     <div class="outer">
       <h1>
@@ -73,6 +76,7 @@ import { mapGetters } from "vuex";
 import VoteStat from "./stats/VoteStat.vue";
 import NameStat from "./stats/NameStat.vue";
 import PlayedSongStat from "./stats/PlayedSongStat.vue";
+import TodayPower from "./TodayPower.vue";
 import UniqueVoters from "./stats/UniqueVoters.vue";
 
 export default {
@@ -81,9 +85,10 @@ export default {
     VoteStat,
     NameStat,
     PlayedSongStat,
-    UniqueVoters
+    UniqueVoters,
+    TodayPower,
   },
-  computed: mapGetters(["health", "stats"])
+  computed: mapGetters(["health", "stats"]),
 };
 </script>
 
@@ -134,6 +139,13 @@ h3 {
 hr {
   border: 0.1rem solid gray;
   width: 85%;
+}
+.stats-intro-inner {
+  max-width: 350px;
+}
+.stats-intro {
+  display: flex;
+  justify-content: center;
 }
 </style>
 

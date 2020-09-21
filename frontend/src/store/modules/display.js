@@ -11,26 +11,26 @@ const state = {
     {
       id: 1,
       title: "Loading.....",
-      votes: 0
-    }
+      votes: 0,
+    },
   ],
   nameQueue: [
     {
       id: 1,
-      name: "Greg"
+      name: "Greg",
     },
     {
       id: 2,
-      name: "Matt"
-    }
+      name: "Matt",
+    },
   ],
   health: {
-    "idleDate":"2019-10-12T15:35:33.339Z",
-    "lastFppDate":"2019-10-12T15:35:33.339Z",
-    "lastNameMqtt":"2019-10-12T15:35:32.983Z",
-    "lastnameGenereate":"2019-10-12T15:34:15.796Z",
-    "lastnamePlay":"2019-10-12T15:34:15.796Z",
-    "status":"ALL_OK"
+    idleDate: "2019-10-12T15:35:33.339Z",
+    lastFppDate: "2019-10-12T15:35:33.339Z",
+    lastNameMqtt: "2019-10-12T15:35:32.983Z",
+    lastnameGenereate: "2019-10-12T15:34:15.796Z",
+    lastnamePlay: "2019-10-12T15:34:15.796Z",
+    status: "ALL_OK",
   },
   stats: {
     pNames_1hr: [],
@@ -41,7 +41,14 @@ const state = {
     topSongs_year: [],
     topPlayedSongs_1hr: [],
     topPlayedSongs_24hr: [],
-    topPlayedSongs_year: []
+    topPlayedSongs_year: [],
+  },
+  powerStats: {
+    hours: 23.245833333333334,
+    avgWatt: 266.26108066633293,
+    kwh: 6.189460704322797,
+    dollars: 0.5322936205717604,
+    cnt: 83685,
   },
   current: {
     status: "idle",
@@ -50,27 +57,29 @@ const state = {
     secondsRemaining: -1,
     isDisplayHours: false,
     isShortList: false,
-    title: ""
+    title: "",
   },
   lastMessage: "OK",
   votesRemaining: 8,
   lastUpdated: "Never",
-  lastUpdatedTime: "Never"
+  lastUpdatedTime: "Never",
 };
 
 const getters = {
-  allAvailSongs: state => state.availSongs.filter(s => s.votes >= 10),
-  allOldSongs: state => state.availSongs.filter(s => (s.votes < 10 && s.votes > -100)),
-  allDisabledSongs: state => state.availSongs.filter(s => (s.votes < -100)),
-  allNames: state => state.nameQueue,
-  currentSong: state => state.current,
-  votesRemaining: state => state.votesRemaining,
-  lastMessage: state => state.lastMessage,
-  lastUpdated: state => state.lastUpdated,
-  lastUpdatedTime: state => state.lastUpdatedTime,
-  stats: state => state.stats,
-  lastStats: state => state.lastStats,
-  health: state => state.health
+  allAvailSongs: (state) => state.availSongs.filter((s) => s.votes >= 10),
+  allOldSongs: (state) =>
+    state.availSongs.filter((s) => s.votes < 10 && s.votes > -100),
+  allDisabledSongs: (state) => state.availSongs.filter((s) => s.votes < -100),
+  allNames: (state) => state.nameQueue,
+  currentSong: (state) => state.current,
+  votesRemaining: (state) => state.votesRemaining,
+  lastMessage: (state) => state.lastMessage,
+  lastUpdated: (state) => state.lastUpdated,
+  lastUpdatedTime: (state) => state.lastUpdatedTime,
+  stats: (state) => state.stats,
+  powerStats: (state) => state.powerStats,
+  lastStats: (state) => state.lastStats,
+  health: (state) => state.health,
 };
 
 const actions = {
@@ -90,7 +99,7 @@ const actions = {
 
     await client.connect();
 
-    client.onUpdate = update => {
+    client.onUpdate = (update) => {
       commit("setPublic", update);
     };
   },
@@ -111,7 +120,7 @@ const actions = {
     //let r = await axios.delete('http://localhost:7654/vote/' + id);
     commit("setSongs", r.data);
     commit("setPublic", r.data.model);
-  }
+  },
 };
 
 const mutations = {
@@ -122,19 +131,24 @@ const mutations = {
     state.current = input.current;
     state.health = input.health;
     state.stats = input.stats;
+    state.powerStats = input.powerStats;
     state.lastUpdated = new Date();
     state.lastUpdatedTime = moment().format("LTS");
     state.health.lastStatsTime = moment(input.health.lastStats).format("LTS");
+
+    // Fix formatting
+    state.powerStats.kwh = Math.round(state.powerStats.kwh * 100) / 100;
+    state.powerStats.dollars = Math.round(state.powerStats.dollars * 100) / 100;
   },
   setSongs: (state, input) => {
     state.votesRemaining = input.votesRemaining.remaining;
     state.lastMessage = input.votesRemaining.status;
-  }
+  },
 };
 
 export default {
   state,
   getters,
   actions,
-  mutations
+  mutations,
 };
