@@ -363,19 +363,19 @@ function init() {
 }
 
 function addSongnameToVotes() {
-  let songById = [];
+  let songByPlaylist = {};
   datamodel.songs.forEach(function (s) {
-    songById[s.id] = s.title;
+    songByPlaylist[s.playlist] = s.title;
   });
 
   datamodel.stats.topSongs_1hr.forEach(function (i) {
-    i.title = songById[i.id];
+    i.title = songByPlaylist[i.playlist];
   });
   datamodel.stats.topSongs_24hr.forEach(function (i) {
-    i.title = songById[i.id];
+    i.title = songByPlaylist[i.playlist];
   });
   datamodel.stats.topSongs_year.forEach(function (i) {
-    i.title = songById[i.id];
+    i.title = songByPlaylist[i.playlist];
   });
 }
 
