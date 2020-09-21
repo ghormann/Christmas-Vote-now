@@ -10,18 +10,18 @@
         </div>
       </div>
       <div style="display:flex;justify-content: center;">
-        <ul style="text-align:left">
+        <ul style="text-align:left;min-width:280px">
           <li>
-            <a href="#VotedSongs">Top Voted Songs</a>
+            <a href="#VotedSongs">Top&nbsp;Voted&nbsp;Songs</a>
           </li>
           <li>
-            <a href="#PlayedSongs">Most Played Songs</a>
+            <a href="#PlayedSongs">Most&nbsp;Played&nbsp;Songs</a>
           </li>
           <li>
-            <a href="#TopNames">Most Requested Names</a>
+            <a href="#TopNames">Most&nbsp;Requested&nbsp;Names</a>
           </li>
           <li>
-            <a href="#UniqueVoters">Number of Unique Voters</a>
+            <a href="#UniqueVoters">#&nbsp;of&nbsp;Unique&nbsp;Voters</a>
           </li>
         </ul>
       </div>
@@ -141,7 +141,7 @@ hr {
   width: 85%;
 }
 .stats-intro-inner {
-  max-width: 350px;
+  max-width: 500px;
 }
 .stats-intro {
   display: flex;
