@@ -21,9 +21,11 @@
         <ShowHours />
         <AvailSongList />
         <OldSongList />
+        <LastUpdated />
       </b-tab>
       <b-tab @click="clickTab('NameQueue')" title="Name Queue">
         <NameQueue />
+        <LastUpdated />
       </b-tab>
       <b-tab title="Info" @click="clickTab('Info')">
         <InfoTab />
@@ -32,7 +34,6 @@
         <Stats />
       </b-tab>
     </b-tabs>
-    <LastUpdated />
     <CoolDisplaysLogo />
     <div>
       Learn more at
@@ -56,7 +57,7 @@ import GlobalStatus from "./components/GlobalStatus.vue";
 import Stats from "./components/Stats.vue";
 export default {
   name: "app",
-  beforeCreate: function() {
+  beforeCreate: function () {
     document.body.className = "body-gjh";
   },
   components: {
@@ -69,24 +70,24 @@ export default {
     Stats,
     ShowHours,
     GlobalStatus,
-    InfoTab
+    InfoTab,
   },
-  mounted: function() {
+  mounted: function () {
     this.$ga.page("/");
   },
   computed: {
     ...mapGetters(["currentSong"]),
-    showMe: function() {
+    showMe: function () {
       return {
-        "d-none": !this.currentSong.enabled
+        "d-none": !this.currentSong.enabled,
       };
-    }
+    },
   },
   methods: {
-    clickTab: function(name) {
-      this.$ga.event('Tabs', name, 'click', 123);
-    }
-  }
+    clickTab: function (name) {
+      this.$ga.event("Tabs", name, "click", 123);
+    },
+  },
 };
 </script>
 
