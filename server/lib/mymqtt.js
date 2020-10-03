@@ -377,6 +377,13 @@ function addSongnameToVotes() {
   datamodel.stats.topSongs_year.forEach(function (i) {
     i.title = songByPlaylist[i.playlist];
   });
+  datamodel.stats.songPower_1hr.forEach(function (i) {
+    i.title = songByPlaylist[i.song];
+  });
+  datamodel.stats.songPower_24hr.forEach(function (i) {
+    i.title = songByPlaylist[i.song];
+  });
+
 }
 
 function addSongnameToSongs() {
