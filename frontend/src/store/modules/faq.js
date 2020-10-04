@@ -26,7 +26,7 @@ const state = {
       id2: "B3",
       question: "How much does it cost you to do this?",
       answer:
-        "The impact on our electric bill is relativity small as we are using all LED light bulbs. ($100 for the year.)  For everything we've invested over the last 20 years, lets just say we could have purchased a very nice new vehicle instead..."
+        "The impact on our electric bill is relativity small as we are using all LED light bulbs. (See the stats tab for total electrical spend this year.)  For all the electronics and hardware we've build up over the last 20 years, lets just say we could have purchased a very nice new mini-van instead..."
     },
     {
       id: "A3.1",
@@ -52,7 +52,7 @@ const state = {
       id2: "B6",
       question: "Where do you store everything?",
       answer:
-        "We have an unfinished basement that becomes fill up with 50 27 gallon storage containers and a wall of custom shelving for the small trees and starts in the yard.  In addition, The larger items fill up one 1/2 of the garage."
+        "We have an unfinished basement that becomes fill up with fifty 27 gallon storage containers and a wall of custom shelving for the small trees and stars in the yard.  In addition, The larger items fill up one 1/2 of the garage."
     }
   ]
 };
