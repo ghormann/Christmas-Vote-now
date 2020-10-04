@@ -49,6 +49,7 @@ module.exports.stats = {
   topPlayedSongs_year: [],
   songPower_1hr: [],
   songPower_24hr: [],
+  songPower_year: [],
   totalPower_1hr: {
     wattSeconds: 0.0,
     minutes: 0.8,
