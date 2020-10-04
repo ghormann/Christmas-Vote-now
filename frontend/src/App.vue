@@ -21,7 +21,6 @@
         <ShowHours />
         <AvailSongList />
         <OldSongList />
-        <TodayPower />
         <LastUpdated />
       </b-tab>
       <b-tab @click="clickTab('NameQueue')" title="Name Queue">
@@ -56,7 +55,6 @@ import ShowHours from "./components/ShowHours.vue";
 import InfoTab from "./components/InfoTab.vue";
 import GlobalStatus from "./components/GlobalStatus.vue";
 import Stats from "./components/Stats.vue";
-import TodayPower from "./components/TodayPower.vue";
 export default {
   name: "app",
   beforeCreate: function () {
@@ -73,7 +71,6 @@ export default {
     ShowHours,
     GlobalStatus,
     InfoTab,
-    TodayPower,
   },
   mounted: function () {
     this.$ga.page("/");
