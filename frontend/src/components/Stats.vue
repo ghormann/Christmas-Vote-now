@@ -4,9 +4,8 @@
       <h1>Statistics</h1>
       <div class="stats-intro">
         <div class="stats-intro-inner">
-          So you like statistics? So do we... For example,
           <TodayPower />
-          <p style="margin-top:1em;">Here are some other statistics as of {{health.lastStatsTime}}:</p>
+          <p style="margin-top:1em;">Want more Statistics? We got them! Here is some other interesting data as of {{health.lastStatsTime}}:</p>
         </div>
       </div>
       <div style="display:flex;justify-content: center;">

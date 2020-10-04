@@ -139,6 +139,11 @@ const mutations = {
     // Fix formatting
     state.powerStats.kwh = Math.round(state.powerStats.kwh * 100) / 100;
     state.powerStats.dollars = Math.round(state.powerStats.dollars * 100) / 100;
+
+    state.stats.totalPower_year.kwh = Math.round(state.stats.totalPower_year.kwh * 100) / 100;
+    state.stats.totalPower_year.dollars = Math.round(state.stats.totalPower_year.dollars * 100) / 100;
+    state.stats.totalPower_year.avgWatt = Math.round(state.stats.totalPower_year.avgWatt * 100) / 100;
+
   },
   setSongs: (state, input) => {
     state.votesRemaining = input.votesRemaining.remaining;
