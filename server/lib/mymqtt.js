@@ -53,6 +53,33 @@ var handlers = [
     },
   },
   {
+    topic: "/christmas/snowman/status",
+    callback: function (topic, message) {
+      let data = JSON.parse(message.toString());
+      data.available.forEach(function (newWho) {
+        let found = false;
+        datamodel.snowmenQueue.forEach(function (oldWho) {
+          if (oldWho.id === newWho.id) {
+            found = true;
+            oldWho.name = newWho.name;
+          }
+        });
+        if (!found) {
+          newWho.votes = 0;
+          console.log("Creating", newWho);
+          datamodel.snowmenQueue.push(newWho);
+        }
+      });
+
+      if (datamodel.current.snowman != data.current) {
+        datamodel.current.snowman = data.current;
+        console.log("Reset snowman votes");
+        myUtils.clearSnowmanVotes();
+        session.clearVotesForSnowmen();
+      }
+    },
+  },
+  {
     topic: "/christmas/scheduler/all_playlist",
     callback: function (topic, message) {
       let songs = JSON.parse(message.toString());
@@ -244,6 +271,18 @@ function sendSongQueue() {
   });
 }
 
+function sendSnowmenQueue() {
+  let topic = "/christmas/vote/snowmenQueue";
+  let msg = JSON.stringify(datamodel.snowmenQueue);
+
+  client.publish(topic, msg, function (err) {
+    if (err) {
+      console.log("Error Publishing snowmenQueue to " + topic);
+      console.log(err);
+    }
+  });
+}
+
 function sendName(name) {
   console.log("Adding name to the queue " + name);
   let topic = "/christmas/personsName";
@@ -333,6 +372,7 @@ function init() {
   };
 
   setInterval(sendSongQueue, 2000);
+  setInterval(sendSnowmenQueue, 2000);
 
   client = mqtt.connect(options);
   client.on("connect", function () {
@@ -383,7 +423,6 @@ function addSongnameToVotes() {
   datamodel.stats.songPower_24hr.forEach(function (i) {
     i.title = songByPlaylist[i.song];
   });
-
 }
 
 function addSongnameToSongs() {
@@ -418,3 +457,4 @@ function addSongnameToSongs() {
 module.exports.init = init;
 module.exports.addCallback = addCallback;
 module.exports.sendVote = sendVote;
+module.exports.sendSongQueue = sendSongQueue;

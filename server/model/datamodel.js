@@ -1,3 +1,4 @@
+module.exports.snowmenQueue=[];
 module.exports.songs = [];
 /*
   {
@@ -28,6 +29,7 @@ module.exports.clock = {
 
 module.exports.current = {
   status: "Undefined",
+  snowman: "Unknown",
   nameStatus: "Undefined",
   secondsTotal: -1,
   secondsRemaining: -1,
