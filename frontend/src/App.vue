@@ -22,6 +22,7 @@
         <AvailSongList />
         <OldSongList />
         <LastUpdated />
+        <Snowmen />
       </b-tab>
       <b-tab @click="clickTab('NameQueue')" title="Name Queue">
         <NameQueue />
@@ -37,7 +38,9 @@
     <CoolDisplaysLogo />
     <div>
       Learn more at
-      <a href="http://thehormanns.net/new/christmas.phtml">http://thehormanns.net</a>
+      <a href="http://thehormanns.net/new/christmas.phtml"
+        >http://thehormanns.net</a
+      >
     </div>
   </div>
 </template>
@@ -46,6 +49,7 @@
 import { mapGetters } from "vuex";
 
 import AvailSongList from "./components/AvailSongList.vue";
+import Snowmen from "./components/Snowmen.vue";
 import OldSongList from "./components/OldSongList.vue";
 import NameQueue from "./components/NameQueue.vue";
 import CoolDisplaysLogo from "./components/CoolDisplaysLogo.vue";
@@ -62,6 +66,7 @@ export default {
   },
   components: {
     AvailSongList,
+    Snowmen,
     OldSongList,
     NameQueue,
     CurrentSong,

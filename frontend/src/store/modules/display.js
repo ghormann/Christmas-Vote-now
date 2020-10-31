@@ -24,6 +24,8 @@ const state = {
       name: "Matt",
     },
   ],
+  snowmenQueue: [],
+  mySnowmen: -1,
   health: {
     idleDate: "2019-10-12T15:35:33.339Z",
     lastFppDate: "2019-10-12T15:35:33.339Z",
@@ -71,8 +73,10 @@ const getters = {
     state.availSongs.filter((s) => s.votes < 10 && s.votes > -100),
   allDisabledSongs: (state) => state.availSongs.filter((s) => s.votes < -100),
   allNames: (state) => state.nameQueue,
+  allSnowmen: (state) => state.snowmenQueue,
   currentSong: (state) => state.current,
   votesRemaining: (state) => state.votesRemaining,
+  mySnowmen: (state) => state.mySnowmen,
   lastMessage: (state) => state.lastMessage,
   lastUpdated: (state) => state.lastUpdated,
   lastUpdatedTime: (state) => state.lastUpdatedTime,
@@ -115,6 +119,12 @@ const actions = {
     commit("setSongs", r.data);
     commit("setPublic", r.data.model);
   },
+  async addSnowmanVote({ commit }, id) {
+    let r = await axios.post("https://vote-now.org/api/votesnowman/" + id);
+    //let r = await axios.get('http://localhost:7654/votesnowman/' + id);
+    commit("setSongs", r.data);
+    commit("setPublic", r.data.model);
+  },
   async removeVote({ commit }, id) {
     let r = await axios.delete("https://vote-now.org/api/vote/" + id);
     //let r = await axios.delete('http://localhost:7654/vote/' + id);
@@ -126,6 +136,7 @@ const actions = {
 const mutations = {
   setPublic: (state, input) => {
     state.availSongs = input.songs;
+    state.snowmenQueue = input.snowmenQueue
     state.oldSongs = input.oldSongs;
     state.nameQueue = input.nameQueue;
     state.current = input.current;
@@ -139,11 +150,11 @@ const mutations = {
     // Fix formatting
     state.powerStats.kwh = Math.round(state.powerStats.kwh * 100) / 100;
     state.powerStats.dollars = Math.round(state.powerStats.dollars * 100) / 100;
-
   },
   setSongs: (state, input) => {
     state.votesRemaining = input.votesRemaining.remaining;
     state.lastMessage = input.votesRemaining.status;
+    state.mySnowmen = input.votesRemaining.snowmanId;
   },
 };
 
