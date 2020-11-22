@@ -7,9 +7,15 @@ function sortSongs() {
   });
 }
 
+// First sort by votes
+// If votes equal, make sure SNowman is first by default
+// Then sort by name.
 function sortSnowmen() {
   dataModel.snowmenQueue.sort(function (a, b) {
     if (b.votes == a.votes) {
+      if (b.id == 0 || a.id == 0) {
+        return a.id - b.id;
+      }
       return a.name.localeCompare(b.name);
     }
     return b.votes - a.votes;
