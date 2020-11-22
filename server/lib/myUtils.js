@@ -10,10 +10,20 @@ function sortSongs() {
 function sortSnowmen() {
   dataModel.snowmenQueue.sort(function (a, b) {
     if (b.votes == a.votes) {
-      return a.id - b.id;
+      return a.name.localeCompare(b.name);
     }
     return b.votes - a.votes;
   });
+}
+
+function findSnowmanName(id) {
+  let answer = "Unknown"
+  dataModel.snowmenQueue.forEach(function (e) {
+    if (e.id == id) {
+      answer = e.name;
+    }
+  });
+  return answer;
 }
 
 function addRandomVotes() {
@@ -80,3 +90,4 @@ module.exports.sortSongs = sortSongs;
 module.exports.addRandomVotes = addRandomVotes;
 module.exports.updateHealthStatus = updateHealthStatus;
 module.exports.sortSnowmen = sortSnowmen;
+module.exports.findSnowmanName = findSnowmanName;

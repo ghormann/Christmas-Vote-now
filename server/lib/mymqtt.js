@@ -248,6 +248,7 @@ function sendSnowmanVote(id, session) {
   let topic = "/christmas/snowmanvote/add";
   let msg = JSON.stringify({
     id: id,
+    name: myUtils.findSnowmanName(id),
     source: session,
   });
   client.publish(topic, msg, function (err) {
