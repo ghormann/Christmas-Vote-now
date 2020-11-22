@@ -12,6 +12,8 @@ module.exports = [
       let key = session.checkSession(request);
       let id = parseInt(request.params.id);
       let votes = session.addSnowmanVote(key, id);
+      mymqtt.sendSnowmanVote(id,key);
+
 
       request.server.broadcast(datamodel);
       return {

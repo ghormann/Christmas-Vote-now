@@ -244,6 +244,21 @@ function requestSongList() {
   });
 }
 
+function sendSnowmanVote(id, session) {
+  let topic = "/christmas/snowmanvote/add";
+  let msg = JSON.stringify({
+    id: id,
+    source: session,
+  });
+  client.publish(topic, msg, function (err) {
+    if (err) {
+      console.log("Error Publishing to " + topic);
+      console.log(err);
+    }
+  });
+
+}
+
 function sendVote(song, session) {
   let topic = "/christmas/vote/add";
   let msg = JSON.stringify({
@@ -458,3 +473,4 @@ module.exports.init = init;
 module.exports.addCallback = addCallback;
 module.exports.sendVote = sendVote;
 module.exports.sendSongQueue = sendSongQueue;
+module.exports.sendSnowmanVote = sendSnowmanVote;
