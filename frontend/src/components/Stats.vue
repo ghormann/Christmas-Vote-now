@@ -14,6 +14,9 @@
             <a href="#VotedSongs">Top&nbsp;Voted&nbsp;Songs</a>
           </li>
           <li>
+            <a href="#VotedSnowmen">Top&nbsp;Voted&nbsp;Snowmen</a> 
+          </li>
+          <li>
             <a href="#PlayedSongs">Most&nbsp;Played&nbsp;Songs</a>
           </li>
           <li>
@@ -30,6 +33,9 @@
         <a name="VotedSongs">Top Voted Songs</a>
       </h1>
       <hr />
+      <VoteStat title="Last 15 Min" v-bind:myData="stats.topSongs_15min" />
+      <br />
+      <br />
       <VoteStat title="Last Hour" v-bind:myData="stats.topSongs_1hr" />
       <br />
       <br />
@@ -37,6 +43,19 @@
       <br />
       <br />
       <VoteStat title="This Year" v-bind:myData="stats.topSongs_year" />
+    </div>
+    <div class="outer">
+      <h1>
+        <a name="VotedSnowmen">Top Voted Snowmen</a>
+      </h1>
+      <hr />
+      <SnowmenVoteStat title="Last Hour" v-bind:myData="stats.topSnowmen_1hr" />
+      <br />
+      <br />
+      <SnowmenVoteStat title="Last 24 hours" v-bind:myData="stats.topSnowmen_24hr" />
+      <br />
+      <br />
+      <SnowmenVoteStat title="This Year" v-bind:myData="stats.topSnowmen_year" />
     </div>
     <div class="outer">
       <h1>
@@ -73,6 +92,7 @@
 <script>
 import { mapGetters } from "vuex";
 import VoteStat from "./stats/VoteStat.vue";
+import SnowmenVoteStat from "./stats/SnowmenVoteStats.vue";
 import NameStat from "./stats/NameStat.vue";
 import PlayedSongStat from "./stats/PlayedSongStat.vue";
 import TodayPower from "./TodayPower.vue";
@@ -86,6 +106,7 @@ export default {
     PlayedSongStat,
     UniqueVoters,
     TodayPower,
+    SnowmenVoteStat,
   },
   computed: mapGetters(["health", "stats"]),
 };
