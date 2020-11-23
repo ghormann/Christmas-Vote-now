@@ -21,8 +21,8 @@
         <ShowHours />
         <AvailSongList />
         <OldSongList />
-        <LastUpdated />
         <Snowmen />
+        <LastUpdated />
       </b-tab>
       <b-tab @click="clickTab('NameQueue')" title="Name Queue">
         <NameQueue />
