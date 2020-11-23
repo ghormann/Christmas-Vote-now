@@ -424,6 +424,9 @@ function addSongnameToVotes() {
     songByPlaylist[s.playlist] = s.title;
   });
 
+  datamodel.stats.topSongs_15min.forEach(function (i) {
+    i.title = songByPlaylist[i.playlist];
+  });
   datamodel.stats.topSongs_1hr.forEach(function (i) {
     i.title = songByPlaylist[i.playlist];
   });
@@ -446,6 +449,7 @@ function addSongnameToSongs() {
   datamodel.songs.forEach(function (s) {
     songByPlaylist[s.playlist] = s.title;
   });
+  
 
   datamodel.stats.topPlayedSongs_year.forEach(function (i) {
     if (i.name in songByPlaylist) {
