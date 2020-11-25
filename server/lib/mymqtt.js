@@ -73,6 +73,8 @@ var handlers = [
 
       if (datamodel.current.snowman != data.current) {
         datamodel.current.snowman = data.current;
+      }
+      if (data.reset) {
         console.log("Reset snowman votes");
         myUtils.clearSnowmanVotes();
         session.clearVotesForSnowmen();
