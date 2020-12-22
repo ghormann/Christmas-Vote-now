@@ -25,6 +25,9 @@
           <li>
             <a href="#UniqueVoters">#&nbsp;of&nbsp;Unique&nbsp;Voters</a>
           </li>
+          <li>
+            <a href="#UniquePhone">#&nbsp;of&nbsp;Phones&nbsp;adding&nbsp;name</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -87,6 +90,14 @@
       <hr />
       <UniqueVoters v-bind:myData="stats.topVoters" />
     </div>
+    <div class="outer">
+      <h1 id="UniquePhoneHeader" >
+        <a name="UniquePhone">Unique # of Phones</a>
+      </h1>
+      <i>(That requested a name)</i>
+      <hr />
+      <UniquePhones v-bind:myData="stats.topPhones" />
+    </div>
   </div>
 </template>
 <script>
@@ -97,6 +108,7 @@ import NameStat from "./stats/NameStat.vue";
 import PlayedSongStat from "./stats/PlayedSongStat.vue";
 import TodayPower from "./TodayPower.vue";
 import UniqueVoters from "./stats/UniqueVoters.vue";
+import UniquePhones from "./stats/UniquePhones.vue";
 
 export default {
   name: "Stats",
@@ -107,6 +119,7 @@ export default {
     UniqueVoters,
     TodayPower,
     SnowmenVoteStat,
+    UniquePhones,
   },
   computed: mapGetters(["health", "stats"]),
 };
@@ -166,6 +179,9 @@ hr {
 .stats-intro {
   display: flex;
   justify-content: center;
+}
+#UniquePhoneHeader {
+  margin-bottom: 0px;
 }
 </style>
 
