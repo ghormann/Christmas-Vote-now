@@ -24,7 +24,7 @@
         <Snowmen />
         <LastUpdated />
       </b-tab>
-      <b-tab @click="clickTab('NameQueue')" title="Name Queue">
+      <b-tab @click="clickTab('NameQueue')" title="Names">
         <NameQueue />
         <LastUpdated />
       </b-tab>
@@ -33,6 +33,9 @@
       </b-tab>
       <b-tab title="Stats" @click="clickTab('Stats')">
         <Stats />
+      </b-tab>
+      <b-tab title="Other" @click="clickTab('Other')">
+        <OtherDisplays />
       </b-tab>
     </b-tabs>
     <CoolDisplaysLogo />
@@ -59,6 +62,7 @@ import ShowHours from "./components/ShowHours.vue";
 import InfoTab from "./components/InfoTab.vue";
 import GlobalStatus from "./components/GlobalStatus.vue";
 import Stats from "./components/Stats.vue";
+import OtherDisplays from "./components/OtherDisplays.vue";
 export default {
   name: "app",
   beforeCreate: function () {
@@ -76,6 +80,7 @@ export default {
     ShowHours,
     GlobalStatus,
     InfoTab,
+    OtherDisplays,
   },
   mounted: function () {
     this.$ga.page("/");

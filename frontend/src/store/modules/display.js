@@ -44,6 +44,10 @@ const state = {
     topPlayedSongs_1hr: [],
     topPlayedSongs_24hr: [],
     topPlayedSongs_year: [],
+    totalPower_year: {
+      kwh: 0,
+      dollars: 0,
+    }
   },
   powerStats: {
     hours: 23.245833333333334,
