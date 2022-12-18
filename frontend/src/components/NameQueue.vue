@@ -1,7 +1,7 @@
 <template>
   <div class="outer">
     <h2>Name Queue</h2>
-    <div class="intro-text">Text your first name to 513-854-1352 to become part of the display.</div>
+    <div class="intro-text">Text your first name to 888-887-1423 to become part of the display.</div>
     <div class="alert" v-bind:class="errorClass" role="alert">Names in Green will be next song.</div>
 
     <div class="names">
