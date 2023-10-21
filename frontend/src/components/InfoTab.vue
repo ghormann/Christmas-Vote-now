@@ -3,8 +3,8 @@
     <div class="outer">
       <h2>About The Display</h2>
       <p class="gjh-padded">
-        This will be our 22<sup>th</sup> year with a computer controlled Christmas Lights Display.
-        This year we have 64,289 RGB bulbs that are synchronized to just over 30 minutes of music. Join us Christmas Eve
+        This will be our 23<sup>th</sup> year with a computer controlled Christmas Lights Display.
+        This year we have 65,125 RGB bulbs that are synchronized to just over 45 minutes of music. Join us Christmas Eve
         as the neighborhood counts down to see the Clock hit zero.
       </p>
       <p class="gjh-padded">
