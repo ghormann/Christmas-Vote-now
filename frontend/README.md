@@ -1,6 +1,12 @@
 # frontend
 The is the vue.js code that implements the response website.  This code will genereate a deployment package (javascript, html, images, etc) that must be hosted on a webserver. 
 
+## Node Version
+```bash
+nvm install lts/erbium
+nvm use lts/erbium
+```
+
 ## Reuse warnings
 1. public/favicon.ico will need replaced 
 1. public/index.html will need modifed to fix title and author
