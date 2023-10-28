@@ -92,6 +92,7 @@ var handlers = [
             found = true;
             oldSong.title = newSong.desc;
             oldSong.shortlist = newSong.shortlist;
+            oldSong.duration = newSong.playlistInfo.total_duration
           }
         });
         if (!found) {
@@ -100,6 +101,7 @@ var handlers = [
           song.title = newSong.desc;
           song.shortlist = newSong.shortlist;
           song.playlist = newSong.name;
+          song.duration = newSong.playlistInfo.total_duration
           myUtils.sortSongs();
           datamodel.songs.push(song);
         }
@@ -226,6 +228,7 @@ function createNewSong() {
     id: id,
     title: "Unknown",
     votes: 10,
+    duration: 0,
     shortlist: false,
     playlist: "Unknown",
   };
