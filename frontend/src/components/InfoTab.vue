@@ -4,7 +4,8 @@
       <h2>About The Display</h2>
       <p class="gjh-padded">
         This will be our 23<sup>th</sup> year with a computer controlled Christmas Lights Display.
-        This year we have 65,125 RGB bulbs that are synchronized to just over 45 minutes of music. Join us Christmas Eve
+        This year we have 65,125 RGB bulbs that are synchronized to {{totalDurationMinutes}} minutes of music
+        <em>({{availSongCount}} unique songs).</em> Join us Christmas Eve
         as the neighborhood counts down to see the Clock hit zero.
       </p>
       <p class="gjh-padded">
@@ -13,14 +14,14 @@
         in the main display every 8-12 minutes depending on queue size.
       </p>
       <p class="gjh-padded">
-        Enjoying the display? Give us a like on
-        <a
-          href="https://www.facebook.com/HormannChristmas"
-        >Facebook</a>. You can learn more about how it all
+        You can learn more about how it all
         works on our
         <a
           href="http://thehormanns.net/new/christmas.phtml"
-        >main website</a>.
+        >main website</a> or give us a like on
+        <a
+          href="https://www.facebook.com/HormannChristmas"
+        >Facebook</a>. 
       </p>
     </div>
     <div class="outer">
@@ -39,7 +40,8 @@
       <dl class="faq-detail gjh-padded">
         <template v-for="faq in allFaqs">
           <dt v-bind:key="faq.id">
-            <a v-bind:ref="faq.id">{{faq.question}}</a>
+            {{faq.question}}
+            <a v-bind:ref="faq.id">{{faq.questcomponentsion}}</a>
             (<a class="gjh-fake-link" @click="scrollMeTo('faq-top')">Top</a>)
           </dt>
           <dd v-bind:key="faq.id2">{{faq.answer}}</dd>
@@ -53,19 +55,16 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "InfoTab",
-  computed: mapGetters(["allFaqs"]),
+  computed: mapGetters(["allFaqs", "availSongCount", "totalDurationMinutes"]),
   methods: {
     scrollMeTo(refName) {
       var element = this.$refs[refName];
-      //console.log(this.$refs);
-      //console.log(element[0]);
       var top = 0;
       if (Array.isArray(element)) {
         top = element[0].offsetTop;
       } else {
         top = element.offsetTop;
       }
-      //console.log(top);
       window.scrollTo(0, top);
     }
   }

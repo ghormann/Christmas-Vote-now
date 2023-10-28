@@ -5,6 +5,9 @@
       <div class="stats-intro">
         <div class="stats-intro-inner">
           <TodayPower />
+          <p style="margin-top:1em;">
+             Our show consist of {{availSongCount}} songs totaling {{totalDurationMinutes}} minutes of entertainment.
+          </p>
           <p style="margin-top:1em;">Want more Statistics? We got them! Here is some other interesting data as of {{health.lastStatsTime}}:</p>
         </div>
       </div>
@@ -121,7 +124,7 @@ export default {
     SnowmenVoteStat,
     UniquePhones,
   },
-  computed: mapGetters(["health", "stats"]),
+  computed: mapGetters(["health", "stats", "availSongCount", "totalDurationMinutes"]),
 };
 </script>
 

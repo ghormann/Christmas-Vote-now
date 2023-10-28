@@ -24,6 +24,7 @@ const state = {
       name: "Matt",
     },
   ],
+  totalDurationMinutes: -1,
   snowmenQueue: [],
   mySnowmen: -1,
   health: {
@@ -73,6 +74,8 @@ const state = {
 
 const getters = {
   allAvailSongs: (state) => state.availSongs.filter((s) => s.votes >= 10),
+  availSongCount: (state) => state.availSongs.length,
+  totalDurationMinutes: (state) => state.totalDurationMinutes,
   allOldSongs: (state) =>
     state.availSongs.filter((s) => s.votes < 10 && s.votes > -100),
   allDisabledSongs: (state) => state.availSongs.filter((s) => s.votes < -100),
@@ -113,7 +116,7 @@ const actions = {
   },
   async fetchState({ commit }) {
     let r = await axios.get("https://vote-now.org/api/queue");
-    //let r = await axios.get('http://localhost:7654/queue');
+    //let r = await axios.get('http://localhossetSongst:7654/queue');
     commit("setSongs", r.data);
     commit("setPublic", r.data.model);
   },
@@ -154,6 +157,12 @@ const mutations = {
     // Fix formatting
     state.powerStats.kwh = Math.round(state.powerStats.kwh * 100) / 100;
     state.powerStats.dollars = Math.round(state.powerStats.dollars * 100) / 100;
+    var minutes = 0
+    for (const song of state.availSongs) {
+      minutes += song.duration
+    }
+    minutes = Math.round(minutes / 60)
+    state.totalDurationMinutes = minutes
   },
   setSongs: (state, input) => {
     state.votesRemaining = input.votesRemaining.remaining;

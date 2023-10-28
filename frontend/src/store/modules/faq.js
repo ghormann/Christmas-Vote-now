@@ -3,7 +3,7 @@ const state = {
     {
       id: "A7",
       id2: "B7",
-      question: "Why is my car radio  multiple seconds out of sync with the lights?",
+      question: "Why is my car radio out of sync with the lights?",
       answer:
         "A few vehicles (newer Lexus, Cadillac's, and probably others) buffer the analog FM signal. This causes a noticeable delay.  Some of these radios support \"live mode\" as an option.  If yours does, try enabling it.  If you see one of us outside, we usually have a portable radio in our pocket. Ask you can borrow it."
     },
@@ -19,7 +19,7 @@ const state = {
       id2: "B2",
       question: "How long does it take to sequence one song so the lights and music match?",
       answer:
-        "It varies.  The most complex songs take about a hour of sequencing for every 10 seconds of music (20-24 hrs for a less that 4 minute song). There is a computer sitting in our living room year around for each family member to do some sequencing while relaxing."
+        "It varies.  The most complex songs take about a hour of sequencing for every 10 seconds of music (20-24 hrs for 4 minutes of music). There is a computer sitting in our living room year around for each family member to do some sequencing while relaxing."
     },
     {
       id: "A3",
@@ -33,7 +33,7 @@ const state = {
       id2: "B3.1",
       question: "Do you take donations?",
       answer:
-        "No.  We have a lot of fun doing this each year and get the joy out of making others happy.  There are plenty of worthy charities that would make better use of the money. Please consider donating to one of them."
+        "We take donations for the local food banks! See the donation booth to the right of the display. "
     },
     {
       id: "A4",
