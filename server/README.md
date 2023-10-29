@@ -9,6 +9,7 @@ The server side code talks with the MQTT server to control the FPP back end.  It
 1. 
 
 # Setup
++ install node 20
 * npm install
 * npm run 
 
