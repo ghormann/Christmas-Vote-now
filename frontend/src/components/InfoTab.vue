@@ -14,6 +14,11 @@
         in the main display every 8-12 minutes depending on queue size.
       </p>
       <p class="gjh-padded">
+        In partnership with the Southwest Ohio Valley Women's Club, we are accepting donations of non-perishable food,
+        grocery gift cards or cash in support of the Princeton Closet and Reach Out Lakota.  Donations can also be made via 
+        <a href="https://account.venmo.com/u/Verna-Heaney">Venmo</a>. <em>(Verna is the treasurer.)</em>
+      </p>
+      <p class="gjh-padded">
         You can learn more about how it all
         works on our
         <a
@@ -44,7 +49,7 @@
             <a v-bind:ref="faq.id">{{faq.questcomponentsion}}</a>
             (<a class="gjh-fake-link" @click="scrollMeTo('faq-top')">Top</a>)
           </dt>
-          <dd v-bind:key="faq.id2">{{faq.answer}}</dd>
+          <dd v-bind:key="faq.id2"><div v-html="faq.answer"></div></dd>
         </template>
       </dl>
     </div>

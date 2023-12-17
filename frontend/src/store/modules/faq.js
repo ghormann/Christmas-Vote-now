@@ -33,7 +33,7 @@ const state = {
       id2: "B3.1",
       question: "Do you take donations?",
       answer:
-        "We take donations for the local food banks! See the donation booth to the right of the display. "
+        "We take donations for the local food banks! See the donation booth to the left of the display or donate online at <a href=\"https://account.venmo.com/u/Verna-Heaney\">Venmo</a>. <em>(Verna is the treasurer)</em>"
     },
     {
       id: "A4",
