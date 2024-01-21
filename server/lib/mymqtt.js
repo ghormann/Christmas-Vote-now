@@ -171,7 +171,7 @@ var handlers = [
     },
   },
   {
-    topic: "/christmas/falcon/player/FPP.hormann.local/playlist_details",
+    topic: "/christmas/falcon/player/fpp2/playlist_details",
     callback: function (topic, message) {
       let data = JSON.parse(message.toString());
       datamodel.health.lastFppDate = moment().toDate();
