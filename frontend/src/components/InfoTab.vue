@@ -3,7 +3,7 @@
     <div class="outer">
       <h2>About The Display</h2>
       <p class="gjh-padded">
-        This will be our 23<sup>th</sup> year with a computer controlled Christmas Lights Display.
+        This will be our 24<sup>th</sup> year with a computer controlled Christmas Lights Display.
         This year we have 65,125 RGB bulbs that are synchronized to {{totalDurationMinutes}} minutes of music
         <em>({{availSongCount}} unique songs).</em> Join us Christmas Eve
         as the neighborhood counts down to see the Clock hit zero.
@@ -15,7 +15,7 @@
       </p>
       <p class="gjh-padded">
         In partnership with the Southwest Ohio Valley Women's Club, we are accepting donations of non-perishable food,
-        grocery gift cards or cash in support of the Princeton Closet and Reach Out Lakota.  Donations can also be made via 
+        grocery gift cards or cash in support of local food banks.  Donations can also be made via 
         <a href="https://account.venmo.com/u/Verna-Heaney">Venmo</a>. <em>(Verna is the treasurer.)</em>
       </p>
       <p class="gjh-padded">
