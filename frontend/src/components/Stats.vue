@@ -26,6 +26,9 @@
             <a href="#TopNames">Most&nbsp;Requested&nbsp;Names</a>
           </li>
           <li>
+            <a href="#TopButtons">Most&nbsp;Pressed&nbsp;Button</a>
+          </li>
+          <li>
             <a href="#UniqueVoters">#&nbsp;of&nbsp;Unique&nbsp;Voters</a>
           </li>
           <li>
@@ -88,6 +91,19 @@
     </div>
     <div class="outer">
       <h1>
+        <a name="TopButtons">Most Pressed Buttons</a>
+      </h1>
+      <hr />
+      <ButtonStat title="Last Hour" v-bind:myData="stats.topButton_1hr" />
+      <br />
+      <br />
+      <ButtonStat title="Last 24 hours" v-bind:myData="stats.topButton_24hr" />
+      <br />
+      <br />
+      <ButtonStat title="This Year" v-bind:myData="stats.topButton_year" />
+    </div>
+    <div class="outer">
+      <h1>
         <a name="UniqueVoters">Unique # of Voters</a>
       </h1>
       <hr />
@@ -108,6 +124,7 @@ import { mapGetters } from "vuex";
 import VoteStat from "./stats/VoteStat.vue";
 import SnowmenVoteStat from "./stats/SnowmenVoteStats.vue";
 import NameStat from "./stats/NameStat.vue";
+import ButtonStat from "./stats/ButtonStat.vue";
 import PlayedSongStat from "./stats/PlayedSongStat.vue";
 import TodayPower from "./TodayPower.vue";
 import UniqueVoters from "./stats/UniqueVoters.vue";
@@ -116,6 +133,7 @@ import UniquePhones from "./stats/UniquePhones.vue";
 export default {
   name: "Stats",
   components: {
+    ButtonStat,
     VoteStat,
     NameStat,
     PlayedSongStat,
