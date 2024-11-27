@@ -154,6 +154,22 @@ const mutations = {
     state.lastUpdatedTime = moment().format("LTS");
     state.health.lastStatsTime = moment(input.health.lastStats).format("LTS");
 
+    // Total button presses
+    state.stats.total_buttons = 0;
+    if ("topButton_year" in state.stats) {
+      for (const b of state.stats["topButton_year"]) {
+        state.stats.total_buttons += b["cnt"];
+      }
+    }
+
+    state.stats.total_phones = 0;
+    if ("topPhones" in state.stats) {
+      for (const phone of state.stats["topPhones"]) {
+        // it is always the last one, so this trick works.
+        state.stats.total_phones = phone["cnt"];
+      }
+    }
+
     // Fix formatting
     state.powerStats.kwh = Math.round(state.powerStats.kwh * 100) / 100;
     state.powerStats.dollars = Math.round(state.powerStats.dollars * 100) / 100;

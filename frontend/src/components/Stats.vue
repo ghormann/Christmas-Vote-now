@@ -6,7 +6,8 @@
         <div class="stats-intro-inner">
           <TodayPower />
           <p style="margin-top:1em;">
-             Our show consist of {{availSongCount}} songs totaling {{totalDurationMinutes}} minutes of entertainment.
+             Our show consist of {{availSongCount}} songs totaling {{totalDurationMinutes}} minutes of entertainment. The buttons of the 
+             tunnel have been pressed {{ stats.total_buttons }} times this year while {{ stats.total_phones }} different phones have submitted names for the board. 
           </p>
           <p style="margin-top:1em;">Want more Statistics? We got them! Here is some other interesting data as of {{health.lastStatsTime}}:</p>
         </div>
