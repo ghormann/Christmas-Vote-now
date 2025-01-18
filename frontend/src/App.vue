@@ -14,6 +14,7 @@ import CoolDisplaysLogo from './components/CoolDisplaysLogo.vue'
     <div class="wrapper">
       <nav>
         <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/info">Info</RouterLink>
         <RouterLink to="/about">About</RouterLink>
       </nav>
     </div>
@@ -28,7 +29,7 @@ import CoolDisplaysLogo from './components/CoolDisplaysLogo.vue'
   </div>
 </template>
 
-<style scoped>
+<style>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
