@@ -1,5 +1,6 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+import CoolDisplaysLogo from './components/CoolDisplaysLogo.vue'
 </script>
 
 <template>
@@ -19,68 +20,65 @@ import { RouterLink, RouterView } from 'vue-router'
   </header>
 
   <RouterView />
+
+  <CoolDisplaysLogo />
+  <div>
+    Learn more at
+    <a href="http://thehormanns.net/new/christmas.phtml">http://thehormanns.net</a>
+  </div>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  margin-top: 2rem;
+  color: rgb(136, 136, 136);
 }
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
+h1,
+h2,
+h3,
+h4 {
+  color: white;
 }
 
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
+.gjh-tab {
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
+.nav-item a {
+  color: royalblue;
 }
 
-nav a:first-of-type {
-  border: 0;
+:global(body) {
+  background-color: rgb(25, 25, 25);
 }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
+.gjh-padded {
+  padding: 5px;
+}
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
+.outer {
+  border: 2px;
+  border-style: solid;
+  border-radius: 25px;
+  margin-left: 2px;
+  margin-right: 2px;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  padding-bottom: 1em;
+}
 
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+.gjh-fake-link {
+  color: #007bff !important;
+  cursor: pointer;
+}
 
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
+.intro-text {
+  padding-bottom: 18px;
+  font-style: oblique;
 }
 </style>
