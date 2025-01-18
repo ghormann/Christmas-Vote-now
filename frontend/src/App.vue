@@ -15,6 +15,7 @@ import CoolDisplaysLogo from './components/CoolDisplaysLogo.vue'
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/info">Info</RouterLink>
+        <RouterLink to="/other">Other</RouterLink>
         <RouterLink to="/about">About</RouterLink>
       </nav>
     </div>
