@@ -1,4 +1,4 @@
-const uuidv4 = require("uuid/v4");
+const { v4: uuidv4 } = require('uuid');
 const myUtils = require("./myUtils.js");
 const datamodel = require("../model/datamodel.js");
 const maxVotes = 8;
