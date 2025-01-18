@@ -1,157 +1,86 @@
-<template>
-  <div id="app">
-    <!--
-    <img alt="Vue logo" src="./assets/logo.png">
-    -->
-    <b-img
-      src="https://cooldisplays.net/picture.php?v=1579372572&pictid=133&width=800"
-      fluid
-      rounded
-      alt="Our House"
-    ></b-img>
-    <GlobalStatus />
-    <b-tabs
-      active-nav-item-class="font-weight-bold text-uppercase"
-      class="gjh-tab"
-      content-class="mt-2"
-      v-bind:class="showMe"
-    >
-      <b-tab title="Vote" active>
-        <CurrentSong />
-        <ShowHours />
-        <AvailSongList />
-        <OldSongList />
-        <Snowmen />
-        <LastUpdated />
-      </b-tab>
-      <b-tab @click="clickTab('NameQueue')" title="Names">
-        <NameQueue />
-        <LastUpdated />
-      </b-tab>
-      <b-tab title="Info" @click="clickTab('Info')">
-        <InfoTab />
-      </b-tab>
-      <b-tab title="Stats" @click="clickTab('Stats')">
-        <Stats />
-      </b-tab>
-      <b-tab title="Other" @click="clickTab('Other')">
-        <OtherDisplays />
-      </b-tab>
-    </b-tabs>
-    <CoolDisplaysLogo />
-    <div>
-      Learn more at
-      <a href="http://thehormanns.net/new/christmas.phtml"
-        >http://thehormanns.net</a
-      >
-    </div>
-  </div>
-</template>
-
-<script>
-import { mapGetters } from "vuex";
-
-import AvailSongList from "./components/AvailSongList.vue";
-import Snowmen from "./components/Snowmen.vue";
-import OldSongList from "./components/OldSongList.vue";
-import NameQueue from "./components/NameQueue.vue";
-import CoolDisplaysLogo from "./components/CoolDisplaysLogo.vue";
-import LastUpdated from "./components/LastUpdated.vue";
-import CurrentSong from "./components/CurrentSong.vue";
-import ShowHours from "./components/ShowHours.vue";
-import InfoTab from "./components/InfoTab.vue";
-import GlobalStatus from "./components/GlobalStatus.vue";
-import Stats from "./components/Stats.vue";
-import OtherDisplays from "./components/OtherDisplays.vue";
-export default {
-  name: "app",
-  beforeCreate: function () {
-    document.body.className = "body-gjh";
-  },
-  components: {
-    AvailSongList,
-    Snowmen,
-    OldSongList,
-    NameQueue,
-    CurrentSong,
-    CoolDisplaysLogo,
-    LastUpdated,
-    Stats,
-    ShowHours,
-    GlobalStatus,
-    InfoTab,
-    OtherDisplays,
-  },
-  mounted: function () {
-    this.$ga.page("/");
-  },
-  computed: {
-    ...mapGetters(["currentSong"]),
-    showMe: function () {
-      return {
-        "d-none": !this.currentSong.enabled,
-      };
-    },
-  },
-  methods: {
-    clickTab: function (name) {
-      this.$ga.event("Tabs", name, "click", 123);
-    },
-  },
-};
+<script setup>
+import { RouterLink, RouterView } from 'vue-router'
 </script>
 
-<style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+<template>
+  <header>
+    <img
+      src="https://cooldisplays.net/picture.php?v=1732282525&pictid=252&width=800"
+      class="img-fluid"
+      alt="Our House"
+    />
+
+    <div class="wrapper">
+      <nav>
+        <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/about">About</RouterLink>
+      </nav>
+    </div>
+  </header>
+
+  <RouterView />
+</template>
+
+<style scoped>
+header {
+  line-height: 1.5;
+  max-height: 100vh;
+}
+
+.logo {
+  display: block;
+  margin: 0 auto 2rem;
+}
+
+nav {
+  width: 100%;
+  font-size: 12px;
   text-align: center;
-  color: rgb(136, 136, 136);
+  margin-top: 2rem;
 }
 
-h1,
-h2,
-h3,
-h4 {
-  color: white;
+nav a.router-link-exact-active {
+  color: var(--color-text);
 }
 
-.gjh-tab {
-  max-width: 800px;
-  margin: 0 auto;
+nav a.router-link-exact-active:hover {
+  background-color: transparent;
 }
 
-.nav-item a {
-  color: royalblue;
+nav a {
+  display: inline-block;
+  padding: 0 1rem;
+  border-left: 1px solid var(--color-border);
 }
 
-.body-gjh {
-  background-color: rgb(25, 25, 25);
+nav a:first-of-type {
+  border: 0;
 }
 
-.gjh-padded {
-  padding: 5px;
-}
+@media (min-width: 1024px) {
+  header {
+    display: flex;
+    place-items: center;
+    padding-right: calc(var(--section-gap) / 2);
+  }
 
-.outer {
-  border: 2px;
-  border-style: solid;
-  border-radius: 25px;
-  margin-left: 2px;
-  margin-right: 2px;
-  margin-top: 1em;
-  margin-bottom: 1em;
-  padding-bottom: 1em;
-}
+  .logo {
+    margin: 0 2rem 0 0;
+  }
 
-.gjh-fake-link {
-  color: #007bff !important;
-  cursor: pointer;
-}
+  header .wrapper {
+    display: flex;
+    place-items: flex-start;
+    flex-wrap: wrap;
+  }
 
-.intro-text {
-  padding-bottom: 18px;
-  font-style: oblique;
+  nav {
+    text-align: left;
+    margin-left: -1rem;
+    font-size: 1rem;
+
+    padding: 1rem 0;
+    margin-top: 1rem;
+  }
 }
 </style>
