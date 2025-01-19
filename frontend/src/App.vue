@@ -1,6 +1,16 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+import { onMounted } from 'vue'
+import { storeToRefs } from 'pinia'
+import { displayStore } from '@/stores/display'
 import CoolDisplaysLogo from './components/CoolDisplaysLogo.vue'
+const display = displayStore()
+
+onMounted(() => {
+  // Code to run when the app is created
+  console.log('App created!')
+  display.initWS()
+})
 </script>
 
 <template>

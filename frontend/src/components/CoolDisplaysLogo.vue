@@ -10,12 +10,6 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'CoolDisplaysLogo',
-}
-</script>
-
 <style scoped>
 .coolLogo {
   margin: 2px;

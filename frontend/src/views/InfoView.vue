@@ -1,11 +1,18 @@
 <script setup>
+import { onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import { faqStore } from '@/stores/faqs'
-import { ref } from 'vue'
+import { displayStore } from '@/stores/display'
 
 // access the `store` variable anywhere in the component ✨
 const faq = faqStore()
+const display = displayStore()
 const { allFaqs } = storeToRefs(faq)
+const { availSongCount, totalDurationMinutes } = storeToRefs(display)
+
+onMounted(() => {
+  display.fetchState()
+})
 
 function scrollMeTo(refName) {
   const position = document.getElementById(refName).offsetTop
