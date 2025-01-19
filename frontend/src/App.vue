@@ -4,6 +4,8 @@ import { onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import { displayStore } from '@/stores/display'
 import CoolDisplaysLogo from './components/CoolDisplaysLogo.vue'
+import LastUpdated from './components/LastUpdated.vue'
+import GlobalStatus from './components/GlobalStatus.vue'
 const display = displayStore()
 
 onMounted(() => {
@@ -20,6 +22,7 @@ onMounted(() => {
       class="img-fluid"
       alt="Our House"
     />
+    <GlobalStatus />
 
     <div class="wrapper">
       <nav>
@@ -33,6 +36,7 @@ onMounted(() => {
   <RouterView />
 
   <CoolDisplaysLogo />
+  <LastUpdated />
   <div>
     Learn more at
     <a href="http://thehormanns.net/new/christmas.phtml">http://thehormanns.net</a>
