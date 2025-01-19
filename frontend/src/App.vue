@@ -27,6 +27,7 @@ onMounted(() => {
     <div class="wrapper">
       <nav>
         <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/names">Names</RouterLink>
         <RouterLink to="/info">Info</RouterLink>
         <RouterLink to="/other">Other</RouterLink>
       </nav>

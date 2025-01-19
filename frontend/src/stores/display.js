@@ -60,6 +60,7 @@ export const displayStore = defineStore('displayStore', {
     current: {
       status: 'idle',
       enabled: true,
+      nameStatus: 'Loading',
       secondsTotal: -1,
       secondsRemaining: -1,
       isDisplayHours: false,
