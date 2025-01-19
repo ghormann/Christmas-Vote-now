@@ -24,7 +24,7 @@ onMounted(() => {
     />
     <GlobalStatus />
 
-    <div class="wrapper">
+    <div class="nav-wrapper">
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/names">Names</RouterLink>
@@ -75,6 +75,15 @@ h4 {
 
 .gjh-padded {
   padding: 5px;
+}
+
+.nav-wrapper {
+  border-bottom: 1px solid #dee2e6;
+}
+
+.nav-wrapper a {
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .outer {
