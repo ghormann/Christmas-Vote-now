@@ -35,6 +35,7 @@ export const displayStore = defineStore('displayStore', {
       lastnamePlay: '2019-10-12T15:34:15.796Z',
       status: 'ALL_OK',
     },
+    nameEstimateData: { estimated_seconds: 468, message: 'Booting Up' },
     statsData: {
       pNames_1hr: [],
       topNames_24hr: [],
@@ -90,6 +91,7 @@ export const displayStore = defineStore('displayStore', {
     powerStats: (state) => state.powerStatsData,
     lastStats: (state) => state.health.lastStatsTime,
     health: (state) => state.healthData,
+    nameEstimates: (state) => state.nameEstimateData,
   },
   actions: {
     async initWS() {
@@ -128,6 +130,7 @@ export const displayStore = defineStore('displayStore', {
       this.healthData = input.health
       this.statsData = input.stats
       this.powerStatsData = input.powerStats
+      this.nameEstimateData = input.nameEstimates
       this.lastUpdatedInfoDT = new Date()
       this.lastUpdatedTS = moment().format('LTS')
       this.healthData.lastStatsTime = moment(input.health.lastStats).format('LTS')

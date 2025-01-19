@@ -2,7 +2,8 @@
   <div class="outer">
     <h2>Name Queue</h2>
     <div class="intro-text">
-      Text your first name to 888-887-1423 to become part of the display.
+      Text your first name to 888-887-1423 to become part of the display. Names will be displayed
+      {{ nameEstimates.message }}. (Estimate isn't perfect)
     </div>
     <div class="alert" v-bind:class="errorClass" role="alert">
       Names in Green will be next song.
@@ -30,7 +31,7 @@ import { reactive, computed } from 'vue'
 import { storeToRefs } from 'pinia'
 import { displayStore } from '@/stores/display'
 const display = displayStore()
-const { allNames, currentSong } = storeToRefs(display)
+const { allNames, currentSong, nameEstimates } = storeToRefs(display)
 const secondsPast = function (ts) {
   var d = new Date()
   var seconds = d.getTime() / 1000
