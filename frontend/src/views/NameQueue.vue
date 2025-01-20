@@ -27,11 +27,11 @@
 </template>
 
 <script setup>
-import { reactive, computed } from 'vue'
+import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
 import { displayStore } from '@/stores/display'
 const display = displayStore()
-const { allNames, currentSong, nameEstimates } = storeToRefs(display)
+const { allNames, nameEstimates } = storeToRefs(display)
 const secondsPast = function (ts) {
   var d = new Date()
   var seconds = d.getTime() / 1000

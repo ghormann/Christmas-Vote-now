@@ -20,6 +20,11 @@ const router = createRouter({
       component: () => import('../views/InfoView.vue'),
     },
     {
+      path: '/stats',
+      name: 'stats',
+      component: () => import('../views/StatsView.vue'),
+    },
+    {
       path: '/other',
       name: 'other',
       component: () => import('../views/OtherDisplaysView.vue'),

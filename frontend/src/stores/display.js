@@ -37,6 +37,8 @@ export const displayStore = defineStore('displayStore', {
     },
     nameEstimateData: { estimated_seconds: 468, message: 'Booting Up' },
     statsData: {
+      total_buttons: 0,
+      total_phones: 0,
       pNames_1hr: [],
       topNames_24hr: [],
       topNames_year: [],
@@ -98,13 +100,11 @@ export const displayStore = defineStore('displayStore', {
       console.log('Calling initWS')
       client = new Nes.Client('wss://vote-now.org/ws')
       client.onConnect = () => {
-        // eslint-disable-next-line
         console.log('Connected')
         //clientConnected = true;
       }
 
       client.onDisconnect = () => {
-        // eslint-disable-next-line
         console.log('Disconnected')
         //clientConnected = false;
       }

@@ -1,7 +1,6 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import { onMounted } from 'vue'
-import { storeToRefs } from 'pinia'
 import { displayStore } from '@/stores/display'
 import CoolDisplaysLogo from './components/CoolDisplaysLogo.vue'
 import LastUpdated from './components/LastUpdated.vue'
@@ -29,6 +28,7 @@ onMounted(() => {
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/names">Names</RouterLink>
         <RouterLink to="/info">Info</RouterLink>
+        <RouterLink to="/stats">Stats</RouterLink>
         <RouterLink to="/other">Other</RouterLink>
       </nav>
     </div>
