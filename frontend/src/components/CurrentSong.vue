@@ -16,7 +16,6 @@
 import { computed } from 'vue'
 import { displayStore } from '@/stores/display'
 const display = displayStore()
-//const { currentSong, lastUpdatedTime } = storeToRefs(display)
 
 const currentSongClean = computed(() => {
   let c = display.currentSong
