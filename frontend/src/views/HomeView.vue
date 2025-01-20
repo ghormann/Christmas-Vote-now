@@ -1,7 +1,13 @@
 <script setup>
-//import TheWelcome from '../components/TheWelcome.vue'
+import CurrentSong from '@/components/CurrentSong.vue'
 </script>
 
 <template>
-  <main>Paige 1</main>
-</template>
+  <CurrentSong />
+  <!--
+  <ShowHours />
+  <AvailSongList />
+  <OldSongList />
+  <Snowmen />
+  <LastUpdated />
+--></template>
