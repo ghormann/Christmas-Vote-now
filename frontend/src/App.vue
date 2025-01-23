@@ -37,11 +37,11 @@ onMounted(() => {
   <RouterView />
 
   <CoolDisplaysLogo />
-  <LastUpdated />
   <div>
     Learn more at
     <a href="http://thehormanns.net/new/christmas.phtml">http://thehormanns.net</a>
   </div>
+  <LastUpdated />
 </template>
 
 <style>
@@ -79,11 +79,21 @@ h4 {
 
 .nav-wrapper {
   border-bottom: 1px solid #dee2e6;
+  padding-bottom: 10px;
+}
+
+.router-link-active {
+  background-color: white;
+  text-transform: uppercase;
 }
 
 .nav-wrapper a {
+  padding: 0.5rem 1rem;
   padding-left: 10px;
   padding-right: 10px;
+  border: 1px solid transparent;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
 }
 
 .outer {
