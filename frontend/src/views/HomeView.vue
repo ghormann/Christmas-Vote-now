@@ -1,6 +1,7 @@
 <script setup>
 import CurrentSong from '@/components/CurrentSong.vue'
 import ShowHours from '@/components/ShowHours.vue'
+import OldSongList from '@/components/OldSongList.vue'
 </script>
 
 <template>
@@ -8,7 +9,9 @@ import ShowHours from '@/components/ShowHours.vue'
   <ShowHours />
   <!--
   <AvailSongList />
+-->
   <OldSongList />
+  <!---
   <Snowmen />
   <LastUpdated />
 --></template>
