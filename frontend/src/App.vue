@@ -69,10 +69,6 @@ h4 {
   color: royalblue;
 }
 
-:global(body) {
-  background-color: rgb(25, 25, 25);
-}
-
 .gjh-padded {
   padding: 5px;
 }
