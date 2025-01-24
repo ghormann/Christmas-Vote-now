@@ -6,9 +6,9 @@ The server side code talks with the MQTT server to control the FPP back end.  It
 1. This code assumes that **/christmas** is configured as the MQTT prefix in FPP
 1. Some of the topic names are hard coded in lib/mymqtt.js
 1. The website URL is hard coded in routes/index.js
-1. 
 
 # Setup
+* nvm use 22
 * npm install
 * npm run 
 
