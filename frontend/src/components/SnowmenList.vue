@@ -70,6 +70,7 @@ const votedClass = computed(() => {
 
 .song-title {
   text-align: left;
+  padding-left: 0px;
 }
 .outer {
   border: 2px;

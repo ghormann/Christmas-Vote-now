@@ -68,6 +68,7 @@ onMounted(() => {
 }
 .votes-col {
   text-align: right;
+  padding-right: 1px;
 }
 
 .float-div {
@@ -88,6 +89,7 @@ onMounted(() => {
 
 .song-title {
   text-align: left;
+  padding-left: 0px;
 }
 .outer {
   border: 2px;
