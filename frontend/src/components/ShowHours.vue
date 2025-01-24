@@ -1,4 +1,4 @@
- <template>
+<template>
   <div>
     <div v-bind:class="showDisplayHours">
       <h2>The Show is Off</h2>
@@ -15,39 +15,37 @@
   </div>
   <!--outer -->
 </template>
-<script>
-import { mapGetters } from "vuex";
+<script setup>
+import { computed } from 'vue'
+import { displayStore } from '@/stores/display'
+const display = displayStore()
 
-export default {
-  name: "ShowHours",
-  computed: {
-    ...mapGetters(["currentSong", "health"]),
-    showDebug: function() {
-      return {
-        alert: true,
-        "alert-danger": true,
-        "gjh-alert": true,
-        "d-none": !this.currentSong.debug
-      };
-    },
-    isShortList: function() {
-      return {
-        alert: true,
-        "alert-danger": true,
-        "gjh-alert": true,
-        "d-none": ! this.currentSong.isShortList
-      };
-    },
-    showDisplayHours: function() {
-      return {
-        alert: true,
-        "alert-danger": true,
-        "gjh-alert": true,
-        "d-none": this.currentSong.isDisplayHours
-      };
-    }
+const showDebug = computed(() => {
+  return {
+    alert: true,
+    'alert-danger': true,
+    'gjh-alert': true,
+    'd-none': !display.currentSong.debug,
   }
-};
+})
+
+const isShortList = computed(() => {
+  return {
+    alert: true,
+    'alert-danger': true,
+    'gjh-alert': true,
+    'd-none': !display.currentSong.isShortList,
+  }
+})
+
+const showDisplayHours = computed(() => {
+  return {
+    alert: true,
+    'alert-danger': true,
+    'gjh-alert': true,
+    'd-none': display.currentSong.isDisplayHours,
+  }
+})
 </script>
 
 <style scoped>

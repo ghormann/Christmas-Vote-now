@@ -1,64 +1,52 @@
- <template>
+<template>
   <div class="outer" v-bind:class="showMe">
     <h2>Current Song</h2>
-    <div class="song" ><b>{{currentSongClean}}</b> {{timePart}}</div>
+    <div class="song">
+      <b>{{ currentSongClean }}</b> {{ timePart }}
+    </div>
   </div>
   <!--outer -->
 </template>
-<script>
-import { mapGetters } from "vuex";
-
-export default {
-  name: "CurrentSong",
-  computed: {
-    ...mapGetters(["currentSong", "lastUpdatedTime"]),
-    currentSongClean: function() {
-      let c = this.currentSong;
-      if ("idle" === c.status) {
-        return "System Idle";
-      } else {
-        return c.title;
-      }
-    },
-    showMe: function() {
-      return {
-        "d-none" : this.currentSong.status === "idle" || ! this.currentSong.isDisplayHours
-      };
-    },
-
-    timePart: function() {
-      let c = this.currentSong;
-      if (c.secondsRemaining <= 0) {
-        return "";
-      }
-
-      return (
-        this.convertTime(c.secondsRemaining) +
-        " / " +
-        this.convertTime(c.secondsTotal)
-      );
-    }
-  },
-  methods: {
-    convertTime: function(input) {
-      if (input <= 0) {
-        return "";
-      }
-      let minutes = Math.floor(input / 60);
-      let seconds = input % 60;
-      return (
-        minutes.toString().padStart(2, "0") +
-        ":" +
-        seconds.toString().padStart(2, "0")
-      );
-    }
-  }
-};
-</script>
-
 <style scoped>
-.song
-{
-  color:rgb(228, 58, 58);
+.song {
+  color: rgb(228, 58, 58);
 }
 </style>
+<script setup>
+import { computed } from 'vue'
+import { displayStore } from '@/stores/display'
+const display = displayStore()
+
+const currentSongClean = computed(() => {
+  let c = display.currentSong
+  if ('idle' === c.status) {
+    return 'System Idle'
+  } else {
+    return c.title
+  }
+})
+
+const showMe = computed(() => {
+  return {
+    'd-none': display.currentSong.status === 'idle' || !display.currentSong.isDisplayHours,
+  }
+})
+
+const timePart = computed(() => {
+  let c = display.currentSong
+  if (c.secondsRemaining <= 0) {
+    return ''
+  }
+
+  return convertTime(c.secondsRemaining) + ' / ' + convertTime(c.secondsTotal)
+})
+
+const convertTime = function (input) {
+  if (input <= 0) {
+    return ''
+  }
+  let minutes = Math.floor(input / 60)
+  let seconds = input % 60
+  return minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0')
+}
+</script>

@@ -14,10 +14,6 @@ var lowNames = [];
 var readyNames = [];
 var client = undefined;
 var callbacks = [];
-var last_send = 10;
-var last_intro = 10;
-var last_short_show = 10;
-var last_station = 10;
 var last_nameGen = moment().subtract(1, "day").toDate();
 
 var handlers = [
@@ -42,14 +38,20 @@ var handlers = [
     callback: function (topic, message) {
       let status = JSON.parse(message.toString());
       datamodel.schedulerStatus = status;
-      datamodel.current.isDisplayHours =
-        datamodel.schedulerStatus.isDisplayHours;
+      datamodel.current.isDisplayHours = datamodel.schedulerStatus.isDisplayHours;
       datamodel.health.lastSchedulerDate = moment().toDate();
       datamodel.health.lastnamePlay = status.lastNamePlay;
       datamodel.health.lastnameGenereate = status.lastNameGen;
       datamodel.current.isShortList = status.shortList;
       datamodel.current.debug = status.debug; // Scheduler should be the master
       datamodel.current.enabled = status.enabled; // Scheduler should be the master
+    },
+  },
+  {
+    topic: "/christmas/scheduler/name_estimate",
+    callback: function (topic, message) {
+      let estimates = JSON.parse(message.toString());
+      datamodel.nameEstimates = estimates;
     },
   },
   {

@@ -1,25 +1,16 @@
-import Vue from "vue";
-import App from "./App.vue";
-import store from "./store";
-import BootstrapVue from "bootstrap-vue";
-import VueAnalytics from 'vue-analytics'
+import * as bootstrap from 'bootstrap/dist/js/bootstrap.bundle'
+import './assets/main.css'
 
-// More Bootstrap
-import "bootstrap/dist/css/bootstrap.css";
-import "bootstrap-vue/dist/bootstrap-vue.css";
+import { createApp } from 'vue'
+import { createPinia } from 'pinia'
 
-Vue.config.productionTip = false;
+import App from './App.vue'
+import router from './router'
 
-Vue.use(BootstrapVue);
+const app = createApp(App)
 
-Vue.use(VueAnalytics, {
-  id: 'UA-151724077-1',
-  autoTracking: {
-    screenview: true
-  }
-});
+app.use(createPinia())
+app.provide('bootstrap', bootstrap)
+app.use(router)
 
-new Vue({
-  store,
-  render: h => h(App)
-}).$mount("#app");
+app.mount('#app')

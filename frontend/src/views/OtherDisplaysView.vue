@@ -1,17 +1,22 @@
- <template>
+<script setup>
+import { storeToRefs } from 'pinia'
+import { otherDisplayStore } from '@/stores/other_displays'
+import { ref } from 'vue'
+// access the `store` variable anywhere in the component ✨
+const others = otherDisplayStore()
+const { otherDisplays, otherDisplayCount } = storeToRefs(others)
+others.fetchOtherDisplays()
+</script>
+
+<template>
   <div class="outer">
     <h2 class="gjh-padded">Near By Displays</h2>
     <div class="gjh-padded">
-      Here are some other displays in the area worth a visit. Those with 🎵 are
-      also synchronized to music.
+      Here are {{ otherDisplayCount }} displays in the area worth a visit. Those with 🎵 are also
+      synchronized to music.
     </div>
-    <b-container class="otherHouses">
-      <b-row
-        no-gutters
-        class="house-row"
-        v-for="house in otherDisplays"
-        v-bind:key="house.displayid"
-      >
+    <div class="containerotherHouses">
+      <div class="row house-row" v-for="house in otherDisplays" v-bind:key="house.displayid">
         <div class="col-6">
           <a :href="house.url"><img :src="house.pict" class="img-fluid" /></a>
         </div>
@@ -23,27 +28,11 @@
           <div>{{ house.distance }} Miles from us</div>
           <div>{{ house.city }}, {{ house.state }}</div>
         </div>
-      </b-row>
-    </b-container>
+      </div>
+    </div>
   </div>
   <!--outer -->
 </template>
-<script>
-import { mapGetters, mapActions } from "vuex";
-
-export default {
-  name: "OtherDisplays",
-  methods: {
-    ...mapActions(["fetchOtherDisplays"]),
-  },
-  computed: {
-    ...mapGetters(["otherDisplays"]),
-  },
-  created() {
-    this.fetchOtherDisplays();
-  },
-};
-</script>
 
 <style scoped>
 .house-desc {

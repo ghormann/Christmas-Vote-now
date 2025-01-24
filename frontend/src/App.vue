@@ -1,109 +1,52 @@
-<template>
-  <div id="app">
-    <!--
-    <img alt="Vue logo" src="./assets/logo.png">
-    -->
-    <b-img
-      src="https://cooldisplays.net/picture.php?v=1732282525&pictid=252&width=800"
-      fluid
-      rounded
-      alt="Our House"
-    ></b-img>
-    <GlobalStatus />
-    <b-tabs
-      active-nav-item-class="font-weight-bold text-uppercase"
-      class="gjh-tab"
-      content-class="mt-2"
-      v-bind:class="showMe"
-    >
-      <b-tab title="Vote" active>
-        <CurrentSong />
-        <ShowHours />
-        <AvailSongList />
-        <OldSongList />
-        <Snowmen />
-        <LastUpdated />
-      </b-tab>
-      <b-tab @click="clickTab('NameQueue')" title="Names">
-        <NameQueue />
-        <LastUpdated />
-      </b-tab>
-      <b-tab title="Info" @click="clickTab('Info')">
-        <InfoTab />
-      </b-tab>
-      <b-tab title="Stats" @click="clickTab('Stats')">
-        <Stats />
-      </b-tab>
-      <b-tab title="Other" @click="clickTab('Other')">
-        <OtherDisplays />
-      </b-tab>
-    </b-tabs>
-    <CoolDisplaysLogo />
-    <div>
-      Learn more at
-      <a href="http://thehormanns.net/new/christmas.phtml"
-        >http://thehormanns.net</a
-      >
-    </div>
-  </div>
-</template>
+<script setup>
+import { RouterLink, RouterView } from 'vue-router'
+import { onMounted } from 'vue'
+import { displayStore } from '@/stores/display'
+import CoolDisplaysLogo from './components/CoolDisplaysLogo.vue'
+import LastUpdated from './components/LastUpdated.vue'
+import GlobalStatus from './components/GlobalStatus.vue'
+const display = displayStore()
 
-<script>
-import { mapGetters } from "vuex";
-
-import AvailSongList from "./components/AvailSongList.vue";
-import Snowmen from "./components/Snowmen.vue";
-import OldSongList from "./components/OldSongList.vue";
-import NameQueue from "./components/NameQueue.vue";
-import CoolDisplaysLogo from "./components/CoolDisplaysLogo.vue";
-import LastUpdated from "./components/LastUpdated.vue";
-import CurrentSong from "./components/CurrentSong.vue";
-import ShowHours from "./components/ShowHours.vue";
-import InfoTab from "./components/InfoTab.vue";
-import GlobalStatus from "./components/GlobalStatus.vue";
-import Stats from "./components/Stats.vue";
-import OtherDisplays from "./components/OtherDisplays.vue";
-export default {
-  name: "app",
-  beforeCreate: function () {
-    document.body.className = "body-gjh";
-  },
-  components: {
-    AvailSongList,
-    Snowmen,
-    OldSongList,
-    NameQueue,
-    CurrentSong,
-    CoolDisplaysLogo,
-    LastUpdated,
-    Stats,
-    ShowHours,
-    GlobalStatus,
-    InfoTab,
-    OtherDisplays,
-  },
-  mounted: function () {
-    this.$ga.page("/");
-  },
-  computed: {
-    ...mapGetters(["currentSong"]),
-    showMe: function () {
-      return {
-        "d-none": !this.currentSong.enabled,
-      };
-    },
-  },
-  methods: {
-    clickTab: function (name) {
-      this.$ga.event("Tabs", name, "click", 123);
-    },
-  },
-};
+onMounted(() => {
+  // Code to run when the app is created
+  console.log('App created!')
+  display.initWS()
+})
 </script>
+
+<template>
+  <header>
+    <img
+      src="https://cooldisplays.net/picture.php?v=1732282525&pictid=252&width=800"
+      class="img-fluid"
+      alt="Our House"
+    />
+    <GlobalStatus />
+
+    <div class="nav-wrapper">
+      <nav>
+        <RouterLink to="/">Vote</RouterLink>
+        <RouterLink to="/names">Names</RouterLink>
+        <RouterLink to="/info">Info</RouterLink>
+        <RouterLink to="/stats">Stats</RouterLink>
+        <RouterLink to="/other">Other</RouterLink>
+      </nav>
+    </div>
+  </header>
+
+  <RouterView />
+
+  <CoolDisplaysLogo />
+  <div>
+    Learn more at
+    <a href="http://thehormanns.net/new/christmas.phtml">http://thehormanns.net</a>
+  </div>
+  <LastUpdated />
+</template>
 
 <style>
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -126,12 +69,27 @@ h4 {
   color: royalblue;
 }
 
-.body-gjh {
-  background-color: rgb(25, 25, 25);
-}
-
 .gjh-padded {
   padding: 5px;
+}
+
+.nav-wrapper {
+  border-bottom: 1px solid #dee2e6;
+  padding-bottom: 10px;
+}
+
+.router-link-active {
+  background-color: white;
+  text-transform: uppercase;
+}
+
+.nav-wrapper a {
+  padding: 0.5rem 1rem;
+  padding-left: 10px;
+  padding-right: 10px;
+  border: 1px solid transparent;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
 }
 
 .outer {

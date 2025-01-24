@@ -87,6 +87,11 @@ module.exports.powerStats = {
   cnt: 46745,
 };
 
+module.exports.nameEstimates = {
+  estimated_seconds: 600,
+  message: "Unknown"
+}
+
 module.exports.schedulerStatus = {
   status: "UNKNOWN",
   nameStatus: "IDLE",

@@ -1,76 +1,64 @@
 <template>
-  <!-- more at https://bootstrap-vue.js.org/docs/components/alert -->
   <div class="outer">
     <h2>Available Song Queue</h2>
-    <b-container class="songs">
+    <div class="container songs">
       <div class="votes-line">
         Votes Remaining:
-        <b>{{votesRemaining}}</b>
+        <b>{{ votesRemaining }}</b>
       </div>
-      <div class="alert" v-bind:class="errorClass" role="alert">{{lastMessage}}</div>
+      <div class="alert" v-bind:class="errorClass" role="alert">{{ lastMessage }}</div>
       <div class="intro-text">Use up/down arrows to vote.</div>
 
-      <b-row no-gutters v-for="song in allAvailSongs" v-bind:key="song.id" class="song">
-        <b-col class="votes-col" cols="2">
+      <div no-gutters v-for="song in allAvailSongs" v-bind:key="song.id" class="row song">
+        <div class="votes-col col-2">
           <div class="float-div">
             <table cellspacing="0" cellpadding="0" class="my-table">
-              <tr>
-                <td class="votes">{{song.votes}}</td>
-                <td>
-                  <img
-                    class="my-arrow-up"
-                    alt="vote up"
-                    src="./../assets/up.png"
-                    @click="localAddVote(song.id)"
-                  />
-                  <img
-                    alt="vote down"
-                    class="my-arrow-down"
-                    src="./../assets/down.png"
-                    @click="localRemoveVote(song.id)"
-                  />
-                </td>
-              </tr>
+              <tbody>
+                <tr>
+                  <td class="votes">{{ song.votes }}</td>
+                  <td>
+                    <img
+                      class="my-arrow-up"
+                      alt="vote up"
+                      src="./../assets/up.png"
+                      @click="display.addVote(song.id)"
+                    />
+                    <img
+                      alt="vote down"
+                      class="my-arrow-down"
+                      src="./../assets/down.png"
+                      @click="display.removeVote(song.id)"
+                    />
+                  </td>
+                </tr>
+              </tbody>
             </table>
           </div>
-        </b-col>
-        <b-col class="song-title" cols="10">{{song.title}}</b-col>
-      </b-row>
-    </b-container>
+        </div>
+        <div class="song-title col-10">{{ song.title }}</div>
+      </div>
+    </div>
   </div>
 </template>
 
-<script>
-import { mapGetters, mapActions } from "vuex";
+<script setup>
+import { computed, onMounted } from 'vue'
+import { storeToRefs } from 'pinia'
+import { displayStore } from '@/stores/display'
+const display = displayStore()
+const { allAvailSongs, votesRemaining, lastMessage } = storeToRefs(display)
 
-export default {
-  name: "AvailSongList",
-  methods: {
-    ...mapActions(["fetchState", "addVote", "removeVote", "initWS"]),
-    localAddVote: function(id) {
-      this.addVote(id);
-      this.$ga.event("Vote", "Add", id, 123);
-    },
-    localRemoveVote: function(id) {
-      this.removeVote(id);
-      this.$ga.event("Vote", "Remove", id, 123);
-    }
-  },
-  computed: {
-    ...mapGetters(["allAvailSongs", "votesRemaining", "lastMessage"]),
-    errorClass: function() {
-      return {
-        "alert-danger": true,
-        "d-none": this.lastMessage == "OK"
-      };
-    }
-  },
-  created() {
-    this.fetchState();
-    this.initWS();
-    setInterval(this.fetchState, 10000);
+const errorClass = computed(() => {
+  return {
+    'alert-danger': true,
+    'd-none': display.lastMessage == 'OK',
   }
-};
+})
+
+onMounted(() => {
+  display.fetchState()
+  setInterval(display.fetchState, 10000)
+})
 </script>
 
 <style scoped>
@@ -80,6 +68,7 @@ export default {
 }
 .votes-col {
   text-align: right;
+  padding-right: 1px;
 }
 
 .float-div {
@@ -100,6 +89,7 @@ export default {
 
 .song-title {
   text-align: left;
+  padding-left: 0px;
 }
 .outer {
   border: 2px;
