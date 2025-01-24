@@ -1,6 +1,12 @@
 const dataModel = require("../model/datamodel.js");
 const moment = require("moment");
 
+// returns the cutoff point for songs that can receive notes
+// lower than this and it was recently played
+function getSongCutoff() {
+  return 15;
+}
+
 function sortSongs() {
   dataModel.songs.sort(function (a, b) {
     return b.votes - a.votes;
@@ -40,9 +46,9 @@ function addRandomVotes() {
     }
     if (!dataModel.current.isShortList && s.votes < -100) {
       // Reset if low
-      s.votes = 10;
+      s.votes = getSongCutoff();
     }
-    if (s.votes < 10) {
+    if (s.votes < getSongCutoff()) {
       s.votes += 1;
     } else {
       let r = Math.floor(Math.random() * 10);
@@ -97,3 +103,4 @@ module.exports.addRandomVotes = addRandomVotes;
 module.exports.updateHealthStatus = updateHealthStatus;
 module.exports.sortSnowmen = sortSnowmen;
 module.exports.findSnowmanName = findSnowmanName;
+module.exports.getSongCutoff = getSongCutoff;

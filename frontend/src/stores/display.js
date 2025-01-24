@@ -3,6 +3,8 @@ import axios from 'axios'
 import moment from 'moment'
 import Nes from '@hapi/nes/lib/client'
 
+const SONG_RECENT_CUTOFF = 15
+
 var client = undefined
 
 export const displayStore = defineStore('displayStore', {
@@ -76,10 +78,11 @@ export const displayStore = defineStore('displayStore', {
     lastUpdatedTS: 'Never',
   }),
   getters: {
-    allAvailSongs: (state) => state.availSongs.filter((s) => s.votes >= 10),
+    allAvailSongs: (state) => state.availSongs.filter((s) => s.votes >= SONG_RECENT_CUTOFF),
     availSongCount: (state) => state.availSongs.length,
     totalDurationMinutes: (state) => state.totalDurationMin,
-    allOldSongs: (state) => state.availSongs.filter((s) => s.votes < 10 && s.votes > -100),
+    allOldSongs: (state) =>
+      state.availSongs.filter((s) => s.votes < SONG_RECENT_CUTOFF && s.votes > -100),
     allDisabledSongs: (state) => state.availSongs.filter((s) => s.votes < -100),
     allNames: (state) => state.nameQueue,
     allSnowmen: (state) => state.snowmenQueue,

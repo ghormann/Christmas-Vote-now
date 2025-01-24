@@ -8,7 +8,12 @@
         <div v-bind:class="votedClass"><span class="my-vote">*</span> My Vote.</div>
       </div>
 
-      <div no-gutters v-for="who in allSnowmen" v-bind:key="who.id" class="row song">
+      <div
+        no-gutters
+        v-for="who in allSnowmen"
+        v-bind:key="who.id"
+        class="row justify-content-md-center song"
+      >
         <div class="votes-col col-2">
           <div class="float-div">
             <img
@@ -20,7 +25,7 @@
           </div>
           <span class="vote">{{ who.votes }}</span>
         </div>
-        <div class="song-title col-10">
+        <div class="song-title col-8 col-md-4 col-lg-4">
           {{ who.name }}
           <span class="my-vote">{{ highlightMine(who.id) }}</span>
         </div>

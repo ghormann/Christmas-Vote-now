@@ -9,7 +9,12 @@
       <div class="alert" v-bind:class="errorClass" role="alert">{{ lastMessage }}</div>
       <div class="intro-text">Use up/down arrows to vote.</div>
 
-      <div no-gutters v-for="song in allAvailSongs" v-bind:key="song.id" class="row song">
+      <div
+        no-gutters
+        v-for="song in allAvailSongs"
+        v-bind:key="song.id"
+        class="row justify-content-md-center song"
+      >
         <div class="votes-col col-2">
           <div class="float-div">
             <table cellspacing="0" cellpadding="0" class="my-table">
@@ -35,7 +40,7 @@
             </table>
           </div>
         </div>
-        <div class="song-title col-10">{{ song.title }}</div>
+        <div class="song-title col-10 col-md-5 col-lg-4">{{ song.title }}</div>
       </div>
     </div>
   </div>

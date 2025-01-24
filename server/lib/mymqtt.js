@@ -229,7 +229,7 @@ function createNewSong() {
   return {
     id: id,
     title: "Unknown",
-    votes: 10,
+    votes: myUtils.getSongCutoff(),
     duration: 0,
     shortlist: false,
     playlist: "Unknown",
