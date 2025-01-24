@@ -29,7 +29,7 @@ export const faqStore = defineStore('faqs', {
         id2: 'B3',
         question: 'How much does it cost you to do this?',
         answer:
-          "The impact on our electric bill is relativity small as we are using all LED light bulbs. (See the stats tab for total electrical spend this year.)  For all the electronics and hardware we've build up over the last 20 years, lets just say we could have purchased a very nice new mini-van instead...",
+          "The impact on our electric bill is relativity small as we are using all LED light bulbs. (See the stats tab for total electrical spend this year.)  For all the electronics and hardware we've build up over the last 25 years, lets just say we could have purchased a very nice new mini-van instead...",
       },
       {
         id: 'A3.1',

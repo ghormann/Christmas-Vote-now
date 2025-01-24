@@ -94,6 +94,7 @@ export const displayStore = defineStore('displayStore', {
     lastStats: (state) => state.health.lastStatsTime,
     health: (state) => state.healthData,
     nameEstimates: (state) => state.nameEstimateData,
+    numberOfYears: () => new Date().getFullYear() - 2000,
   },
   actions: {
     async initWS() {

@@ -9,6 +9,8 @@
       Names in Green will be next song.
     </div>
 
+    <div class="alert" v-bind:class="nameEmptyClass">Name queue is empty</div>
+
     <div class="names">
       <ol class="name-list">
         <li
@@ -47,6 +49,13 @@ const secondsPast = function (ts) {
 
   return msg
 }
+
+const nameEmptyClass = computed(() => {
+  return {
+    'alert-warning': true,
+    'd-none': display.allNames.length > 0,
+  }
+})
 
 const errorClass = computed(() => {
   return {

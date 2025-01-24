@@ -8,7 +8,7 @@ import { displayStore } from '@/stores/display'
 const faq = faqStore()
 const display = displayStore()
 const { allFaqs } = storeToRefs(faq)
-const { availSongCount, totalDurationMinutes } = storeToRefs(display)
+const { availSongCount, totalDurationMinutes, numberOfYears, nameEstimates } = storeToRefs(display)
 
 onMounted(() => {
   display.fetchState()
@@ -24,17 +24,18 @@ function scrollMeTo(refName) {
     <div class="outer">
       <h2>About The Display</h2>
       <p class="gjh-padded">
-        This will be our 24<sup>th</sup> year with a computer controlled Christmas Lights Display.
-        This year we have 65,125 RGB bulbs that are synchronized to
+        This will be our {{ numberOfYears }}<sup>th</sup> year with a computer controlled Christmas
+        Lights Display. This year we have 65,125 RGB bulbs that are synchronized to
         {{ totalDurationMinutes }} minutes of music
         <em>({{ availSongCount }} unique songs).</em> Join us Christmas Eve as the neighborhood
         counts down to see the Clock hit zero.
       </p>
       <p class="gjh-padded">
-        Names supplied via text mesage are checked against a database of common first names from the
-        IRS. If your name isn't on that list, there may be a delay in it appearing. Names are
-        displayed below the clock soon after a text message is sent and are included in the main
-        display every 8-12 minutes depending on queue size.
+        <a href="/names">Names</a> supplied via text mesage are checked against a database of common
+        first names from the IRS. If your name isn't on that list, there may be a delay in it
+        appearing. Names are displayed below the clock soon after a text message is sent and are
+        included in the main display every 8-12 minutes depending on queue size.
+        <i>(Names are estimated to be shown {{ nameEstimates.message }}.)</i>
       </p>
       <p class="gjh-padded">
         In partnership with the Southwest Ohio Valley Women's Club, we are accepting donations of
@@ -65,7 +66,7 @@ function scrollMeTo(refName) {
       </ol>
       <h2>Answers</h2>
       <dl class="faq-detail gjh-padded">
-        <template v-for="faq in allFaqs">
+        <template v-bind:key="faq.id" v-for="faq in allFaqs">
           <dt>
             {{ faq.question }}
             <a v-bind:id="faq.id" v-bind:ref="faq.id">{{ faq.questcomponentsion }}</a>
