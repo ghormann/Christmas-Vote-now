@@ -3,6 +3,7 @@ import CurrentSong from '@/components/CurrentSong.vue'
 import ShowHours from '@/components/ShowHours.vue'
 import OldSongList from '@/components/OldSongList.vue'
 import AvailSongList from '@/components/AvailSongList.vue'
+import SnowmenList from '@/components/SnowmenList.vue'
 </script>
 
 <template>
@@ -10,7 +11,5 @@ import AvailSongList from '@/components/AvailSongList.vue'
   <ShowHours />
   <AvailSongList />
   <OldSongList />
-  <!---
-  <Snowmen />
-  <LastUpdated />
---></template>
+  <SnowmenList />
+</template>
