@@ -4,7 +4,7 @@ const moment = require("moment");
 // returns the cutoff point for songs that can receive notes
 // lower than this and it was recently played
 function getSongCutoff() {
-  return 15;
+  return 17;
 }
 
 function sortSongs() {

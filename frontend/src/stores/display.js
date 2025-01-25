@@ -3,7 +3,7 @@ import axios from 'axios'
 import moment from 'moment'
 import Nes from '@hapi/nes/lib/client'
 
-const SONG_RECENT_CUTOFF = 15
+const SONG_RECENT_CUTOFF = 17
 
 var client = undefined
 
