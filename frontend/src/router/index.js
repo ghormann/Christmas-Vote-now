@@ -27,7 +27,7 @@ const router = createRouter({
     {
       path: '/other',
       name: 'other',
-      component: () => import('../views/OtherDisplaysView.vue'),
+      component: () => import(/* webpackPrefetch: true */ '../views/OtherDisplaysView.vue'),
     },
   ],
 })

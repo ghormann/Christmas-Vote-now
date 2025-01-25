@@ -1,7 +1,6 @@
 <script setup>
 import { storeToRefs } from 'pinia'
 import { otherDisplayStore } from '@/stores/other_displays'
-import { ref } from 'vue'
 // access the `store` variable anywhere in the component ✨
 const others = otherDisplayStore()
 const { otherDisplays, otherDisplayCount } = storeToRefs(others)
@@ -12,8 +11,8 @@ others.fetchOtherDisplays()
   <div class="outer">
     <h2 class="gjh-padded">Near By Displays</h2>
     <div class="gjh-padded">
-      Here are {{ otherDisplayCount }} displays in the area worth a visit. Those with 🎵 are also
-      synchronized to music.
+      Here are {{ otherDisplayCount }} displays in the area worth a visit. Those with &#127930; are
+      also synchronized to music.
     </div>
     <div class="containerotherHouses">
       <div class="row house-row" v-for="house in otherDisplays" v-bind:key="house.displayid">
@@ -23,7 +22,7 @@ others.fetchOtherDisplays()
         <div class="house-desc col-6" style="padding-left: 5px">
           <div>
             <a :href="house.url" class="house-name">{{ house.title }}</a>
-            <span v-if="house.musical"> 🎵 </span>
+            <span v-if="house.musical"> &#127930; </span>
           </div>
           <div>{{ house.distance }} Miles from us</div>
           <div>{{ house.city }}, {{ house.state }}</div>
