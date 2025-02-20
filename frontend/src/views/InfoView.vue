@@ -25,7 +25,7 @@ function scrollMeTo(refName) {
       <h2>About The Display</h2>
       <p class="gjh-padded">
         This will be our {{ numberOfYears }}<sup>th</sup> year with a computer controlled Christmas
-        Lights Display. This year we have 65,125 RGB bulbs that are synchronized to
+        Lights Display. This year we have 75,805 RGB bulbs that are synchronized to
         {{ totalDurationMinutes }} minutes of music
         <em>({{ availSongCount }} unique songs).</em> Join us Christmas Eve as the neighborhood
         counts down to see the Clock hit zero.
