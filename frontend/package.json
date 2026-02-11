@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@hapi/nes": "^14.0.1",
-    "axios": "^1.12.0",
+    "axios": "^1.13.5",
     "bootstrap": "^5.3.3",
     "moment": "^2.30.1",
     "pinia": "^2.3.0",
