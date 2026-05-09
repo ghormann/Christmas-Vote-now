@@ -1,5 +1,5 @@
 import { setActivePinia, createPinia } from 'pinia'
-import { vi, describe, it, expect, beforeEach } from 'vitest'
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
 vi.mock('axios', () => ({
   default: {
@@ -47,16 +47,19 @@ vi.mock('axios', () => ({
 
 vi.mock('@hapi/nes/lib/client', () => {
   let instance
-  class MockClient {
-    constructor(url) {
-      instance = { connect: vi.fn().mockResolvedValue(undefined), onConnect: null, onDisconnect: null, onUpdate: null }
-      return instance
-    }
-    static getInstance() {
-      return instance
-    }
-  }
-  return { default: { Client: vi.fn(MockClient) } }
+  const makeInstance = () => ({
+    connect: vi.fn().mockResolvedValue(undefined),
+    onConnect: null,
+    onDisconnect: null,
+    onUpdate: null,
+  })
+  const ClientMock = vi.fn(function MockClient(url) {
+    instance = makeInstance()
+    return instance
+  })
+  ClientMock.getInstance = () => instance
+  ClientMock.makeInstance = makeInstance
+  return { default: { Client: ClientMock } }
 })
 
 import axios from 'axios'
@@ -97,5 +100,106 @@ describe('displayStore - URL configuration', () => {
     const store = displayStore()
     await store.initWS()
     expect(Nes.Client).toHaveBeenCalledWith(import.meta.env.VITE_WS_URL)
+  })
+})
+
+describe('displayStore - connection state machine', () => {
+  beforeEach(() => {
+    setActivePinia(createPinia())
+    vi.useFakeTimers()
+    Nes.Client.mockClear()
+  })
+
+  afterEach(() => {
+    vi.useRealTimers()
+    vi.clearAllMocks()
+    // Clean up any running poll intervals
+    const store = displayStore()
+    store.stopFallbackPoll()
+  })
+
+  it('wsConnected starts as false', () => {
+    const store = displayStore()
+    expect(store.wsConnected).toBe(false)
+  })
+
+  it('startFallbackPoll starts a 10-second interval', () => {
+    const store = displayStore()
+    const spy = vi.spyOn(global, 'setInterval')
+    store.startFallbackPoll()
+    expect(spy).toHaveBeenCalledWith(expect.any(Function), 10000)
+  })
+
+  it('startFallbackPoll does not start a second interval if already running', () => {
+    const store = displayStore()
+    const spy = vi.spyOn(global, 'setInterval')
+    store.startFallbackPoll()
+    store.startFallbackPoll()
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  it('stopFallbackPoll clears a running interval', () => {
+    const store = displayStore()
+    const spy = vi.spyOn(global, 'clearInterval')
+    store.startFallbackPoll()
+    store.stopFallbackPoll()
+    expect(spy).toHaveBeenCalled()
+  })
+
+  it('onConnect handler sets wsConnected to true and stops poll', async () => {
+    const store = displayStore()
+    const stopSpy = vi.spyOn(store, 'stopFallbackPoll')
+    await store.initWS()
+    const client = Nes.Client.getInstance()
+    client.onConnect()
+    expect(store.wsConnected).toBe(true)
+    expect(stopSpy).toHaveBeenCalled()
+  })
+
+  it('onDisconnect handler sets wsConnected to false', async () => {
+    const store = displayStore()
+    await store.initWS()
+    const client = Nes.Client.getInstance()
+    client.onConnect()
+    client.onDisconnect()
+    expect(store.wsConnected).toBe(false)
+  })
+
+  it('onDisconnect starts fallback poll after 10 seconds if still disconnected', async () => {
+    const store = displayStore()
+    const startSpy = vi.spyOn(store, 'startFallbackPoll')
+    await store.initWS()
+    const client = Nes.Client.getInstance()
+    client.onDisconnect()
+    vi.advanceTimersByTime(10000)
+    expect(startSpy).toHaveBeenCalled()
+  })
+
+  it('fallback poll does not start if WebSocket reconnects within 10 seconds', async () => {
+    const store = displayStore()
+    const startSpy = vi.spyOn(store, 'startFallbackPoll')
+    await store.initWS()
+    const client = Nes.Client.getInstance()
+    client.onDisconnect()
+    // Reconnect before the 10-second timeout fires
+    client.onConnect()
+    vi.advanceTimersByTime(10000)
+    expect(startSpy).not.toHaveBeenCalled()
+  })
+
+  it('starts fallback poll immediately if initial connect throws', async () => {
+    const store = displayStore()
+    const startSpy = vi.spyOn(store, 'startFallbackPoll')
+    // Make connect fail on the next call only
+    Nes.Client.mockImplementationOnce(function MockFailClient(url) {
+      return {
+        connect: vi.fn().mockRejectedValue(new Error('connection refused')),
+        onConnect: null,
+        onDisconnect: null,
+        onUpdate: null,
+      }
+    })
+    await store.initWS()
+    expect(startSpy).toHaveBeenCalled()
   })
 })

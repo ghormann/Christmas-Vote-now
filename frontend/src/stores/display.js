@@ -6,6 +6,7 @@ import Nes from '@hapi/nes/lib/client'
 const SONG_RECENT_CUTOFF = 17
 
 var client = undefined
+let pollInterval = null
 
 export const displayStore = defineStore('displayStore', {
   state: () => ({
@@ -76,6 +77,7 @@ export const displayStore = defineStore('displayStore', {
     MyVotesRemaining: 8,
     lastUpdatedInfoDT: 'Never',
     lastUpdatedTS: 'Never',
+    wsConnected: false,
   }),
   getters: {
     allAvailSongs: (state) => state.availSongs.filter((s) => s.votes >= SONG_RECENT_CUTOFF),
@@ -100,23 +102,44 @@ export const displayStore = defineStore('displayStore', {
     numberOfYears: () => new Date().getFullYear() - 2000,
   },
   actions: {
+    startFallbackPoll() {
+      if (pollInterval) return
+      this.fetchState()
+      pollInterval = setInterval(this.fetchState, 10000)
+    },
+    stopFallbackPoll() {
+      if (pollInterval) {
+        clearInterval(pollInterval)
+        pollInterval = null
+      }
+    },
+
     async initWS() {
-      console.log('Calling initWS')
       client = new Nes.Client(import.meta.env.VITE_WS_URL)
+
       client.onConnect = () => {
-        console.log('Connected')
-        //clientConnected = true;
+        this.wsConnected = true
+        this.stopFallbackPoll()
       }
 
       client.onDisconnect = () => {
-        console.log('Disconnected')
-        //clientConnected = false;
+        this.wsConnected = false
+        setTimeout(() => {
+          if (!this.wsConnected) {
+            this.startFallbackPoll()
+          }
+        }, 10000)
       }
-
-      await client.connect()
 
       client.onUpdate = (update) => {
         this.setPublic(update)
+      }
+
+      try {
+        await client.connect()
+      } catch (e) {
+        console.error('WebSocket connection failed, starting fallback poll', e)
+        this.startFallbackPoll()
       }
     },
 
