@@ -64,7 +64,7 @@ vi.mock('@hapi/nes/lib/client', () => {
 
 import axios from 'axios'
 import Nes from '@hapi/nes/lib/client'
-import { displayStore } from '../display'
+import { displayStore, __TEST__resetWSState } from '../display'
 
 describe('displayStore - URL configuration', () => {
   beforeEach(() => {
@@ -105,17 +105,17 @@ describe('displayStore - URL configuration', () => {
 
 describe('displayStore - connection state machine', () => {
   beforeEach(() => {
+    // Reset module-level state for a clean test
+    __TEST__resetWSState()
     setActivePinia(createPinia())
     vi.useFakeTimers()
-    Nes.Client.mockClear()
   })
 
   afterEach(() => {
-    vi.useRealTimers()
-    vi.clearAllMocks()
-    // Clean up any running poll intervals
     const store = displayStore()
     store.stopFallbackPoll()
+    vi.useRealTimers()
+    vi.clearAllMocks()
   })
 
   it('wsConnected starts as false', () => {
@@ -201,5 +201,12 @@ describe('displayStore - connection state machine', () => {
     })
     await store.initWS()
     expect(startSpy).toHaveBeenCalled()
+  })
+
+  it('startFallbackPoll calls fetchState immediately', async () => {
+    const store = displayStore()
+    const fetchSpy = vi.spyOn(store, 'fetchState').mockResolvedValue(undefined)
+    store.startFallbackPoll()
+    expect(fetchSpy).toHaveBeenCalledTimes(1)
   })
 })

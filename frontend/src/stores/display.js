@@ -5,8 +5,16 @@ import Nes from '@hapi/nes/lib/client'
 
 const SONG_RECENT_CUTOFF = 17
 
-var client = undefined
+let client = null
 let pollInterval = null
+let disconnectTimer = null
+
+// For testing only: reset module-level state
+export const __TEST__resetWSState = () => {
+  client = null
+  pollInterval = null
+  disconnectTimer = null
+}
 
 export const displayStore = defineStore('displayStore', {
   state: () => ({
@@ -115,16 +123,21 @@ export const displayStore = defineStore('displayStore', {
     },
 
     async initWS() {
+      if (client) return
       client = new Nes.Client(import.meta.env.VITE_WS_URL)
 
       client.onConnect = () => {
         this.wsConnected = true
+        clearTimeout(disconnectTimer)
+        disconnectTimer = null
         this.stopFallbackPoll()
       }
 
       client.onDisconnect = () => {
         this.wsConnected = false
-        setTimeout(() => {
+        clearTimeout(disconnectTimer)
+        disconnectTimer = setTimeout(() => {
+          disconnectTimer = null
           if (!this.wsConnected) {
             this.startFallbackPoll()
           }
