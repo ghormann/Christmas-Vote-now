@@ -5,7 +5,16 @@ import Nes from '@hapi/nes/lib/client'
 
 const SONG_RECENT_CUTOFF = 17
 
-var client = undefined
+let client = null
+let pollInterval = null
+let disconnectTimer = null
+
+// For testing only: reset module-level state
+export const __TEST__resetWSState = () => {
+  client = null
+  pollInterval = null
+  disconnectTimer = null
+}
 
 export const displayStore = defineStore('displayStore', {
   state: () => ({
@@ -76,6 +85,7 @@ export const displayStore = defineStore('displayStore', {
     MyVotesRemaining: 8,
     lastUpdatedInfoDT: 'Never',
     lastUpdatedTS: 'Never',
+    wsConnected: false,
   }),
   getters: {
     allAvailSongs: (state) => state.availSongs.filter((s) => s.votes >= SONG_RECENT_CUTOFF),
@@ -100,23 +110,49 @@ export const displayStore = defineStore('displayStore', {
     numberOfYears: () => new Date().getFullYear() - 2000,
   },
   actions: {
+    startFallbackPoll() {
+      if (pollInterval) return
+      this.fetchState()
+      pollInterval = setInterval(this.fetchState, 10000)
+    },
+    stopFallbackPoll() {
+      if (pollInterval) {
+        clearInterval(pollInterval)
+        pollInterval = null
+      }
+    },
+
     async initWS() {
-      console.log('Calling initWS')
-      client = new Nes.Client('wss://vote-now.org/ws')
+      if (client) return
+      client = new Nes.Client(import.meta.env.VITE_WS_URL)
+
       client.onConnect = () => {
-        console.log('Connected')
-        //clientConnected = true;
+        this.wsConnected = true
+        clearTimeout(disconnectTimer)
+        disconnectTimer = null
+        this.stopFallbackPoll()
       }
 
       client.onDisconnect = () => {
-        console.log('Disconnected')
-        //clientConnected = false;
+        this.wsConnected = false
+        clearTimeout(disconnectTimer)
+        disconnectTimer = setTimeout(() => {
+          disconnectTimer = null
+          if (!this.wsConnected) {
+            this.startFallbackPoll()
+          }
+        }, 10000)
       }
-
-      await client.connect()
 
       client.onUpdate = (update) => {
         this.setPublic(update)
+      }
+
+      try {
+        await client.connect()
+      } catch (e) {
+        console.error('WebSocket connection failed, starting fallback poll', e)
+        this.startFallbackPoll()
       }
     },
 
@@ -168,27 +204,22 @@ export const displayStore = defineStore('displayStore', {
     },
 
     async fetchState() {
-      let r = await axios.get('https://vote-now.org/api/queue')
-
-      //let r = await axios.get('http://localhossetSongst:7654/queue');
+      let r = await axios.get(import.meta.env.VITE_API_BASE_URL + '/queue')
       this.setSongs(r.data)
       this.setPublic(r.data.model)
     },
     async addVote(id) {
-      let r = await axios.post('https://vote-now.org/api/vote/' + id)
-      //let r = await axios.get('http://localhost:7654/vote/' + id);
+      let r = await axios.post(import.meta.env.VITE_API_BASE_URL + '/vote/' + id)
       this.setSongs(r.data)
       this.setPublic(r.data.model)
     },
     async addSnowmanVote(id) {
-      let r = await axios.post('https://vote-now.org/api/votesnowman/' + id)
-      //let r = await axios.get('http://localhost:7654/votesnowman/' + id);
+      let r = await axios.post(import.meta.env.VITE_API_BASE_URL + '/votesnowman/' + id)
       this.setSongs(r.data)
       this.setPublic(r.data.model)
     },
     async removeVote(id) {
-      let r = await axios.delete('https://vote-now.org/api/vote/' + id)
-      //let r = await axios.delete('http://localhost:7654/vote/' + id);
+      let r = await axios.delete(import.meta.env.VITE_API_BASE_URL + '/vote/' + id)
       this.setSongs(r.data)
       this.setPublic(r.data.model)
     },
