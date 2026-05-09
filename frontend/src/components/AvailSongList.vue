@@ -62,7 +62,6 @@ const errorClass = computed(() => {
 
 onMounted(() => {
   display.fetchState()
-  setInterval(display.fetchState, 10000)
 })
 </script>
 
