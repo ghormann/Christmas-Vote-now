@@ -1,5 +1,5 @@
 import { setActivePinia, createPinia } from 'pinia'
-import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
+import { vi, describe, it, expect, beforeEach } from 'vitest'
 
 vi.mock('axios', () => ({
   default: {
@@ -47,43 +47,55 @@ vi.mock('axios', () => ({
 
 vi.mock('@hapi/nes/lib/client', () => {
   let instance
-  const MockClient = vi.fn().mockImplementation(() => {
-    instance = { connect: vi.fn().mockResolvedValue(undefined), onConnect: null, onDisconnect: null, onUpdate: null }
-    return instance
-  })
-  MockClient.getInstance = () => instance
-  return { default: MockClient }
+  class MockClient {
+    constructor(url) {
+      instance = { connect: vi.fn().mockResolvedValue(undefined), onConnect: null, onDisconnect: null, onUpdate: null }
+      return instance
+    }
+    static getInstance() {
+      return instance
+    }
+  }
+  return { default: { Client: vi.fn(MockClient) } }
 })
 
 import axios from 'axios'
+import Nes from '@hapi/nes/lib/client'
 import { displayStore } from '../display'
 
 describe('displayStore - URL configuration', () => {
   beforeEach(() => {
     setActivePinia(createPinia())
+    vi.clearAllMocks()
   })
 
   it('fetchState calls the API base URL from env', async () => {
     const store = displayStore()
     await store.fetchState()
-    expect(axios.get).toHaveBeenCalledWith('http://localhost:7654/api/queue')
+    expect(axios.get).toHaveBeenCalledWith(import.meta.env.VITE_API_BASE_URL + '/queue')
   })
 
   it('addVote calls the API base URL from env', async () => {
     const store = displayStore()
     await store.addVote(42)
-    expect(axios.post).toHaveBeenCalledWith('http://localhost:7654/api/vote/42')
+    expect(axios.post).toHaveBeenCalledWith(import.meta.env.VITE_API_BASE_URL + '/vote/42')
   })
 
   it('removeVote calls the API base URL from env', async () => {
     const store = displayStore()
     await store.removeVote(42)
-    expect(axios.delete).toHaveBeenCalledWith('http://localhost:7654/api/vote/42')
+    expect(axios.delete).toHaveBeenCalledWith(import.meta.env.VITE_API_BASE_URL + '/vote/42')
   })
 
   it('addSnowmanVote calls the API base URL from env', async () => {
     const store = displayStore()
     await store.addSnowmanVote(3)
-    expect(axios.post).toHaveBeenCalledWith('http://localhost:7654/api/votesnowman/3')
+    expect(axios.post).toHaveBeenCalledWith(import.meta.env.VITE_API_BASE_URL + '/votesnowman/3')
+  })
+
+  it('initWS connects to the WS URL from env', async () => {
+    const store = displayStore()
+    await store.initWS()
+    expect(Nes.Client).toHaveBeenCalledWith(import.meta.env.VITE_WS_URL)
   })
 })
