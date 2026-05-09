@@ -29,7 +29,7 @@ Visitor Browser
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/) v22 (use `nvm use 22`)
+- [Node.js](https://nodejs.org/) v24 (use `nvm use 24`)
 - An MQTT broker reachable from the server
 - [fppscheduler](https://github.com/ghormann/fppscheduler) running on the FPP box with MQTT prefix `/christmas`
 
@@ -71,7 +71,7 @@ Edit `server/greglights_config.json`:
 
 ```sh
 cd server
-nvm use 22
+nvm use 24
 npm install
 ```
 
@@ -179,7 +179,7 @@ Update `.env.production` to match your production server's domain before buildin
 
 ```sh
 cd frontend
-nvm use 22
+nvm use 24
 npm install
 ```
 
@@ -237,10 +237,10 @@ Outputs static files to `frontend/dist/`. Copy these to your web server's docume
 
 ```sh
 # Terminal 1 — backend
-cd server && nvm use 22 && node index.js
+cd server && nvm use 24 && node index.js
 
 # Terminal 2 — frontend
-cd frontend && nvm use 22 && npm run dev
+cd frontend && nvm use 24 && npm run dev
 ```
 
 The frontend dev server at `http://localhost:8080` connects to the backend at `http://localhost:7654` as configured in `frontend/.env.local`.
