@@ -5,7 +5,7 @@ See the [main README](../README.md) for full setup instructions, MQTT configurat
 ## Quick Start
 
 ```sh
-nvm use 22
+nvm use 24
 npm install
 cp greglights_config_example.json greglights_config.json
 # Edit greglights_config.json with your MQTT broker details
