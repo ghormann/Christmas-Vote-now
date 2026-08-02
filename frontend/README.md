@@ -5,7 +5,7 @@ See the [main README](../README.md) for full setup instructions, environment var
 ## Quick Start
 
 ```sh
-nvm use 22
+nvm use 24
 npm install
 npm run dev        # development server at http://localhost:8080
 npm run build      # production build → dist/
