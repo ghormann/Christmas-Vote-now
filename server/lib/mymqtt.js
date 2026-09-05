@@ -211,6 +211,17 @@ var handlers = [
       fireCallbacks();
     },
   },
+  {
+    topic: "car-counter/#",
+    callback: function (topic, message) {
+      let data = JSON.parse(message.toString());
+      datamodel.cars.details[data.camera] = {
+        count: data.count,
+        processing_seconds: data.processing_seconds,
+      };
+      updateTotalCars();
+    },
+  },
 ];
 
 /*
@@ -368,6 +379,35 @@ function fireCallbacks() {
   });
 }
 
+function updateTotalCars() {
+  let total = 0;
+  Object.values(datamodel.cars.details).forEach(function (d) {
+    total += d.count;
+  });
+  datamodel.cars["total-cars"] = total;
+}
+
+function topicMatches(filter, topic) {
+  let filterParts = filter.split("/");
+  let topicParts = topic.split("/");
+  for (let i = 0; i < filterParts.length; i++) {
+    let fp = filterParts[i];
+    if (fp === "#") {
+      return true;
+    }
+    if (fp === "+") {
+      if (i >= topicParts.length) {
+        return false;
+      }
+      continue;
+    }
+    if (fp !== topicParts[i]) {
+      return false;
+    }
+  }
+  return filterParts.length === topicParts.length;
+}
+
 function init() {
   let rawdata = fs.readFileSync("greglights_config.json");
   let config = JSON.parse(rawdata);
@@ -414,7 +454,7 @@ function init() {
   client.on("message", function (topic, message) {
     let handled = false;
     handlers.forEach(function (h) {
-      if (topic == h.topic) {
+      if (topicMatches(h.topic, topic)) {
         h.callback(topic, message);
         handled = true;
       }

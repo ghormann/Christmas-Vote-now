@@ -108,3 +108,8 @@ module.exports.health = {
   status: "UNKNOWN",
   lastStats: "",
 };
+
+module.exports.cars = {
+  "total-cars": 0,
+  details: {},
+};
