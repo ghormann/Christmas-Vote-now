@@ -11,7 +11,7 @@ import UniqueVoters from '@/components/stats/UniqueVoters.vue'
 import UniquePhones from '@/components/stats/UniquePhones.vue'
 
 const display = displayStore()
-const { health, stats, availSongCount, totalDurationMinutes } = storeToRefs(display)
+const { health, stats, cars, availSongCount, totalDurationMinutes } = storeToRefs(display)
 </script>
 
 <template>
@@ -26,7 +26,8 @@ const { health, stats, availSongCount, totalDurationMinutes } = storeToRefs(disp
 
             {{ totalDurationMinutes }} minutes of entertainment. The buttons of the tunnel have been
             pressed {{ stats.total_buttons }} times this year while
-            {{ stats.total_phones }} different phones have submitted names for the board.
+            {{ stats.total_phones }} different phones have submitted names for the board. We
+            estimate there are currently {{ cars['total-cars'] }} cars viewing the display.
           </p>
           <p style="margin-top: 1em">
             Want more Statistics? We got them! Here is some other interesting data as of

@@ -47,6 +47,7 @@ export const displayStore = defineStore('displayStore', {
       status: 'ALL_OK',
     },
     nameEstimateData: { estimated_seconds: 468, message: 'Booting Up' },
+    carsData: { 'total-cars': 0, details: {} },
     statsData: {
       total_buttons: 0,
       total_phones: 0,
@@ -107,6 +108,7 @@ export const displayStore = defineStore('displayStore', {
     lastStats: (state) => state.health.lastStatsTime,
     health: (state) => state.healthData,
     nameEstimates: (state) => state.nameEstimateData,
+    cars: (state) => state.carsData,
     numberOfYears: () => new Date().getFullYear() - 2000,
   },
   actions: {
@@ -171,6 +173,7 @@ export const displayStore = defineStore('displayStore', {
       this.statsData = input.stats
       this.powerStatsData = input.powerStats
       this.nameEstimateData = input.nameEstimates
+      this.carsData = input.cars
       this.lastUpdatedInfoDT = new Date()
       this.lastUpdatedTS = moment().format('LTS')
       this.healthData.lastStatsTime = moment(input.health.lastStats).format('LTS')
