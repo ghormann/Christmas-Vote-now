@@ -1,5 +1,7 @@
 <script setup>
+import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
+import moment from 'moment'
 import { displayStore } from '@/stores/display'
 import TodayPower from '@/components/stats/TodayPower.vue'
 import VoteStat from '@/components/stats/VoteStat.vue'
@@ -9,9 +11,26 @@ import NameStat from '@/components/stats/NameStat.vue'
 import ButtonStat from '@/components/stats/ButtonStat.vue'
 import UniqueVoters from '@/components/stats/UniqueVoters.vue'
 import UniquePhones from '@/components/stats/UniquePhones.vue'
+import MaxCarsStat from '@/components/stats/MaxCarsStat.vue'
 
 const display = displayStore()
 const { health, stats, cars, availSongCount, totalDurationMinutes } = storeToRefs(display)
+
+const maxCarsData = computed(() => {
+  const periods = [
+    { key: 'maxCars_1hr', label: 'Last Hour' },
+    { key: 'maxCars_8hr', label: 'Last 8 hours' },
+    { key: 'maxCars_24hr', label: 'Last 24 hours' },
+    { key: 'maxCars_year', label: 'This Year' },
+  ]
+  return periods
+    .filter((p) => stats.value[p.key])
+    .map((p) => ({
+      label: p.label,
+      maxCars: stats.value[p.key].maxCars,
+      at: moment(stats.value[p.key].at).format('MMM D, h:mm A'),
+    }))
+})
 </script>
 
 <template>
@@ -57,6 +76,9 @@ const { health, stats, cars, availSongCount, totalDurationMinutes } = storeToRef
           </li>
           <li>
             <a href="#UniquePhone">#&nbsp;of&nbsp;Phones&nbsp;adding&nbsp;name</a>
+          </li>
+          <li>
+            <a href="#MaxCars">Max&nbsp;Cars&nbsp;Viewing</a>
           </li>
         </ul>
       </div>
@@ -144,6 +166,14 @@ const { health, stats, cars, availSongCount, totalDurationMinutes } = storeToRef
       <i>(That requested a name)</i>
       <hr />
       <UniquePhones v-bind:myData="stats.topPhones" />
+    </div>
+    <div class="outer">
+      <h1>
+        <a name="MaxCars">Max Cars Viewing</a>
+      </h1>
+      <i>(Estimated)</i>
+      <hr />
+      <MaxCarsStat v-bind:myData="maxCarsData" />
     </div>
   </div>
 </template>
