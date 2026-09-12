@@ -84,7 +84,7 @@ const maxCarsData = computed(() => {
       </div>
     </div>
 
-    <div class="outer">
+    <div class="outer" v-track-visible="'VotedSongs'">
       <h1>
         <a name="VotedSongs">Top Voted Songs</a>
       </h1>
@@ -101,7 +101,7 @@ const maxCarsData = computed(() => {
       <VoteStat title="This Year" v-bind:myData="stats.topSongs_year" />
     </div>
 
-    <div class="outer">
+    <div class="outer" v-track-visible="'VotedSnowmen'">
       <h1>
         <a name="VotedSnowmen">Top Voted Snowmen</a>
       </h1>
@@ -115,7 +115,7 @@ const maxCarsData = computed(() => {
       <SnowmenVoteStat title="This Year" v-bind:myData="stats.topSnowmen_year" />
     </div>
 
-    <div class="outer">
+    <div class="outer" v-track-visible="'PlayedSongs'">
       <h1>
         <a name="PlayedSongs">Most Played Songs</a>
       </h1>
@@ -126,7 +126,7 @@ const maxCarsData = computed(() => {
       <PlayedSongStat title="This Year" v-bind:myData="stats.topPlayedSongs_year" />
     </div>
 
-    <div class="outer">
+    <div class="outer" v-track-visible="'TopNames'">
       <h1>
         <a name="TopNames">Most Requested Names</a>
       </h1>
@@ -139,7 +139,7 @@ const maxCarsData = computed(() => {
       <br />
       <NameStat title="This Year" v-bind:myData="stats.topNames_year" />
     </div>
-    <div class="outer">
+    <div class="outer" v-track-visible="'TopButtons'">
       <h1>
         <a name="TopButtons">Most Pressed Buttons</a>
       </h1>
@@ -152,14 +152,14 @@ const maxCarsData = computed(() => {
       <br />
       <ButtonStat title="This Year" v-bind:myData="stats.topButton_year" />
     </div>
-    <div class="outer">
+    <div class="outer" v-track-visible="'UniqueVoters'">
       <h1>
         <a name="UniqueVoters">Unique # of Voters</a>
       </h1>
       <hr />
       <UniqueVoters v-bind:myData="stats.topVoters" />
     </div>
-    <div class="outer">
+    <div class="outer" v-track-visible="'UniquePhone'">
       <h1 id="UniquePhoneHeader">
         <a name="UniquePhone">Unique # of Phones</a>
       </h1>
@@ -167,7 +167,7 @@ const maxCarsData = computed(() => {
       <hr />
       <UniquePhones v-bind:myData="stats.topPhones" />
     </div>
-    <div class="outer">
+    <div class="outer" v-track-visible="'MaxCars'">
       <h1>
         <a name="MaxCars">Max Cars Viewing</a>
       </h1>

@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import axios from 'axios'
 import moment from 'moment'
 import Nes from '@hapi/nes/lib/client'
+import { trackEvent } from '@/analytics'
 
 const SONG_RECENT_CUTOFF = 17
 
@@ -211,20 +212,38 @@ export const displayStore = defineStore('displayStore', {
       this.setSongs(r.data)
       this.setPublic(r.data.model)
     },
+    songTitle(id) {
+      const song = this.availSongs.find((s) => s.id === id)
+      return song ? song.title : 'unknown'
+    },
     async addVote(id) {
+      // Resolved before the response overwrites availSongs.
+      const title = this.songTitle(id)
       let r = await axios.post(import.meta.env.VITE_API_BASE_URL + '/vote/' + id)
       this.setSongs(r.data)
       this.setPublic(r.data.model)
+      // Tracked after the call so failed votes aren't counted.
+      trackEvent('song_vote', {
+        song_id: id,
+        song_title: title,
+        votes_remaining: this.MyVotesRemaining,
+      })
     },
     async addSnowmanVote(id) {
       let r = await axios.post(import.meta.env.VITE_API_BASE_URL + '/votesnowman/' + id)
       this.setSongs(r.data)
       this.setPublic(r.data.model)
+      trackEvent('snowman_vote', { snowman_id: id })
     },
     async removeVote(id) {
+      const title = this.songTitle(id)
       let r = await axios.delete(import.meta.env.VITE_API_BASE_URL + '/vote/' + id)
       this.setSongs(r.data)
       this.setPublic(r.data.model)
+      trackEvent('song_vote_removed', {
+        song_id: id,
+        song_title: title,
+      })
     },
   },
 })

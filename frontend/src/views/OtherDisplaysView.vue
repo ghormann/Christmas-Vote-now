@@ -1,10 +1,20 @@
 <script setup>
 import { storeToRefs } from 'pinia'
 import { otherDisplayStore } from '@/stores/other_displays'
+import { trackEvent } from '@/analytics'
 // access the `store` variable anywhere in the component ✨
 const others = otherDisplayStore()
 const { otherDisplays, otherDisplayCount } = storeToRefs(others)
 others.fetchOtherDisplays()
+
+const trackDisplayClick = function (house) {
+  trackEvent('other_display_click', {
+    display_id: house.displayid,
+    display_title: house.title,
+    distance_miles: house.distance,
+    musical: house.musical,
+  })
+}
 </script>
 
 <template>
@@ -17,11 +27,15 @@ others.fetchOtherDisplays()
     <div class="containerotherHouses">
       <div class="row house-row" v-for="house in otherDisplays" v-bind:key="house.displayid">
         <div class="col-6">
-          <a :href="house.url"><img :src="house.pict" class="img-fluid" /></a>
+          <a :href="house.url" @click="trackDisplayClick(house)"
+            ><img :src="house.pict" class="img-fluid"
+          /></a>
         </div>
         <div class="house-desc col-6" style="padding-left: 5px">
           <div>
-            <a :href="house.url" class="house-name">{{ house.title }}</a>
+            <a :href="house.url" class="house-name" @click="trackDisplayClick(house)">{{
+              house.title
+            }}</a>
             <span v-if="house.musical"> &#127930; </span>
           </div>
           <div>{{ house.distance }} Miles from us</div>

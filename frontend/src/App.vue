@@ -2,10 +2,17 @@
 import { RouterLink, RouterView } from 'vue-router'
 import { onMounted } from 'vue'
 import { displayStore } from '@/stores/display'
+import { trackEvent } from '@/analytics'
 import CoolDisplaysLogo from './components/CoolDisplaysLogo.vue'
 import LastUpdated from './components/LastUpdated.vue'
 import GlobalStatus from './components/GlobalStatus.vue'
 const display = displayStore()
+
+const HORMANNS_URL = 'https://thehormanns.net/christmas/our-story'
+
+const trackOutboundClick = function () {
+  trackEvent('outbound_click', { link_url: HORMANNS_URL })
+}
 
 onMounted(() => {
   // Code to run when the app is created
@@ -39,7 +46,7 @@ onMounted(() => {
   <CoolDisplaysLogo />
   <div>
     Learn more at
-    <a href="http://thehormanns.net/new/christmas.phtml">http://thehormanns.net</a>
+    <a :href="HORMANNS_URL" @click="trackOutboundClick">http://thehormanns.net</a>
   </div>
   <LastUpdated />
 </template>

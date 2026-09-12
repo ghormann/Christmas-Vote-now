@@ -10,7 +10,16 @@ vi.mock('axios', () => ({
           songs: [],
           snowmenQueue: [],
           nameQueue: [],
-          current: { status: 'idle', enabled: true, nameStatus: '', secondsTotal: -1, secondsRemaining: -1, isDisplayHours: false, isShortList: false, title: '' },
+          current: {
+            status: 'idle',
+            enabled: true,
+            nameStatus: '',
+            secondsTotal: -1,
+            secondsRemaining: -1,
+            isDisplayHours: false,
+            isShortList: false,
+            title: '',
+          },
           health: { lastStats: new Date().toISOString(), status: 'OK' },
           stats: {},
           powerStats: { kwh: 0, dollars: 0 },
@@ -22,10 +31,22 @@ vi.mock('axios', () => ({
       data: {
         votesRemaining: { remaining: 7, status: 'OK', snowmanId: -1 },
         model: {
-          songs: [], snowmenQueue: [], nameQueue: [],
-          current: { status: 'idle', enabled: true, nameStatus: '', secondsTotal: -1, secondsRemaining: -1, isDisplayHours: false, isShortList: false, title: '' },
+          songs: [],
+          snowmenQueue: [],
+          nameQueue: [],
+          current: {
+            status: 'idle',
+            enabled: true,
+            nameStatus: '',
+            secondsTotal: -1,
+            secondsRemaining: -1,
+            isDisplayHours: false,
+            isShortList: false,
+            title: '',
+          },
           health: { lastStats: new Date().toISOString(), status: 'OK' },
-          stats: {}, powerStats: { kwh: 0, dollars: 0 },
+          stats: {},
+          powerStats: { kwh: 0, dollars: 0 },
           nameEstimates: { estimated_seconds: 0, message: '' },
         },
       },
@@ -34,10 +55,22 @@ vi.mock('axios', () => ({
       data: {
         votesRemaining: { remaining: 9, status: 'OK', snowmanId: -1 },
         model: {
-          songs: [], snowmenQueue: [], nameQueue: [],
-          current: { status: 'idle', enabled: true, nameStatus: '', secondsTotal: -1, secondsRemaining: -1, isDisplayHours: false, isShortList: false, title: '' },
+          songs: [],
+          snowmenQueue: [],
+          nameQueue: [],
+          current: {
+            status: 'idle',
+            enabled: true,
+            nameStatus: '',
+            secondsTotal: -1,
+            secondsRemaining: -1,
+            isDisplayHours: false,
+            isShortList: false,
+            title: '',
+          },
           health: { lastStats: new Date().toISOString(), status: 'OK' },
-          stats: {}, powerStats: { kwh: 0, dollars: 0 },
+          stats: {},
+          powerStats: { kwh: 0, dollars: 0 },
           nameEstimates: { estimated_seconds: 0, message: '' },
         },
       },
@@ -62,8 +95,13 @@ vi.mock('@hapi/nes/lib/client', () => {
   return { default: { Client: ClientMock } }
 })
 
+vi.mock('@/analytics', () => ({
+  trackEvent: vi.fn(),
+}))
+
 import axios from 'axios'
 import Nes from '@hapi/nes/lib/client'
+import { trackEvent } from '@/analytics'
 import { displayStore, __TEST__resetWSState } from '../display'
 
 describe('displayStore - URL configuration', () => {
@@ -208,5 +246,75 @@ describe('displayStore - connection state machine', () => {
     const fetchSpy = vi.spyOn(store, 'fetchState').mockResolvedValue(undefined)
     store.startFallbackPoll()
     expect(fetchSpy).toHaveBeenCalledTimes(1)
+  })
+})
+
+describe('displayStore - analytics events', () => {
+  beforeEach(() => {
+    setActivePinia(createPinia())
+    vi.clearAllMocks()
+  })
+
+  const seedSongs = (store) => {
+    store.availSongs = [{ id: 42, title: 'Sleigh Ride', votes: 20, duration: 120 }]
+  }
+
+  it('addVote sends song_vote with the resolved title and remaining votes', async () => {
+    const store = displayStore()
+    seedSongs(store)
+    await store.addVote(42)
+    expect(trackEvent).toHaveBeenCalledWith('song_vote', {
+      song_id: 42,
+      song_title: 'Sleigh Ride',
+      votes_remaining: 7,
+    })
+  })
+
+  it('addVote resolves the title before the response replaces availSongs', async () => {
+    const store = displayStore()
+    seedSongs(store)
+    await store.addVote(42)
+    // The mocked response sets songs: [], so a title read afterwards is lost.
+    expect(trackEvent.mock.calls[0][1].song_title).toBe('Sleigh Ride')
+  })
+
+  it('addVote falls back to unknown for an unrecognized id', async () => {
+    const store = displayStore()
+    seedSongs(store)
+    await store.addVote(999)
+    expect(trackEvent).toHaveBeenCalledWith(
+      'song_vote',
+      expect.objectContaining({ song_id: 999, song_title: 'unknown' }),
+    )
+  })
+
+  it('removeVote sends song_vote_removed', async () => {
+    const store = displayStore()
+    seedSongs(store)
+    await store.removeVote(42)
+    expect(trackEvent).toHaveBeenCalledWith('song_vote_removed', {
+      song_id: 42,
+      song_title: 'Sleigh Ride',
+    })
+  })
+
+  it('addSnowmanVote sends snowman_vote', async () => {
+    const store = displayStore()
+    await store.addSnowmanVote(3)
+    expect(trackEvent).toHaveBeenCalledWith('snowman_vote', { snowman_id: 3 })
+  })
+
+  it('sends nothing when the vote request fails', async () => {
+    const store = displayStore()
+    seedSongs(store)
+    axios.post.mockRejectedValueOnce(new Error('boom'))
+    await expect(store.addVote(42)).rejects.toThrow('boom')
+    expect(trackEvent).not.toHaveBeenCalled()
+  })
+
+  it('fetchState sends no events', async () => {
+    const store = displayStore()
+    await store.fetchState()
+    expect(trackEvent).not.toHaveBeenCalled()
   })
 })
