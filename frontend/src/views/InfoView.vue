@@ -12,6 +12,7 @@ const { availSongCount, totalDurationMinutes, numberOfYears, nameEstimates } = s
 
 onMounted(() => {
   display.fetchState()
+  faq.fetchFaqs()
 })
 
 function scrollMeTo(refName) {
@@ -68,8 +69,7 @@ function scrollMeTo(refName) {
       <dl class="faq-detail gjh-padded">
         <template v-bind:key="faq.id" v-for="faq in allFaqs">
           <dt>
-            {{ faq.question }}
-            <a v-bind:id="faq.id" v-bind:ref="faq.id">{{ faq.questcomponentsion }}</a>
+            <a v-bind:id="faq.id" v-bind:ref="faq.id">{{ faq.question }}</a>
             (<a class="gjh-fake-link" @click="scrollMeTo('faq-top')">Top</a>)
           </dt>
           <dd><div v-html="faq.answer"></div></dd>

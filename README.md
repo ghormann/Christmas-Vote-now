@@ -107,7 +107,30 @@ The `docker-compose.yml` binds the server to `127.0.0.1:7654` on the host. Front
 | `DELETE` | `/vote/{id}` | Remove a previously cast vote for song `{id}` |
 | `GET/POST` | `/votesnowman/{id}` | Vote for a snowman display |
 | `GET` | `/status` | Returns server health status |
+| `GET` | `/faq` | Returns the shared display FAQ as rendered HTML |
 | `GET` | `/ws` | WebSocket endpoint (Hapi NES) — subscribe to `/publicData` for real-time model pushes |
+
+#### `GET /faq`
+
+This server owns the FAQ text for both vote-now.org and thehormanns.net, so the
+two sites can never drift apart. The questions and answers live in
+`server/data/faqs.js`; anything that can change — season dates, the song count,
+the address, charity names — is written there as a `{{token}}` and filled in
+from `server/data/facts.js` on each request. Answers come back as ready-to-show
+HTML.
+
+| Query | Description |
+|---|---|
+| `audience` | `web` (thehormanns.net) or `app` (the vote-now info page). Omit for everything. |
+| `site` | Base URL for links into thehormanns.net. Defaults to `https://thehormanns.net`; thehormanns.net passes an empty string so its own links stay relative. |
+
+```sh
+curl 'http://localhost:7654/faq?audience=app'
+```
+
+thehormanns.net calls this at build time (which is what feeds its `FAQPage`
+structured data) and again in the browser, so edits here reach that site without
+a redeploy.
 
 Sessions are tracked server-side via a cookie (Hapi Yar). Each session gets 8 votes, replenished by 1 every 2 minutes.
 
