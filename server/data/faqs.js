@@ -23,7 +23,7 @@ module.exports = [
   },
   {
     id: "location",
-    audience: ALL,
+    audience: ["web"],
     question: "Where is the display located?",
     answer:
       'We are at <a href="{{mapUrl}}">{{fullAddress}}</a>, about 25 minutes north of downtown Cincinnati, just off the Liberty Way exit of I-75.'
