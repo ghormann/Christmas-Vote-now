@@ -40,14 +40,14 @@ module.exports = [
     audience: ALL,
     question: "How do I hear the music?",
     answer:
-      'Two ways. From your car, tune the radio to <strong>{{fm}}</strong> &mdash; the frequency is also shown on the <a href="{{site}}/technology/info-board/">information sign above the garage</a>. It is a low-power transmitter by design, so the signal only carries a few hundred feet; if you are not picking it up, move closer to the house. If you would rather get out and walk around, we also run <strong>outdoor speakers</strong> at the display, so you do not need a radio at all.'
+      'Two ways. From your car, tune the radio to <strong>{{fm}}</strong>. It is a low-power transmitter by design, so the signal only carries a few hundred feet. If you are not picking it up, move closer to the house. If you would rather get out and walk around, we also run <strong>outdoor speakers</strong> at the display, so you do not need a radio at all.'
   },
   {
     id: "radio-out-of-sync",
     audience: ALL,
     question: "Why is my car radio out of sync with the lights?",
     answer:
-      "A few vehicles &mdash; newer Lexus and Cadillac models in particular &mdash; buffer the analog FM signal, which causes a noticeable delay. Some of those radios have a &ldquo;live mode&rdquo; option; turning it on fixes it. If you see one of us outside, ask &mdash; we usually have a portable radio in a pocket you can borrow."
+      "A few vehicles &mdash; newer Lexus and Cadillac models in particular &mdash; buffer the analog FM signal, which causes a noticeable delay. Some of those radios have a &ldquo;live mode&rdquo; option; turning it on fixes it. If that doesn't work and you see one of us outside, ask to borrow a portable radio."
   },
   {
     id: "show-length",
@@ -68,14 +68,14 @@ module.exports = [
     audience: ALL,
     question: "Can I walk through the light tunnel?",
     answer:
-      'Yes. <a href="{{site}}/technology/tunnel/">The tunnel</a> is open to walk through, and there are buttons inside that let you change what it does. Visitors pressed them 39,661 times last season. If you get a good photo in there, we would love to see it &mdash; <a href="{{facebookUrl}}">share it with us on Facebook</a>.'
+      'Yes. <a href="{{site}}/technology/tunnel/">The tunnel</a> is open to walk through, and there are buttons just outside that let you change what it does. If you get a good photo in there, we would love to see it &mdash; <a href="{{facebookUrl}}">share it with us on Facebook</a>.'
   },
   {
     id: "pick-next-song",
     audience: ALL,
     question: "Can I pick which song plays next?",
     answer:
-      'Yes. From your phone, open <a href="{{interactUrl}}">vote-now.org</a> to <a href="{{site}}/technology/voting/">vote for the next song</a> and choose which <a href="{{site}}/technology/snowmen/">snowmen</a> appear in the display.'
+      'You can influence the priorityof the next song by opening <a href="{{interactUrl}}">vote-now.org</a> to vote for the next song. Curious how it works? <a href="{{site}}/technology/voting/">Read all about the design</a>'
   },
   {
     id: "name-in-lights",
@@ -89,7 +89,7 @@ module.exports = [
     audience: ALL,
     question: "Where should I park?",
     answer:
-      "Please do not park directly in front of the traffic cones &mdash; they keep the lane clear. To watch from your car, park on the <strong>opposite side of the street from the house</strong>, or along <strong>Stonington Drive</strong>, which gives the best viewing distance from inside a car. If you would rather get out and walk around the display, park further up <strong>Devon Drive</strong> to stay clear of the traffic watching from their cars. Wherever you end up, please be considerate of our neighbors: do not block driveways, keep headlights and music down, and take your trash with you. Their patience is the only reason we have been able to keep this going."
+      "Please do not park directly in front of the traffic cones &mdash; they keep the lane clear. To watch from your car, park on the <strong>opposite side of the street from the house</strong>, or along <strong>Stonington Drive</strong>, which gives the best viewing distance from inside a car. If you would rather get out and walk around the display, park further up <strong>Devon Drive</strong> to stay clear of the traffic watching from their cars. Wherever you end up, please be considerate of our neighbors: do not block driveways, keep headlights and music down, and take your trash with you. Their support is the only reason we have been able to keep this going for decades."
   },
   {
     id: "best-time-to-visit",
@@ -103,21 +103,21 @@ module.exports = [
     audience: ALL,
     question: "Do you take donations?",
     answer:
-      'Yes &mdash; for {{charityBeneficiary}}, not for us. There is a donation booth to the left of the display, open every night the show is on, that accepts {{charityAccepts}}. You can also give online through <a href="{{venmoUrl}}">Venmo</a> ({{charityTreasurer}} is the treasurer). <a href="{{site}}/christmas/giving/">See how much visitors have given</a>.'
+      'Yes &mdash; for {{charityBeneficiary}}, not for us. There is a donation booth to the left of the display, open every night the show is on. We accept {{charityAccepts}}. You can also give online through <a href="{{venmoUrl}}">Venmo</a> ({{charityTreasurer}} is the treasurer). <a href="{{site}}/christmas/giving/">See how much visitors have given</a> in previous years. THank you for helping others who are in need!'
   },
   {
     id: "setup-time",
     audience: ALL,
     question: "How long does the display take to set up?",
     answer:
-      "We take two weeks off work in November to bring everything outside, mount it, and wire it together. In truth we work on the display year round &mdash; updating songs, building new elements, soldering, repairing, and configuring controllers."
+      'We take two weeks off work in November to bring everything outside, mount it, and wire it together. In truth we work on the display year round &mdash; updating songs, building new elements, soldering, repairing, and configuring controllers. <a href="{{site}}/christmas">Time laps videos</a> of the construction give a flavor of the process.'
   },
   {
     id: "sequencing-time",
     audience: ALL,
     question: "How long does it take to program one song?",
     answer:
-      "It varies. The most complex songs take roughly an hour of sequencing for every 10 seconds of music &mdash; 20 to 24 hours for a four-minute song. There is a computer in our living room year round so any family member can sequence while relaxing."
+      "It varies. The most complex songs take roughly an hour of sequencing for every 10 seconds of music &mdash; 16 to 24 hours for a four-minute song would be commmon. There is a computer in our living room year round so any family member can sequence while relaxing."
   },
   {
     id: "running-cost",
@@ -138,20 +138,20 @@ module.exports = [
     audience: ALL,
     question: "Is the inside of your house full of lights too?",
     answer:
-      "No. The inside is rather tame &mdash; the Christmas tree is mostly static lighting."
+      "No. The inside is rather tame. Believe it or not, the indoor Christmas tree is mostly static lighting."
   },
   {
     id: "storage",
     audience: ALL,
     question: "Where do you store it all?",
     answer:
-      "Our unfinished basement fills up with about fifty 27-gallon storage containers plus a wall of custom shelving for the small trees and yard stars. The larger items take up half the garage."
+      "Our unfinished basement fills up with about fifty 27-gallon storage containers as well as two walls of custom shelving for the small trees and yard stars. The larger items take up half the garage on custo shelving."
   },
   {
     id: "how-it-is-controlled",
     audience: ALL,
     question: "How do you control that many lights?",
     answer:
-      'Every bulb is an individually addressable RGB pixel driven over <a href="{{site}}/technology/dmx/">E1.31 (sACN)</a> by pixel controllers, sequenced in <a href="https://xlights.org">xLights</a> and played back by <a href="https://github.com/FalconChristmas/fpp">FPP</a>. <a href="{{site}}/technology/">The technology section</a> walks through each piece.'
+      'Every bulb is an individually addressable RGB pixel driven over <a href="{{site}}/technology/dmx/">E1.31 (sACN)</a> by pixel controllers, sequenced in <a href="https://xlights.org">xLights</a> and played back by <a href="https://github.com/FalconChristmas/fpp">FPP</a>. We have dedicated <a href="{{site}}/technology/">The technology pages</a> to explain maing of the features behind our display.'
   }
 ];
