@@ -75,7 +75,7 @@ module.exports = [
     audience: ALL,
     question: "Can I pick which song plays next?",
     answer:
-      'You can influence the priorityof the next song by opening <a href="{{interactUrl}}">vote-now.org</a> to vote for the next song. Curious how it works? <a href="{{site}}/technology/voting/">Read all about the design</a>'
+      'You can influence the priority of the next song by opening <a href="{{interactUrl}}">vote-now.org</a> to vote for the next song. Curious how it works? <a href="{{site}}/technology/voting/">Read all about the design</a>'
   },
   {
     id: "name-in-lights",
@@ -103,21 +103,21 @@ module.exports = [
     audience: ALL,
     question: "Do you take donations?",
     answer:
-      'Yes &mdash; for {{charityBeneficiary}}, not for us. There is a donation booth to the left of the display, open every night the show is on. We accept {{charityAccepts}}. You can also give online through <a href="{{venmoUrl}}">Venmo</a> ({{charityTreasurer}} is the treasurer). <a href="{{site}}/christmas/giving/">See how much visitors have given</a> in previous years. THank you for helping others who are in need!'
+      'Yes &mdash; for {{charityBeneficiary}}, not for us. There is a donation booth to the left of the display, open every night the show is on. We accept {{charityAccepts}}. You can also give online through <a href="{{venmoUrl}}">Venmo</a> ({{charityTreasurer}} is the treasurer). <a href="{{site}}/christmas/giving/">See how much visitors have given</a> in previous years. Thank you for helping others who are in need!'
   },
   {
     id: "setup-time",
     audience: ALL,
     question: "How long does the display take to set up?",
     answer:
-      'We take two weeks off work in November to bring everything outside, mount it, and wire it together. In truth we work on the display year round &mdash; updating songs, building new elements, soldering, repairing, and configuring controllers. <a href="{{site}}/christmas">Time laps videos</a> of the construction give a flavor of the process.'
+      'We take two weeks off work in November to bring everything outside, mount it, and wire it together. In truth we work on the display year round &mdash; updating songs, building new elements, soldering, repairing, and configuring controllers. <a href="{{site}}/christmas">Time lapse videos</a> of the construction give a flavor of the process.'
   },
   {
     id: "sequencing-time",
     audience: ALL,
     question: "How long does it take to program one song?",
     answer:
-      "It varies. The most complex songs take roughly an hour of sequencing for every 10 seconds of music &mdash; 16 to 24 hours for a four-minute song would be commmon. There is a computer in our living room year round so any family member can sequence while relaxing."
+      "It varies. The most complex songs take roughly an hour of sequencing for every 10 seconds of music &mdash; 16 to 24 hours for a four-minute song would be common. There is a computer in our living room year round so any family member can sequence while relaxing."
   },
   {
     id: "running-cost",
@@ -145,13 +145,13 @@ module.exports = [
     audience: ALL,
     question: "Where do you store it all?",
     answer:
-      "Our unfinished basement fills up with about fifty 27-gallon storage containers as well as two walls of custom shelving for the small trees and yard stars. The larger items take up half the garage on custo shelving."
+      "Our unfinished basement fills up with about fifty 27-gallon storage containers as well as two walls of custom shelving for the small trees and yard stars. The larger items take up half the garage on custom shelving."
   },
   {
     id: "how-it-is-controlled",
     audience: ALL,
     question: "How do you control that many lights?",
     answer:
-      'Every bulb is an individually addressable RGB pixel driven over <a href="{{site}}/technology/dmx/">E1.31 (sACN)</a> by pixel controllers, sequenced in <a href="https://xlights.org">xLights</a> and played back by <a href="https://github.com/FalconChristmas/fpp">FPP</a>. We have dedicated <a href="{{site}}/technology/">The technology pages</a> to explain maing of the features behind our display.'
+      'Every bulb is an individually addressable RGB pixel driven over <a href="{{site}}/technology/dmx/">E1.31 (sACN)</a> by pixel controllers, sequenced in <a href="https://xlights.org">xLights</a> and played back by <a href="https://github.com/FalconChristmas/fpp">FPP</a>. We have dedicated <a href="{{site}}/technology/">The technology pages</a> to explain many of the features behind our display.'
   }
 ];
