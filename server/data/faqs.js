@@ -19,7 +19,7 @@ module.exports = [
     audience: ALL,
     question: "When is the Christmas light display open?",
     answer:
-      "We open two days before Thanksgiving &mdash; {{openText}} this season &mdash; and run every night through New Year&rsquo;s Day, {{closeText}}. The show is on nightly from {{showHours}}."
+      "We open two days before Thanksgiving ({{openText}} this season) and run every night through New Year&rsquo;s Day, {{closeText}}. The show is on nightly from {{showHours}}."
   },
   {
     id: "location",
@@ -33,7 +33,7 @@ module.exports = [
     audience: ALL,
     question: "How much does it cost to visit?",
     answer:
-      'Nothing. The display is completely free and there is no ticket or reservation. We do collect {{charityAccepts}} for {{charityBeneficiary}} in partnership with the <a href="{{charityPartnerUrl}}">{{charityPartner}}</a>, but donating is never required.'
+      'Nothing. The display is free, and there are no tickets or reservations. We do collect {{charityAccepts}} for {{charityBeneficiary}} in partnership with the <a href="{{charityPartnerUrl}}">{{charityPartner}}</a>, but donating is never required.'
   },
   {
     id: "hear-the-music",
@@ -47,35 +47,35 @@ module.exports = [
     audience: ALL,
     question: "Why is my car radio out of sync with the lights?",
     answer:
-      "A few vehicles &mdash; newer Lexus and Cadillac models in particular &mdash; buffer the analog FM signal, which causes a noticeable delay. Some of those radios have a &ldquo;live mode&rdquo; option; turning it on fixes it. If that doesn't work and you see one of us outside, ask to borrow a portable radio."
+      "Some newer cars (Lexus and Cadillac in particular) buffer the FM signal, which puts the audio slightly behind the lights. If your radio has a &ldquo;live mode&rdquo; option, turning it on fixes it. If that doesn't work and you see one of us outside, just ask. We usually have a portable radio you can borrow."
   },
   {
     id: "show-length",
     audience: ALL,
     question: "How long is the show?",
     answer:
-      'Songs play back to back continuously, so there is no set showtime to arrive for. The full playlist is currently <span data-show-stat="summary">{{showSummary}}</span>. Most visitors stay for three to five songs, but you are very welcome to settle in for the whole thing.'
+      'Songs play back to back, so there&rsquo;s no set showtime to catch. The full playlist is currently <span data-show-stat="summary">{{showSummary}}</span>. Most visitors stay for three to five songs, but you are very welcome to settle in for the whole thing.'
   },
   {
     id: "stay-in-car",
     audience: ALL,
     question: "Can I stay in my car?",
     answer:
-      "Yes. Most visitors watch from the street with the radio on, and that is the warmest way to do it. You are also welcome to get out and walk around &mdash; our outdoor speakers mean you can still hear the show away from your car."
+      "Yes. Most visitors watch from the street with the radio on, and that is the warmest way to do it. You are also welcome to get out and walk around. The outdoor speakers mean you can still hear the show away from your car."
   },
   {
     id: "light-tunnel",
     audience: ALL,
     question: "Can I walk through the light tunnel?",
     answer:
-      'Yes. <a href="{{site}}/technology/tunnel/">The tunnel</a> is open to walk through, and there are buttons just outside that let you change what it does. If you get a good photo in there, we would love to see it &mdash; <a href="{{facebookUrl}}">share it with us on Facebook</a>.'
+      'Yes. <a href="{{site}}/technology/tunnel/">The tunnel</a> is open to walk through, and there are buttons just outside that let you change what it does. If you get a good photo in there, we&rsquo;d love to see it on <a href="{{facebookUrl}}">Facebook</a>.'
   },
   {
     id: "pick-next-song",
     audience: ALL,
     question: "Can I pick which song plays next?",
     answer:
-      'You can influence the priority of the next song by opening <a href="{{interactUrl}}">vote-now.org</a> to vote for the next song. Curious how it works? <a href="{{site}}/technology/voting/">Read all about the design</a>'
+      'Yes. Open <a href="{{interactUrl}}">vote-now.org</a> on your phone and vote for the songs you want to hear. The songs with the most votes move up the list. Curious how it works? <a href="{{site}}/technology/voting/">Here&rsquo;s how we built it</a>.'
   },
   {
     id: "name-in-lights",
@@ -89,49 +89,49 @@ module.exports = [
     audience: ALL,
     question: "Where should I park?",
     answer:
-      "Please do not park directly in front of the traffic cones &mdash; they keep the lane clear. To watch from your car, park on the <strong>opposite side of the street from the house</strong>, or along <strong>Stonington Drive</strong>, which gives the best viewing distance from inside a car. If you would rather get out and walk around the display, park further up <strong>Devon Drive</strong> to stay clear of the traffic watching from their cars. Wherever you end up, please be considerate of our neighbors: do not block driveways, keep headlights and music down, and take your trash with you. Their support is the only reason we have been able to keep this going for decades."
+      "Please don't park in front of the traffic cones; they keep the lane open. To watch from your car, park on the <strong>opposite side of the street from the house</strong>, or along <strong>Stonington Drive</strong>, which gives the best view from inside a car. If you would rather get out and walk around the display, park further up <strong>Devon Drive</strong> so you're out of the way of the cars watching. Wherever you end up, please be considerate of our neighbors: do not block driveways, keep headlights and music down, and take your trash with you. They've put up with the traffic for decades, and we couldn't do this without them."
   },
   {
     id: "best-time-to-visit",
     audience: ALL,
     question: "When is the best time to come to avoid traffic?",
     answer:
-      'Traffic is generally lightest on school nights, and quietest between <strong>5:00 and 6:30</strong> or <strong>10:00 and 11:00</strong>. It gets heavier the closer you get to Christmas, and Christmas Eve is always very busy &mdash; that is the night the neighborhood gathers to watch the <a href="{{site}}/technology/clock/">countdown clock</a> hit zero. On the heaviest nights we switch to a shorter playlist to keep traffic moving.'
+      'Traffic is generally lightest on school nights, and quietest between <strong>5:00 and 6:30</strong> or <strong>10:00 and 11:00</strong>. It gets heavier the closer we get to Christmas. Christmas Eve is always very busy, because that&rsquo;s the night the neighborhood gathers to watch the <a href="{{site}}/technology/clock/">countdown clock</a> hit zero. On the heaviest nights we switch to a shorter playlist to keep traffic moving.'
   },
   {
     id: "donations",
     audience: ALL,
     question: "Do you take donations?",
     answer:
-      'Yes &mdash; for {{charityBeneficiary}}, not for us. There is a donation booth to the left of the display, open every night the show is on. We accept {{charityAccepts}}. You can also give online through <a href="{{venmoUrl}}">Venmo</a> ({{charityTreasurer}} is the treasurer). <a href="{{site}}/christmas/giving/">See how much visitors have given</a> in previous years. Thank you for helping others who are in need!'
+      'Yes, for {{charityBeneficiary}}. There is a donation booth to the left of the display, open every night the show is on. We accept {{charityAccepts}}. You can also give online through <a href="{{venmoUrl}}">Venmo</a> ({{charityTreasurer}} is the treasurer). <a href="{{site}}/christmas/giving/">See how much visitors have given</a> in previous years. Thank you!'
   },
   {
     id: "setup-time",
     audience: ALL,
     question: "How long does the display take to set up?",
     answer:
-      'We take two weeks off work in November to bring everything outside, mount it, and wire it together. In truth we work on the display year round &mdash; updating songs, building new elements, soldering, repairing, and configuring controllers. <a href="{{site}}/christmas">Time lapse videos</a> of the construction give a flavor of the process.'
+      'We take two weeks off work in November to bring everything outside, mount it, and wire it together. The rest of the year goes to programming songs, building new pieces, soldering, and repairs. The <a href="{{site}}/christmas/">time-lapse videos</a> of setup show what it takes.'
   },
   {
     id: "sequencing-time",
     audience: ALL,
     question: "How long does it take to program one song?",
     answer:
-      "It varies. The most complex songs take roughly an hour of sequencing for every 10 seconds of music &mdash; 16 to 24 hours for a four-minute song would be common. There is a computer in our living room year round so any family member can sequence while relaxing."
+      "It varies. The most complex songs take about an hour of sequencing for every 10 seconds of music, so a four-minute song can take 16 to 24 hours. We keep a computer in the living room all year so anyone in the family can work on a song while relaxing."
   },
   {
     id: "running-cost",
     audience: ALL,
     question: "How much does it cost you to run?",
     answer:
-      'The impact on our electric bill is relatively small since everything is LED &mdash; the <a href="{{site}}/christmas/">yearly stats</a> list the exact figure for each season. As for the electronics and hardware built up over the years, let us just say we could have bought a very nice new mini-van instead.'
+      'Less than you&rsquo;d think, since everything is LED. The <a href="{{site}}/christmas/">yearly stats</a> list the exact figure for each season. As for the electronics and hardware built up over the years, let us just say we could have bought a very nice new mini-van instead.'
   },
   {
     id: "neighbors",
     audience: ALL,
     question: "What do your neighbors think?",
     answer:
-      "Our neighbors have been remarkably supportive over the years. Polite visitors are the single biggest reason we are able to keep the tradition going."
+      "They've been great about it for a long time. Polite visitors help a lot, so thank you for being one."
   },
   {
     id: "inside-the-house",
@@ -152,6 +152,6 @@ module.exports = [
     audience: ALL,
     question: "How do you control that many lights?",
     answer:
-      'Every bulb is an individually addressable RGB pixel driven over <a href="{{site}}/technology/dmx/">E1.31 (sACN)</a> by pixel controllers, sequenced in <a href="https://xlights.org">xLights</a> and played back by <a href="https://github.com/FalconChristmas/fpp">FPP</a>. We have dedicated <a href="{{site}}/technology/">The technology pages</a> to explain many of the features behind our display.'
+      'Every bulb is an individually addressable RGB pixel driven over <a href="{{site}}/technology/dmx/">E1.31 (sACN)</a> by pixel controllers, sequenced in <a href="https://xlights.org">xLights</a> and played back by <a href="https://github.com/FalconChristmas/fpp">FPP</a>. The <a href="{{site}}/technology/">technology pages</a> explain how the different parts of the display work.'
   }
 ];
