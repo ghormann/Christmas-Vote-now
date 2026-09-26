@@ -47,8 +47,7 @@
       </ul>
 
       <div class="text-name">
-        Put your name in lights: text your first name to
-        <a :href="TEXT_NUMBER_SMS" @click="trackTextClick">{{ TEXT_NUMBER_DISPLAY }}</a>
+        <RouterLink to="/names">Put your name in lights</RouterLink>
       </div>
     </div>
   </div>
@@ -59,8 +58,6 @@ import { computed, onMounted } from 'vue'
 import { RouterLink } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { displayStore } from '@/stores/display'
-import { trackEvent } from '@/analytics'
-import { TEXT_NUMBER_DISPLAY, TEXT_NUMBER_SMS } from '@/lib/site'
 const display = displayStore()
 const { allAvailSongs, votesRemaining, lastMessage } = storeToRefs(display)
 
@@ -70,10 +67,6 @@ const errorClass = computed(() => {
     'd-none': display.lastMessage == 'OK',
   }
 })
-
-const trackTextClick = function () {
-  trackEvent('text_name_click', { source: 'vote' })
-}
 
 onMounted(() => {
   display.fetchState()
