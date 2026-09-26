@@ -75,10 +75,11 @@ const trackDirectionsClick = function (house) {
 }
 .directions {
   display: inline-block;
-  margin-top: 6px;
-  padding: 8px 14px;
+  margin-top: 2px;
+  padding: 0 8px;
+  font-size: 0.85em;
   border: 1px solid royalblue;
-  border-radius: 18px;
+  border-radius: 10px;
 }
 .house-row {
   margin-bottom: 2em;

@@ -35,7 +35,7 @@
             :disabled="display.myVotesFor(song.id) === 0"
             @click="display.removeVote(song.id)"
           >
-            <img alt="" src="./../assets/down.png" />
+            <img alt="" class="down-img" src="./../assets/down.png" />
           </button>
           <span class="song-title">
             {{ song.title }}
@@ -87,7 +87,7 @@ onMounted(() => {
 }
 
 .songs {
-  padding: 0 8px;
+  padding: 0 4px;
 }
 
 .song-list {
@@ -100,21 +100,21 @@ onMounted(() => {
 .song {
   display: flex;
   align-items: center;
-  gap: 4px;
-  min-height: 44px;
+  gap: 2px;
+  min-height: 32px;
   text-align: left;
 }
 
 .votes {
-  flex: 0 0 2em;
+  flex: 0 0 1.5em;
   text-align: right;
   color: royalblue;
 }
 
-/* 40x44 tap targets; the arrow image stays the size it always was. */
+/* Rows stay compact; the buttons fill the row height to stay easy to tap. */
 .vote-btn {
-  flex: 0 0 40px;
-  height: 44px;
+  flex: 0 0 34px;
+  height: 32px;
   padding: 0;
   border: 0;
   border-radius: 8px;
@@ -130,16 +130,20 @@ onMounted(() => {
   cursor: default;
 }
 .vote-btn img {
-  height: 20px;
+  height: 16px;
+}
+/* down.png is a darker green than up.png; brighten it when it can be used. */
+.vote-btn:not(:disabled) .down-img {
+  filter: brightness(2.2);
 }
 
 /* Long titles wrap onto a second line instead of pushing the buttons. */
 .song-title {
   flex: 1 1 auto;
   min-width: 0;
-  padding-left: 4px;
+  padding-left: 2px;
   overflow-wrap: anywhere;
-  line-height: 1.3;
+  line-height: 1.2;
 }
 .song.mine .song-title {
   color: rgb(225, 225, 225);
