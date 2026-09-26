@@ -1,46 +1,54 @@
 <template>
   <div class="outer">
     <h2>Available Song Queue</h2>
-    <div class="container songs">
+    <div class="songs">
       <div class="votes-line">
         Votes Remaining:
         <b>{{ votesRemaining }}</b>
       </div>
       <div class="alert" v-bind:class="errorClass" role="alert">{{ lastMessage }}</div>
-      <div class="intro-text">Use up/down arrows to vote.</div>
+      <div class="intro-text">
+        Use up/down arrows to vote.
+        <RouterLink to="/info#how-voting-works">How voting works</RouterLink>
+      </div>
 
-      <div
-        no-gutters
-        v-for="song in allAvailSongs"
-        v-bind:key="song.id"
-        class="row justify-content-md-center song"
-      >
-        <div class="votes-col col-2">
-          <div class="float-div">
-            <table cellspacing="0" cellpadding="0" class="my-table">
-              <tbody>
-                <tr>
-                  <td class="votes">{{ song.votes }}</td>
-                  <td>
-                    <img
-                      class="my-arrow-up"
-                      alt="vote up"
-                      src="./../assets/up.png"
-                      @click="display.addVote(song.id)"
-                    />
-                    <img
-                      alt="vote down"
-                      class="my-arrow-down"
-                      src="./../assets/down.png"
-                      @click="display.removeVote(song.id)"
-                    />
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="song-title col-10 col-md-5 col-lg-4">{{ song.title }}</div>
+      <ul class="song-list">
+        <li
+          v-for="song in allAvailSongs"
+          v-bind:key="song.id"
+          class="song"
+          v-bind:class="{ mine: display.myVotesFor(song.id) > 0 }"
+        >
+          <span class="votes">{{ song.votes }}</span>
+          <button
+            type="button"
+            class="vote-btn"
+            :aria-label="'Vote for ' + song.title"
+            @click="display.addVote(song.id)"
+          >
+            <img alt="" src="./../assets/up.png" />
+          </button>
+          <button
+            type="button"
+            class="vote-btn"
+            :aria-label="'Remove a vote from ' + song.title"
+            :disabled="display.myVotesFor(song.id) === 0"
+            @click="display.removeVote(song.id)"
+          >
+            <img alt="" src="./../assets/down.png" />
+          </button>
+          <span class="song-title">
+            {{ song.title }}
+            <span v-if="display.myVotesFor(song.id) > 0" class="my-votes">
+              &#9733;{{ display.myVotesFor(song.id) }}
+            </span>
+          </span>
+        </li>
+      </ul>
+
+      <div class="text-name">
+        Put your name in lights: text your first name to
+        <a :href="TEXT_NUMBER_SMS" @click="trackTextClick">{{ TEXT_NUMBER_DISPLAY }}</a>
       </div>
     </div>
   </div>
@@ -48,8 +56,11 @@
 
 <script setup>
 import { computed, onMounted } from 'vue'
+import { RouterLink } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { displayStore } from '@/stores/display'
+import { trackEvent } from '@/analytics'
+import { TEXT_NUMBER_DISPLAY, TEXT_NUMBER_SMS } from '@/lib/site'
 const display = displayStore()
 const { allAvailSongs, votesRemaining, lastMessage } = storeToRefs(display)
 
@@ -59,6 +70,10 @@ const errorClass = computed(() => {
     'd-none': display.lastMessage == 'OK',
   }
 })
+
+const trackTextClick = function () {
+  trackEvent('text_name_click', { source: 'vote' })
+}
 
 onMounted(() => {
   display.fetchState()
@@ -70,54 +85,71 @@ onMounted(() => {
   color: darkgreen;
   padding-top: 5px;
 }
-.votes-col {
-  text-align: right;
-  padding-right: 1px;
+
+.songs {
+  padding: 0 8px;
 }
 
-.float-div {
-  float: right;
-  margin-right: 3px;
-}
-
-.my-table {
-  border: 0px;
-  table-layout: fixed;
-  border-style: none;
-  line-height: 80%; /* Pull up/down images together */
-}
-.my-table td {
-  padding: 0px;
-  margin: 0;
-}
-
-.song-title {
-  text-align: left;
-  padding-left: 0px;
-}
-.outer {
-  border: 2px;
-  border-style: solid;
-  border-radius: 25px;
-  margin: 2px;
-}
-.votes {
-  font-style: normal;
-  color: royalblue;
+.song-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 500px;
 }
 
 .song {
-  position: relative;
-  padding-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 44px;
+  text-align: left;
 }
 
-.my-arrow-up {
-  height: 14px;
-  cursor: pointer;
+.votes {
+  flex: 0 0 2em;
+  text-align: right;
+  color: royalblue;
 }
 
-.my-arrow-down {
-  height: 14px;
+/* 40x44 tap targets; the arrow image stays the size it always was. */
+.vote-btn {
+  flex: 0 0 40px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.vote-btn:active:not(:disabled) {
+  background: rgba(255, 255, 255, 0.12);
+}
+.vote-btn:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+.vote-btn img {
+  height: 20px;
+}
+
+/* Long titles wrap onto a second line instead of pushing the buttons. */
+.song-title {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding-left: 4px;
+  overflow-wrap: anywhere;
+  line-height: 1.3;
+}
+.song.mine .song-title {
+  color: rgb(225, 225, 225);
+}
+.my-votes {
+  color: gold;
+  white-space: nowrap;
+}
+
+.text-name {
+  padding-top: 12px;
 }
 </style>

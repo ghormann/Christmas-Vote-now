@@ -32,7 +32,7 @@ setInterval(myUtils.updateHealthStatus, 15000); // 15 seconds
 setInterval(function() {
   session.giveAnotherVote();
   myUtils.addRandomVotes();
-}, 120000); // 2 minutes
+}, session.VOTE_REFILL_MINUTES * 60000);
 
 // reset votes on boot (sets initial votes)
 session.clearAllVotes(true);

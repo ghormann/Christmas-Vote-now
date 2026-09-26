@@ -1,9 +1,14 @@
 <template>
   <div class="outer">
     <h2>Name Queue</h2>
+    <a class="text-button" :href="TEXT_NUMBER_SMS" @click="trackTextClick">
+      Text your first name to {{ TEXT_NUMBER_DISPLAY }}
+    </a>
     <div class="intro-text">
-      Text your first name to 888-887-1423 to become part of the display. Names will be displayed
-      {{ nameEstimates.message }}. (Estimate isn't perfect)
+      Your name shows up below the clock right away and on the big grid over the front door every
+      8&ndash;12 minutes. Names will be displayed {{ nameEstimates.message }}. (Estimate isn't
+      perfect)
+      <a :href="techUrl('text-message')">How it works</a>
     </div>
     <div class="alert" v-bind:class="errorClass" role="alert">
       Names in Green will be next song.
@@ -32,8 +37,14 @@
 import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
 import { displayStore } from '@/stores/display'
+import { trackEvent } from '@/analytics'
+import { TEXT_NUMBER_DISPLAY, TEXT_NUMBER_SMS, techUrl } from '@/lib/site'
 const display = displayStore()
 const { allNames, nameEstimates } = storeToRefs(display)
+const trackTextClick = function () {
+  trackEvent('text_name_click', { source: 'names' })
+}
+
 const secondsPast = function (ts) {
   var d = new Date()
   var seconds = d.getTime() / 1000
@@ -66,6 +77,16 @@ const errorClass = computed(() => {
 </script>
 
 <style scoped>
+.text-button {
+  display: inline-block;
+  margin: 4px 10px 12px;
+  padding: 10px 18px;
+  border-radius: 22px;
+  background: darkgreen;
+  color: white;
+  font-size: 1.1em;
+}
+
 .names {
   display: flex;
   justify-content: center;

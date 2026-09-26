@@ -1,105 +1,98 @@
 <template>
   <div class="outer">
     <h2>Snowmen Control</h2>
-    <div><b>Current Snowman:</b> {{ currentSong.snowman }}</div>
-    <div class="container songs">
-      <div class="intro-text">
-        Use up arrows to vote.
-        <div v-bind:class="votedClass"><span class="my-vote">*</span> My Vote.</div>
-      </div>
+    <div class="now-showing">
+      Right now the snowman is <b>{{ currentSong.snowman }}</b>
+    </div>
+    <div class="intro-text">
+      Pick who the snowman on the right turns into. The next time he gets knocked out by the big
+      snowball, the character with the most votes takes his place and voting starts over. You get
+      one vote; tap a different character to move it.
+      <a :href="techUrl('snowmen')">How the snowmen work</a>
+    </div>
 
-      <div
-        no-gutters
+    <div class="snowmen">
+      <button
         v-for="who in allSnowmen"
         v-bind:key="who.id"
-        class="row justify-content-md-center song"
+        type="button"
+        class="snowman"
+        v-bind:class="{ mine: who.id == display.mySnowmen }"
+        :aria-pressed="who.id == display.mySnowmen"
+        @click="display.addSnowmanVote(who.id)"
       >
-        <div class="votes-col col-2">
-          <div class="float-div">
-            <img
-              class="my-arrow-up"
-              alt="vote up"
-              src="./../assets/up.png"
-              @click="display.addSnowmanVote(who.id)"
-            />
-          </div>
-          <span class="vote">{{ who.votes }}</span>
-        </div>
-        <div class="song-title col-8 col-md-4 col-lg-4">
-          {{ who.name }}
-          <span class="my-vote">{{ highlightMine(who.id) }}</span>
-        </div>
-      </div>
+        <span class="name">{{ who.name }}</span>
+        <span class="count">{{ who.votes }}</span>
+        <span v-if="who.id == display.mySnowmen" class="my-vote">&#10003; My vote</span>
+      </button>
     </div>
   </div>
 </template>
 
 <script setup>
-import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
 import { displayStore } from '@/stores/display'
+import { techUrl } from '@/lib/site'
 const display = displayStore()
 const { allSnowmen, currentSong } = storeToRefs(display)
-
-const highlightMine = (id) => {
-  if (id == display.mySnowmen) {
-    return '*'
-  }
-  return ''
-}
-
-const votedClass = computed(() => {
-  return {
-    'd-none': display.mySnowmen == -1,
-  }
-})
 </script>
 
 <style scoped>
-.votes-line {
-  color: darkgreen;
-  padding-top: 5px;
-}
-.votes-col {
-  text-align: right;
-}
-
-.float-div {
-  float: right;
-  margin-right: 3px;
-}
-
-.my-vote {
-  color: red;
-}
-
-.song-title {
-  text-align: left;
-  padding-left: 0px;
-}
-.outer {
-  border: 2px;
-  border-style: solid;
-  border-radius: 25px;
-  margin: 2px;
-}
-.vote {
-  font-style: normal;
-  color: royalblue;
-}
-
-.song {
-  position: relative;
+.now-showing {
+  font-size: 1.15em;
+  color: rgb(210, 210, 210);
   padding-bottom: 6px;
 }
-
-.my-arrow-up {
-  height: 14px;
-  cursor: pointer;
+.now-showing b {
+  color: white;
 }
 
-.my-arrow-down {
-  height: 14px;
+.intro-text {
+  padding: 0 10px 12px;
+}
+
+.snowmen {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 8px;
+  padding: 0 10px;
+}
+
+.snowman {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2px 6px;
+  min-height: 44px;
+  padding: 6px 10px;
+  border: 1px solid rgb(90, 90, 90);
+  border-radius: 12px;
+  background: rgb(34, 34, 34);
+  color: rgb(200, 200, 200);
+  text-align: left;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.snowman:active {
+  background: rgb(50, 50, 50);
+}
+.snowman.mine {
+  border: 2px solid gold;
+  color: white;
+}
+
+.name {
+  flex: 1 1 auto;
+  min-width: 0;
+  line-height: 1.2;
+}
+.count {
+  color: royalblue;
+}
+.my-vote {
+  flex-basis: 100%;
+  font-size: 0.8em;
+  color: gold;
 }
 </style>

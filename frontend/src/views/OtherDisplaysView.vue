@@ -2,6 +2,7 @@
 import { storeToRefs } from 'pinia'
 import { otherDisplayStore } from '@/stores/other_displays'
 import { trackEvent } from '@/analytics'
+import { directionsUrl } from '@/lib/site'
 // access the `store` variable anywhere in the component ✨
 const others = otherDisplayStore()
 const { otherDisplays, otherDisplayCount } = storeToRefs(others)
@@ -13,6 +14,14 @@ const trackDisplayClick = function (house) {
     display_title: house.title,
     distance_miles: house.distance,
     musical: house.musical,
+  })
+}
+
+const trackDirectionsClick = function (house) {
+  trackEvent('other_display_directions', {
+    display_id: house.displayid,
+    display_title: house.title,
+    distance_miles: house.distance,
   })
 }
 </script>
@@ -40,6 +49,14 @@ const trackDisplayClick = function (house) {
           </div>
           <div>{{ house.distance }} Miles from us</div>
           <div>{{ house.city }}, {{ house.state }}</div>
+          <a
+            :href="directionsUrl(house)"
+            class="directions"
+            target="_blank"
+            rel="noopener"
+            @click="trackDirectionsClick(house)"
+            >Directions</a
+          >
         </div>
       </div>
     </div>
@@ -55,6 +72,13 @@ const trackDisplayClick = function (house) {
 .house-name {
   font-size: 1.5em;
   text-decoration: underline;
+}
+.directions {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 8px 14px;
+  border: 1px solid royalblue;
+  border-radius: 18px;
 }
 .house-row {
   margin-bottom: 2em;

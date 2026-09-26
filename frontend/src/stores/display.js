@@ -1,10 +1,11 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
-import moment from 'moment'
 import Nes from '@hapi/nes/lib/client'
 import { trackEvent } from '@/analytics'
 
 const SONG_RECENT_CUTOFF = 17
+
+const formatTime = (d) => new Date(d).toLocaleTimeString()
 
 let client = null
 let pollInterval = null
@@ -85,6 +86,8 @@ export const displayStore = defineStore('displayStore', {
     },
     lastMessageReceived: 'OK',
     MyVotesRemaining: 8,
+    // Song ids I've voted for, one entry per vote.
+    myVoteHistory: [],
     lastUpdatedInfoDT: 'Never',
     lastUpdatedTS: 'Never',
     wsConnected: false,
@@ -110,7 +113,7 @@ export const displayStore = defineStore('displayStore', {
     health: (state) => state.healthData,
     nameEstimates: (state) => state.nameEstimateData,
     cars: (state) => state.carsData,
-    numberOfYears: () => new Date().getFullYear() - 2000,
+    myVotesFor: (state) => (id) => state.myVoteHistory.filter((songId) => songId === id).length,
   },
   actions: {
     startFallbackPoll() {
@@ -163,6 +166,19 @@ export const displayStore = defineStore('displayStore', {
       this.MyVotesRemaining = input.votesRemaining.remaining
       this.lastMessageReceived = input.votesRemaining.status
       this.mySelectedSnowmen = input.votesRemaining.snowmanId
+      this.myVoteHistory = input.votesRemaining.history || []
+    },
+
+    // When a song plays, the server hands back everyone's votes on it but only
+    // pushes the public model, so my history goes stale. Refetch it.
+    refreshStaleVotes() {
+      const played = this.availSongs.some(
+        (s) => s.votes < SONG_RECENT_CUTOFF && this.myVoteHistory.includes(s.id),
+      )
+      if (played) {
+        this.myVoteHistory = []
+        this.fetchState()
+      }
     },
 
     setPublic(input) {
@@ -176,8 +192,8 @@ export const displayStore = defineStore('displayStore', {
       this.nameEstimateData = input.nameEstimates
       this.carsData = input.cars
       this.lastUpdatedInfoDT = new Date()
-      this.lastUpdatedTS = moment().format('LTS')
-      this.healthData.lastStatsTime = moment(input.health.lastStats).format('LTS')
+      this.lastUpdatedTS = formatTime(Date.now())
+      this.healthData.lastStatsTime = formatTime(input.health.lastStats)
 
       // Total button presses
       this.statsData.total_buttons = 0
@@ -205,6 +221,8 @@ export const displayStore = defineStore('displayStore', {
       }
       minutes = Math.round(minutes / 60)
       this.totalDurationMin = minutes
+
+      this.refreshStaleVotes()
     },
 
     async fetchState() {

@@ -2,6 +2,8 @@ const { v4: uuidv4 } = require('uuid');
 const myUtils = require("./myUtils.js");
 const datamodel = require("../model/datamodel.js");
 const maxVotes = 8;
+// Every session earns one vote back on this interval, up to maxVotes.
+const VOTE_REFILL_MINUTES = 2;
 var votesRemaining = {};
 
 function getOrCreateVoteRecord(id) {
@@ -124,6 +126,8 @@ function checkSession(request) {
   return key;
 }
 
+module.exports.MAX_VOTES = maxVotes;
+module.exports.VOTE_REFILL_MINUTES = VOTE_REFILL_MINUTES;
 module.exports.checkSession = checkSession;
 module.exports.removeVote = removeVote;
 module.exports.addVote = addVote;

@@ -6,6 +6,7 @@
 // here changes it on both sites.
 
 const datamodel = require("../model/datamodel.js");
+const session = require("../lib/session.js");
 
 // Greg started experimenting with animated displays in 2001, which we count as
 // year one.
@@ -21,6 +22,8 @@ const DISPLAY = {
   mapUrl: "https://www.google.com/maps/place/Christmas+@+the+Hormanns/@39.3953299,-84.3994264,18z/data=!4m5!3m4!1s0x88405b01adc3fe25:0xe69153dcc65684a9!8m2!3d39.395325!4d-84.3991475",
   interactUrl: "https://vote-now.org/",
   fmFrequency: "106.7 FM",
+  // Update each season to match the year page on thehormanns.net.
+  pixelCount: 75805,
   facebookUrl: "https://www.facebook.com/HormannChristmas"
 };
 
@@ -65,6 +68,12 @@ function seasonClose(year) {
   return new Date(year + 1, 0, 1);
 }
 
+/** The moment the last night of the season ends (midnight after January 1). */
+function seasonEnd(year) {
+  const close = seasonClose(year);
+  return new Date(close.getFullYear(), close.getMonth(), close.getDate() + 1);
+}
+
 /**
  * The season we should be talking about: the one currently running, or — once
  * a season has ended — the next one. January 1 still belongs to the previous
@@ -72,8 +81,14 @@ function seasonClose(year) {
  */
 function currentSeasonYear(now) {
   const y = now.getFullYear();
-  if (now < seasonClose(y - 1)) return y - 1;
+  if (now < seasonEnd(y - 1)) return y - 1;
   return y;
+}
+
+/** Whether `now` falls between opening night and the end of January 1. */
+function isInSeason(now) {
+  const year = currentSeasonYear(now);
+  return now >= seasonOpen(year) && now < seasonEnd(year);
 }
 
 const LONG_DATE = new Intl.DateTimeFormat("en-US", {
@@ -108,7 +123,7 @@ function tokens({ site = "https://thehormanns.net", now = new Date() } = {}) {
 
   return {
     site,
-    years: String(now.getFullYear() - FIRST_YEAR),
+    years: String(year - FIRST_YEAR),
 
     openText: LONG_DATE.format(seasonOpen(year)),
     closeText: LONG_DATE.format(seasonClose(year)),
@@ -129,7 +144,25 @@ function tokens({ site = "https://thehormanns.net", now = new Date() } = {}) {
 
     songCount: String(size.songs),
     showMinutes: String(size.minutes),
-    showSummary: `${size.minutes} minutes of music across ${size.songs} songs`
+    showSummary: `${size.minutes} minutes of music across ${size.songs} songs`,
+
+    maxVotes: String(session.MAX_VOTES),
+    voteRefillMinutes: String(session.VOTE_REFILL_MINUTES)
+  };
+}
+
+/** The display facts vote-now.org shows outside the FAQ (GET /facts). */
+function publicFacts(now = new Date()) {
+  const year = currentSeasonYear(now);
+  return {
+    seasonYear: year,
+    years: year - FIRST_YEAR,
+    inSeason: isInSeason(now),
+    openText: LONG_DATE.format(seasonOpen(year)),
+    closeText: LONG_DATE.format(seasonClose(year)),
+    showHours: SHOW_HOURS_TEXT,
+    pixelCount: DISPLAY.pixelCount,
+    fm: DISPLAY.fmFrequency
   };
 }
 
@@ -149,7 +182,9 @@ module.exports = {
   currentSeasonYear,
   seasonOpen,
   seasonClose,
+  isInSeason,
   showSize,
+  publicFacts,
   tokens,
   render
 };

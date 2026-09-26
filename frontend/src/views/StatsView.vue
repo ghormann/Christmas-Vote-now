@@ -1,9 +1,8 @@
 <script setup>
 import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
-import moment from 'moment'
 import { displayStore } from '@/stores/display'
-import TodayPower from '@/components/stats/TodayPower.vue'
+import { techUrl } from '@/lib/site'
 import VoteStat from '@/components/stats/VoteStat.vue'
 import SnowmenVoteStat from '@/components/stats/SnowmenVoteStats.vue'
 import PlayedSongStat from '@/components/stats/PlayedSongStat.vue'
@@ -14,7 +13,53 @@ import UniquePhones from '@/components/stats/UniquePhones.vue'
 import MaxCarsStat from '@/components/stats/MaxCarsStat.vue'
 
 const display = displayStore()
-const { health, stats, cars, availSongCount, totalDurationMinutes } = storeToRefs(display)
+const { health, stats, cars, powerStats, availSongCount, totalDurationMinutes } =
+  storeToRefs(display)
+
+const AT_FORMAT = { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }
+
+const num = (n) => Number(n || 0).toLocaleString('en-US')
+
+const tiles = computed(() => [
+  {
+    value: num(cars.value['total-cars']),
+    label: 'Cars watching now',
+    note: 'Estimated',
+    link: techUrl('car-counter'),
+    linkText: 'How we count cars',
+  },
+  {
+    value: `${parseFloat(powerStats.value.kwh).toFixed(1)} kWh`,
+    label: 'Power used today',
+    note: `About $${parseFloat(powerStats.value.dollars).toFixed(2)}`,
+    link: techUrl('info-board'),
+    linkText: 'How we measure it',
+  },
+  {
+    value: `${parseFloat(stats.value.totalPower_year.kwh).toFixed(1)} kWh`,
+    label: 'Power used this year',
+    note: `About $${parseFloat(stats.value.totalPower_year.dollars).toFixed(2)}`,
+  },
+  {
+    value: num(availSongCount.value),
+    label: 'Songs in the show',
+    note: `${totalDurationMinutes.value} minutes of music`,
+  },
+  {
+    value: num(stats.value.total_buttons),
+    label: 'Tunnel button presses',
+    note: 'This year',
+    link: techUrl('tunnel'),
+    linkText: 'About the tunnel',
+  },
+  {
+    value: num(stats.value.total_phones),
+    label: 'Phones that sent a name',
+    note: 'This year',
+    link: techUrl('text-message'),
+    linkText: 'How names work',
+  },
+])
 
 const maxCarsData = computed(() => {
   const periods = [
@@ -28,7 +73,7 @@ const maxCarsData = computed(() => {
     .map((p) => ({
       label: p.label,
       maxCars: stats.value[p.key].maxCars,
-      at: moment(stats.value[p.key].at).format('MMM D, h:mm A'),
+      at: new Date(stats.value[p.key].at).toLocaleString('en-US', AT_FORMAT),
     }))
 })
 </script>
@@ -37,17 +82,16 @@ const maxCarsData = computed(() => {
   <div>
     <div class="outer gjh-padded">
       <h1>Statistics</h1>
+      <div class="tiles">
+        <div v-for="t in tiles" :key="t.label" class="tile">
+          <div class="tile-value">{{ t.value }}</div>
+          <div class="tile-label">{{ t.label }}</div>
+          <div v-if="t.note" class="tile-note">{{ t.note }}</div>
+          <a v-if="t.link" :href="t.link" class="tile-link">{{ t.linkText }}</a>
+        </div>
+      </div>
       <div class="stats-intro">
         <div class="stats-intro-inner">
-          <TodayPower />
-          <p style="margin-top: 1em">
-            Our show consist of {{ availSongCount }} songs totaling
-
-            {{ totalDurationMinutes }} minutes of entertainment. The buttons of the tunnel have been
-            pressed {{ stats.total_buttons }} times this year while
-            {{ stats.total_phones }} different phones have submitted names for the board. We
-            estimate there are currently {{ cars['total-cars'] }} cars viewing the display.
-          </p>
           <p style="margin-top: 1em">
             Want more Statistics? We got them! Here is some other interesting data as of
             {{ health.lastStatsTime }}:
@@ -222,6 +266,37 @@ h3 {
 </style>
 
 <style scoped>
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 8px;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 4px;
+}
+.tile {
+  padding: 10px 8px;
+  border: 1px solid rgb(70, 70, 70);
+  border-radius: 12px;
+  background: rgb(34, 34, 34);
+  line-height: 1.3;
+}
+.tile-value {
+  font-size: 1.6em;
+  color: white;
+  font-variant-numeric: tabular-nums;
+}
+.tile-label {
+  color: rgb(210, 210, 210);
+}
+.tile-note {
+  font-size: 0.85em;
+}
+.tile-link {
+  display: inline-block;
+  font-size: 0.85em;
+  padding: 4px 0 0;
+}
 hr {
   border: 0.1rem solid gray;
   width: 85%;

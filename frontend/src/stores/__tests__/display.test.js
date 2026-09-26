@@ -318,3 +318,58 @@ describe('displayStore - analytics events', () => {
     expect(trackEvent).not.toHaveBeenCalled()
   })
 })
+
+describe('displayStore - my votes', () => {
+  beforeEach(() => {
+    setActivePinia(createPinia())
+    vi.clearAllMocks()
+  })
+
+  const withHistory = (history) => ({
+    remaining: 8 - history.length,
+    status: 'OK',
+    snowmanId: -1,
+    history,
+  })
+
+  it('myVotesFor counts how many of my votes are on each song', () => {
+    const store = displayStore()
+    store.setSongs({ votesRemaining: withHistory([42, 7, 42]) })
+    expect(store.myVotesFor(42)).toBe(2)
+    expect(store.myVotesFor(7)).toBe(1)
+    expect(store.myVotesFor(99)).toBe(0)
+  })
+
+  it('treats a missing history as no votes', () => {
+    const store = displayStore()
+    store.setSongs({ votesRemaining: { remaining: 8, status: 'OK', snowmanId: -1 } })
+    expect(store.myVotesFor(42)).toBe(0)
+  })
+
+  it('refetches my votes when a song I voted for has just been played', () => {
+    const store = displayStore()
+    const fetchSpy = vi.spyOn(store, 'fetchState').mockResolvedValue(undefined)
+    store.setSongs({ votesRemaining: withHistory([42]) })
+    // The server drops a played song to 7 votes and hands the votes back.
+    store.setPublic({
+      songs: [{ id: 42, title: 'Sleigh Ride', votes: 7, duration: 120 }],
+      health: { lastStats: new Date().toISOString() },
+      stats: {},
+      powerStats: { kwh: 0, dollars: 0 },
+    })
+    expect(fetchSpy).toHaveBeenCalledTimes(1)
+  })
+
+  it('does not refetch while my voted songs are still available', () => {
+    const store = displayStore()
+    const fetchSpy = vi.spyOn(store, 'fetchState').mockResolvedValue(undefined)
+    store.setSongs({ votesRemaining: withHistory([42]) })
+    store.setPublic({
+      songs: [{ id: 42, title: 'Sleigh Ride', votes: 30, duration: 120 }],
+      health: { lastStats: new Date().toISOString() },
+      stats: {},
+      powerStats: { kwh: 0, dollars: 0 },
+    })
+    expect(fetchSpy).not.toHaveBeenCalled()
+  })
+})

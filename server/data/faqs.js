@@ -78,6 +78,13 @@ module.exports = [
       'Yes. Open <a href="{{interactUrl}}">vote-now.org</a> on your phone and vote for the songs you want to hear. The songs with the most votes move up the list. Curious how it works? <a href="{{site}}/technology/voting/">Here&rsquo;s how we built it</a>.'
   },
   {
+    id: "how-voting-works",
+    audience: ["app"],
+    question: "How does voting work?",
+    answer:
+      "Each phone gets {{maxVotes}} votes. Tap the up arrow next to a song to vote for it, and tap the down arrow to take a vote back. You can put more than one vote on the same song, and a &#9733; shows how many of your votes are on each song. The song at the top of the list plays next. Once it plays, it moves to Recently Played for a while, and any votes you had on it come back to you. You also earn one vote back every {{voteRefillMinutes}} minutes, up to {{maxVotes}}."
+  },
+  {
     id: "name-in-lights",
     audience: ALL,
     question: "How do I get my name up in lights?",

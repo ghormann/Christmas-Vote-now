@@ -6,9 +6,10 @@ import { trackEvent } from '@/analytics'
 import CoolDisplaysLogo from './components/CoolDisplaysLogo.vue'
 import LastUpdated from './components/LastUpdated.vue'
 import GlobalStatus from './components/GlobalStatus.vue'
+import { HORMANNS_STORY_URL } from '@/lib/site'
 const display = displayStore()
 
-const HORMANNS_URL = 'https://thehormanns.net/christmas/our-story'
+const HORMANNS_URL = HORMANNS_STORY_URL
 
 const trackOutboundClick = function () {
   trackEvent('outbound_click', { link_url: HORMANNS_URL })
@@ -46,7 +47,7 @@ onMounted(() => {
   <CoolDisplaysLogo />
   <div>
     Learn more at
-    <a :href="HORMANNS_URL" @click="trackOutboundClick">http://thehormanns.net</a>
+    <a :href="HORMANNS_URL" @click="trackOutboundClick">thehormanns.net</a>
   </div>
   <LastUpdated />
 </template>
