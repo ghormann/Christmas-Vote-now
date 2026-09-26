@@ -17,7 +17,8 @@ const DISPLAY = {
   addressLocality: "Liberty Township",
   addressRegion: "OH",
   postalCode: "45044",
-  mapUrl: "https://goo.gl/maps/tZj7PPjBcjEFB1XM6",
+  // Full Google Maps place URL; Google is retiring goo.gl short links.
+  mapUrl: "https://www.google.com/maps/place/Christmas+@+the+Hormanns/@39.3953299,-84.3994264,18z/data=!4m5!3m4!1s0x88405b01adc3fe25:0xe69153dcc65684a9!8m2!3d39.395325!4d-84.3991475",
   interactUrl: "https://vote-now.org/",
   fmFrequency: "106.7 FM",
   facebookUrl: "https://www.facebook.com/HormannChristmas"
