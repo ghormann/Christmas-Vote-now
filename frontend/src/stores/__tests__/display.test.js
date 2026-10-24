@@ -372,4 +372,27 @@ describe('displayStore - my votes', () => {
     })
     expect(fetchSpy).not.toHaveBeenCalled()
   })
+
+  const publicWithSnowmen = (snowmenQueue) => ({
+    songs: [],
+    snowmenQueue,
+    health: { lastStats: new Date().toISOString() },
+    stats: {},
+    powerStats: { kwh: 0, dollars: 0 },
+  })
+
+  it('clears my snowman vote once snowman voting resets', () => {
+    const store = displayStore()
+    store.setSongs({ votesRemaining: { ...withHistory([]), snowmanId: 3 } })
+    // The server zeroes every snowman when the voted one takes the stage.
+    store.setPublic(publicWithSnowmen([{ id: 3, name: 'Elf', votes: 0 }]))
+    expect(store.mySnowmen).toBe(-1)
+  })
+
+  it('keeps my snowman vote while it still counts', () => {
+    const store = displayStore()
+    store.setSongs({ votesRemaining: { ...withHistory([]), snowmanId: 3 } })
+    store.setPublic(publicWithSnowmen([{ id: 3, name: 'Elf', votes: 2 }]))
+    expect(store.mySnowmen).toBe(3)
+  })
 })

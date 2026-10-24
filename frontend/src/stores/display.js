@@ -181,6 +181,17 @@ export const displayStore = defineStore('displayStore', {
       }
     },
 
+    // When the voted snowman takes over, the server zeroes every count and
+    // forgets my pick, but only pushes the public model. My vote alone keeps
+    // my pick at 1+, so a zero (or a vanished pick) means voting reset.
+    refreshStaleSnowman() {
+      if (this.mySelectedSnowmen === -1) return
+      const mine = this.snowmenQueue.find((s) => s.id == this.mySelectedSnowmen)
+      if (!mine || mine.votes < 1) {
+        this.mySelectedSnowmen = -1
+      }
+    },
+
     setPublic(input) {
       this.availSongs = input.songs
       this.snowmenQueue = input.snowmenQueue
@@ -223,6 +234,7 @@ export const displayStore = defineStore('displayStore', {
       this.totalDurationMin = minutes
 
       this.refreshStaleVotes()
+      this.refreshStaleSnowman()
     },
 
     async fetchState() {
