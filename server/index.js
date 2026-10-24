@@ -67,6 +67,15 @@ const start = async () => {
 
   await server.start();
   console.log(`Server running at: ${server.info.uri}`);
+
+  // Report how many browsers have the site open (one websocket per tab)
+  setInterval(async function() {
+    let connected = 0;
+    await server.eachSocket(function() {
+      connected++;
+    });
+    mymqtt.sendVisitors(connected);
+  }, 15000);
 };
 
 start();
