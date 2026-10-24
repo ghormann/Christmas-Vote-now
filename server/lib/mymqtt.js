@@ -80,6 +80,8 @@ var handlers = [
         console.log("Reset snowman votes");
         myUtils.clearSnowmanVotes();
         session.clearVotesForSnowmen();
+        // Push the zeroed counts so clients drop their "My vote" highlight.
+        fireCallbacks();
       }
     },
   },
