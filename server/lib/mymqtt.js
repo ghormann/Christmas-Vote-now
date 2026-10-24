@@ -330,6 +330,17 @@ function sendName(name) {
   });
 }
 
+function sendVisitors(connected) {
+  let topic = "/christmas/vote/visitors";
+  let msg = JSON.stringify({ connected: connected });
+  client.publish(topic, msg, function (err) {
+    if (err) {
+      console.log("Error Publishing to " + topic);
+      console.log(err);
+    }
+  });
+}
+
 function addCallback(c) {
   callbacks.push(c);
 }
@@ -528,3 +539,4 @@ module.exports.addCallback = addCallback;
 module.exports.sendVote = sendVote;
 module.exports.sendSongQueue = sendSongQueue;
 module.exports.sendSnowmanVote = sendSnowmanVote;
+module.exports.sendVisitors = sendVisitors;
