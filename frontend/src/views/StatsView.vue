@@ -20,7 +20,25 @@ const AT_FORMAT = { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-
 
 const num = (n) => Number(n || 0).toLocaleString('en-US')
 
+const season = computed(() => stats.value.seasonTotals)
+
+const seasonTiles = computed(() => {
+  const s = season.value
+  if (!s) return []
+  return [
+    { value: num(Math.round(s.showHours)), label: 'Hours of show', note: 'This season' },
+    { value: num(s.songsPlayed), label: 'Songs played', note: 'This season' },
+    { value: num(s.namesShown), label: 'Names on the house', note: 'This season' },
+    {
+      value: num(s.songVotes + s.snowmanVotes),
+      label: 'Votes cast',
+      note: `${num(s.songVotes)} songs, ${num(s.snowmanVotes)} snowmen`,
+    },
+  ]
+})
+
 const tiles = computed(() => [
+  ...seasonTiles.value,
   {
     value: num(cars.value['total-cars']),
     label: 'Cars watching now',
@@ -37,7 +55,7 @@ const tiles = computed(() => [
   },
   {
     value: `${parseFloat(stats.value.totalPower_year.kwh).toFixed(1)} kWh`,
-    label: 'Power used this year',
+    label: 'Power used this season',
     note: `About $${parseFloat(stats.value.totalPower_year.dollars).toFixed(2)}`,
   },
   {
@@ -48,14 +66,14 @@ const tiles = computed(() => [
   {
     value: num(stats.value.total_buttons),
     label: 'Tunnel button presses',
-    note: 'This year',
+    note: 'This season',
     link: techUrl('tunnel'),
     linkText: 'About the tunnel',
   },
   {
     value: num(stats.value.total_phones),
     label: 'Phones that sent a name',
-    note: 'This year',
+    note: 'This season',
     link: techUrl('text-message'),
     linkText: 'How names work',
   },
@@ -66,7 +84,7 @@ const maxCarsData = computed(() => {
     { key: 'maxCars_1hr', label: 'Last Hour' },
     { key: 'maxCars_8hr', label: 'Last 8 hours' },
     { key: 'maxCars_24hr', label: 'Last 24 hours' },
-    { key: 'maxCars_year', label: 'This Year' },
+    { key: 'maxCars_year', label: 'This Season' },
   ]
   return periods
     .filter((p) => stats.value[p.key])
@@ -96,6 +114,7 @@ const maxCarsData = computed(() => {
             Want more Statistics? We got them! Here is some other interesting data as of
             {{ health.lastStatsTime }}:
           </p>
+          <p class="season-note">“This season” counts from November 15.</p>
         </div>
       </div>
       <div style="display: flex; justify-content: center">
@@ -142,7 +161,7 @@ const maxCarsData = computed(() => {
       <VoteStat title="Last 24 hours" v-bind:myData="stats.topSongs_24hr" />
       <br />
       <br />
-      <VoteStat title="This Year" v-bind:myData="stats.topSongs_year" />
+      <VoteStat title="This Season" v-bind:myData="stats.topSongs_year" />
     </div>
 
     <div class="outer" v-track-visible="'VotedSnowmen'">
@@ -156,7 +175,7 @@ const maxCarsData = computed(() => {
       <SnowmenVoteStat title="Last 24 hours" v-bind:myData="stats.topSnowmen_24hr" />
       <br />
       <br />
-      <SnowmenVoteStat title="This Year" v-bind:myData="stats.topSnowmen_year" />
+      <SnowmenVoteStat title="This Season" v-bind:myData="stats.topSnowmen_year" />
     </div>
 
     <div class="outer" v-track-visible="'PlayedSongs'">
@@ -167,7 +186,7 @@ const maxCarsData = computed(() => {
       <PlayedSongStat title="Last 24 hours" v-bind:myData="stats.topPlayedSongs_24hr" />
       <br />
       <br />
-      <PlayedSongStat title="This Year" v-bind:myData="stats.topPlayedSongs_year" />
+      <PlayedSongStat title="This Season" v-bind:myData="stats.topPlayedSongs_year" />
     </div>
 
     <div class="outer" v-track-visible="'TopNames'">
@@ -181,7 +200,7 @@ const maxCarsData = computed(() => {
       <NameStat title="Last 24 hours" v-bind:myData="stats.topNames_24hr" />
       <br />
       <br />
-      <NameStat title="This Year" v-bind:myData="stats.topNames_year" />
+      <NameStat title="This Season" v-bind:myData="stats.topNames_year" />
     </div>
     <div class="outer" v-track-visible="'TopButtons'">
       <h1>
@@ -194,7 +213,7 @@ const maxCarsData = computed(() => {
       <ButtonStat title="Last 24 hours" v-bind:myData="stats.topButton_24hr" />
       <br />
       <br />
-      <ButtonStat title="This Year" v-bind:myData="stats.topButton_year" />
+      <ButtonStat title="This Season" v-bind:myData="stats.topButton_year" />
     </div>
     <div class="outer" v-track-visible="'UniqueVoters'">
       <h1>
@@ -303,6 +322,9 @@ hr {
 }
 .stats-intro-inner {
   max-width: 500px;
+}
+.season-note {
+  font-size: 0.85em;
 }
 .stats-intro {
   display: flex;

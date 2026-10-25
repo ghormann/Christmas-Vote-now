@@ -4,7 +4,7 @@
       <table class="table table-striped table-sm table-bordered table-fit">
         <thead>
           <tr>
-            <th scope="col">Last...</th>
+            <th scope="col">Period</th>
             <th scope="col">Max Cars</th>
             <th scope="col">At</th>
           </tr>

@@ -5,13 +5,13 @@
         <thead>
           <tr>
             <th scope="col">Unique Phones</th>
-            <th scope="col">Last...</th>
+            <th scope="col">Period</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="r in myData" v-bind:key="r.minutes">
             <td class="col-sm-auto">{{r.cnt}}</td>
-            <td class="col-sm-6">{{r.label}}</td>
+            <td class="col-sm-6">{{ r.label.startsWith('This') ? r.label : `Last ${r.label}` }}</td>
           </tr>
         </tbody>
       </table>
