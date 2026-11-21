@@ -25,7 +25,7 @@ onMounted(() => {
 <template>
   <header>
     <img
-      src="https://cooldisplays.net/picture.php?v=1732282525&pictid=279&width=800"
+      src="https://cooldisplays.net/picture.php?v=1795236869&width=1024&pictid=308"
       class="img-fluid"
       alt="Our House"
     />
